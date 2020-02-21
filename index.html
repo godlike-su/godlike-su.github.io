@@ -168,16 +168,101 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="我的博客文章编写"><a href="#我的博客文章编写" class="headerlink" title="我的博客文章编写"></a>我的博客文章编写</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>这是标题用#号 </p>
+        <h1 id="我的博客文章编写"><a href="#我的博客文章编写" class="headerlink" title="我的博客文章编写"></a>我的博客文章编写</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p><strong>学习使用markdown</strong></p>
+<p>这是标题用#号 </p>
 <p>这是第一个段落内容</p>
 <p>这是第二个段落内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;这是一段引用段落，将会被高亮显示</span><br><span class="line">&gt;&gt;</span><br><span class="line">&gt;&gt;&gt;这也是一段引用段落，也会被高亮显示</span><br><span class="line">&gt;&gt;&gt;&gt;好多层</span><br><span class="line"></span><br><span class="line">段落的效果：</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这是一段引用段落，将会被高亮显示</p>
+<blockquote>
+<blockquote>
 <p>这也是一段引用段落，也会被高亮显示</p>
+<blockquote>
+<p>好多层</p>
 </blockquote>
-<p><a href="http://www.wb1.club" target="_blank" rel="noopener">超链接显示文章</a></p>
-<p><img src="qq.jpg" alt="百度logo"></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[wb1](http:&#x2F;&#x2F;www.wb1.club &quot;我的网页&quot;)</span><br><span class="line"></span><br><span class="line">![百度logo](https:&#x2F;&#x2F;www.baidu.com&#x2F;img&#x2F;bd_logo1.png?where&#x3D;super &quot;百度图片&quot;)</span><br><span class="line">网页与图片的效果：</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.wb1.club" target="_blank" rel="noopener" title="我的网页">wb1</a></p>
+<p><img src="https://www.baidu.com/img/bd_logo1.png?where=super" alt="百度logo" title="百度图片"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">* 无序列表项</span><br><span class="line">* 无序列表项</span><br><span class="line">* 无序列表项</span><br><span class="line"></span><br><span class="line">* 无序列表项多层嵌套，但是建议一般不使用超过两级列表，另外建议两级列表从缩进3个空格开始(适用于无序列表)</span><br><span class="line">   * 第二场列表项</span><br><span class="line">   * 第二场列表项</span><br><span class="line"></span><br><span class="line">1. 有序列表项1</span><br><span class="line">2. 有序列表项2</span><br><span class="line"></span><br><span class="line">1. 有序列列表项1 </span><br><span class="line">   1. 有序列表项11</span><br><span class="line">   2. 有序列表项12</span><br><span class="line">2. 有序列列表项3</span><br><span class="line"></span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>无序列表项</p>
+</li>
+<li><p>无序列表项</p>
+</li>
+<li><p>无序列表项</p>
+</li>
+<li><p>无序列表项多层嵌套，但是建议一般不使用超过两级列表，另外建议两级列表从缩进3个空格开始(适用于无序列表)</p>
+<ul>
+<li>第二场列表项</li>
+<li>第二场列表项</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>有序列表项1</p>
+</li>
+<li><p>有序列表项2</p>
+</li>
+<li><p>有序列列表项1 </p>
+<ol>
+<li>有序列表项11</li>
+<li>有序列表项12</li>
+</ol>
+</li>
+<li><p>有序列列表项3</p>
+</li>
+</ol>
+<h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">***</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
+<hr>
+<hr>
+<h1 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*这里包含斜体内容*</span><br><span class="line"></span><br><span class="line">**这里包含加粗内容**</span><br><span class="line"></span><br><span class="line">~这里是删除内容~</span><br><span class="line"></span><br><span class="line">***这里是斜体 又 加粗***</span><br><span class="line"></span><br><span class="line">~***这里是斜体+加粗+删除***~</span><br><span class="line"></span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
+<p><em>这里包含斜体内容</em></p>
+<p><strong>这里包含加粗内容</strong></p>
+<p><del>这里是删除内容</del></p>
+<p><strong><em>这里是斜体 又 加粗</em></strong></p>
+<p><del><strong><em>这里是斜体+加粗+删除</em></strong></del></p>
+<h2 id="单行代码块"><a href="#单行代码块" class="headerlink" title="单行代码块"></a>单行代码块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#96;hello world&#96;</span><br><span class="line"></span><br><span class="line">效果如下：</span><br></pre></td></tr></table></figure>
+<p><code>hello world</code></p>
+<h2 id="多行代码块"><a href="#多行代码块" class="headerlink" title="多行代码块"></a>多行代码块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前后都加3个转义符 &#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>package my</p>
+<p>Class Test()<br>{<br>    public static void main(String[] args)<br>    {<br>        System.out.println(“Hello,World”);<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 表格</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th align="center">表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内容</td>
+<td align="center">内容</td>
+<td>内容</td>
+</tr>
+<tr>
+<td>内容</td>
+<td align="center">内容</td>
+<td>内容</td>
+</tr>
+<tr>
+<td>内容</td>
+<td align="center">内容</td>
+<td>内容</td>
+</tr>
+</tbody></table>
+<p>效果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">| 表头 | 表头 | 表头 |</span><br><span class="line">| - | :-: | - |</span><br><span class="line">| 内容 | 内容 | 内容 |</span><br><span class="line">| 内容 | 内容 | 内容 |</span><br><span class="line">| 内容 | 内容 | 内容 |</span><br><span class="line"></span><br><span class="line"># 流程图</span><br><span class="line">&#96;&#96;&#96;flow</span><br><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line"></span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line"></span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line"></span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line"></span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line"></span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="流程图失败"><a href="#流程图失败" class="headerlink" title="流程图失败"></a>流程图失败</h3><h3 id="基本就用这么多了，本文仅供自我参考，侵权立删"><a href="#基本就用这么多了，本文仅供自我参考，侵权立删" class="headerlink" title="基本就用这么多了，本文仅供自我参考，侵权立删"></a>基本就用这么多了，本文仅供自我参考，侵权立删</h3>
       
 
       
