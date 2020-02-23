@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 日常 | SuJinWang的博客</title>
+  <title>MyBatis的用法2 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/tags/%E6%97%A5%E5%B8%B8/index.html">
+  <meta name="description" content="MyBatis-2的进一步用法mybatis-config.xml 里面的参数也可以是不固定的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis的用法2">
+<meta property="og:url" content="http://yoursite.com/2020/02/23/MyBatis%E7%9A%84%E7%94%A8%E6%B3%952/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="MyBatis-2的进一步用法mybatis-config.xml 里面的参数也可以是不固定的">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-23T03:20:47.000Z">
+<meta property="article:modified_time" content="2020-02-23T04:10:01.846Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -173,59 +179,218 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-MyBatis的用法2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/22/index/" class="archive-article-date">
-  	<time datetime="2020-02-22T03:27:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/22/index/">生活</a>
+    <h1 class="article-title" itemprop="name">
+      MyBatis的用法2
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/02/23/MyBatis%E7%9A%84%E7%94%A8%E6%B3%952/" class="archive-article-date">
+  	<time datetime="2020-02-23T03:20:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MyBatis-2的进一步用法"><a href="#MyBatis-2的进一步用法" class="headerlink" title="MyBatis-2的进一步用法"></a>MyBatis-2的进一步用法</h1><p>mybatis-config.xml 里面的参数也可以是不固定的</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">  PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">  &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;environments default&#x3D;&quot;development&quot;&gt;</span><br><span class="line">    &lt;environment id&#x3D;&quot;development&quot;&gt;</span><br><span class="line">      &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">      &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;$&#123;server&#125;&#x2F;xxx数据库?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;$&#123;username&#125;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;$&#123;password&#125;&quot;&#x2F;&gt;</span><br><span class="line">      &lt;&#x2F;dataSource&gt;</span><br><span class="line">    &lt;&#x2F;environment&gt;</span><br><span class="line">  &lt;&#x2F;environments&gt;</span><br><span class="line">  &lt;mappers&gt;</span><br><span class="line">    &lt;mapper resource&#x3D;&quot;mybatis-mapper.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;mapper resource&#x3D;&quot;mybatis-mapper-teacher.xml&quot; &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们调用的时候可以设置，像map函数一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public static void test3() throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;设定参数</span><br><span class="line">		Properties props &#x3D; new Properties();</span><br><span class="line">		props.put(&quot;server&quot;, &quot;127.0.0.1&quot;);</span><br><span class="line">		props.put(&quot;username&quot;, &quot;root&quot;);</span><br><span class="line">		props.put(&quot;password&quot;, &quot;12456&quot;);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;创建SqlSessionFactory</span><br><span class="line">		String resource &#x3D; &quot;mybatis-config.xml&quot;;</span><br><span class="line">		InputStream stream &#x3D; Resources.getResourceAsStream(resource);</span><br><span class="line">		SqlSessionFactory sqlSessionFactory &#x3D; </span><br><span class="line">				new SqlSessionFactoryBuilder().build(stream,props);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 使用 Map 接收</span><br><span class="line">		try(SqlSession session &#x3D; sqlSessionFactory.openSession()) &#123;</span><br><span class="line">			&#x2F;&#x2F;查询，并转成 POJO列表</span><br><span class="line">			List&lt;Map&gt; rows &#x3D; session.selectList(&quot;af.test2.selectTeacher2&quot;); </span><br><span class="line">			System.out.println(&quot;查得记录数: &quot; + rows.size()); </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用log4j打印日志"><a href="#使用log4j打印日志" class="headerlink" title="使用log4j打印日志"></a>使用log4j打印日志</h2><p>首先要有jar包，然后在src下有log4j.properties文件。文件配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># C,R is name of the following appenders</span><br><span class="line"># 改这里就行了 X.Y.Z，改成mybatis-mapper.xml下自己需要使用的 namespace的名字</span><br><span class="line">log4j.logger.X.Y.Z&#x3D;DEBUG,C,R</span><br><span class="line"></span><br><span class="line">log4j.appender.C&#x3D;org.apache.log4j.ConsoleAppender</span><br><span class="line"># Set the appender threshold to INFO</span><br><span class="line">log4j.appender.C.Threshold&#x3D;DEBUG</span><br><span class="line">log4j.appender.C.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.C.layout.ConversionPattern&#x3D;%-d&#123;HH:mm:ss&#125; %-5p [XYZ] %c %x - %m%n</span><br><span class="line"></span><br><span class="line"># logging to file, rolling</span><br><span class="line"># - change the log file&#39;s name and path, located in tomcat path</span><br><span class="line">log4j.appender.R&#x3D;org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.R.Threshold&#x3D;DEBUG</span><br><span class="line">log4j.appender.R.File&#x3D;c:&#x2F;mylogs&#x2F;mybatis-example.log</span><br><span class="line">log4j.appender.R.MaxFileSize&#x3D;4000KB</span><br><span class="line"># Keep one backup file</span><br><span class="line">log4j.appender.R.MaxBackupIndex&#x3D;1</span><br><span class="line">log4j.appender.R.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.R.layout.ConversionPattern&#x3D;%-d&#123;yyyy-MM-dd HH:mm:ss&#125; %-5p %c %x - %m%n</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>本文仅供自我参考，侵权立删</strong></p>
+<p><strong>转载需注明转载出处</strong></p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日常</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/02/23/MyBatis%E7%9A%84%E7%94%A8%E6%B3%952/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/02/22/%E5%85%B3%E4%BA%8EMyBatis%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于MyBatis配置与基本用法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis-2的进一步用法"><span class="toc-number">1.</span> <span class="toc-text">MyBatis-2的进一步用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用log4j打印日志"><span class="toc-number">1.1.</span> <span class="toc-text">使用log4j打印日志</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -257,9 +422,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
