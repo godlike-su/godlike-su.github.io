@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Java | SuJinWang的博客</title>
+  <title>Thymeleaf | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Java/page/2/index.html">
+  <meta name="description" content="Thymeleaf的mvc框架Thymeleaf可以用作springmvc中的一种mvc框架，使用如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thymeleaf">
+<meta property="og:url" content="http://yoursite.com/2020/03/15/Thymeleaf/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="Thymeleaf的mvc框架Thymeleaf可以用作springmvc中的一种mvc框架，使用如下：">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-14T16:19:28.000Z">
+<meta property="article:modified_time" content="2020-03-14T16:31:17.259Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -173,391 +179,86 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-Thymeleaf" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Thymeleaf
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/03/15/Thymeleaf/" class="archive-article-date">
+  	<time datetime="2020-03-14T16:19:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Thymeleaf的mvc框架"><a href="#Thymeleaf的mvc框架" class="headerlink" title="Thymeleaf的mvc框架"></a>Thymeleaf的mvc框架</h1><p>Thymeleaf可以用作springmvc中的一种mvc框架，使用如下：</p>
+<a id="more"></a>
+<h2 id="首先要导入Thymeleaf的外部资源jar包的支持"><a href="#首先要导入Thymeleaf的外部资源jar包的支持" class="headerlink" title="首先要导入Thymeleaf的外部资源jar包的支持"></a>首先要导入Thymeleaf的外部资源jar包的支持</h2><h2 id="其次需要在spring-mvc-xml文件中加入Thymeleaf-支持"><a href="#其次需要在spring-mvc-xml文件中加入Thymeleaf-支持" class="headerlink" title="其次需要在spring-mvc.xml文件中加入Thymeleaf 支持"></a>其次需要在spring-mvc.xml文件中加入Thymeleaf 支持</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Thymeleaf 支持 --&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;viewResolver&quot; class&#x3D;&quot;org.thymeleaf.spring5.view.ThymeleafViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;order&quot; value&#x3D;&quot;1&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;characterEncoding&quot; value&#x3D;&quot;UTF-8&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;templateEngine&quot; ref&#x3D;&quot;templateEngine&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;bean id&#x3D;&quot;templateEngine&quot; class&#x3D;&quot;org.thymeleaf.spring5.SpringTemplateEngine&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;templateResolver&quot; ref&#x3D;&quot;templateResolver&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!--prefix路径可以自己改，cacheable正式运行是改为true--&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;templateResolver&quot; class&#x3D;&quot;org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;prefix&quot; value&#x3D;&quot;&#x2F;template&#x2F;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;suffix&quot; value&#x3D;&quot;.html&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;templateMode&quot; value&#x3D;&quot;HTML5&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;cacheable&quot; value&#x3D;&quot;false&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;characterEncoding&quot; value&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="在html中的几种简单用法"><a href="#在html中的几种简单用法" class="headerlink" title="在html中的几种简单用法"></a>在html中的几种简单用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    学号：&lt;span th:text&#x3D;&quot;$&#123;stu.id&#125;&quot;&gt; 20190001 &lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    姓名：[[$&#123;stu.name&#125;]]</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div th:text&#x3D;&quot; &#39;性别：&#39; + $&#123;stu.sex&#125; &quot;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div th:text&#x3D;&quot;| 手机号：$&#123; stu.cellphone&#125; |&quot;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--运算--&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;label&gt;生日&lt;&#x2F;label&gt;</span><br><span class="line">    &lt;span th:text&#x3D;&quot;$&#123;#calendars.format(birthday, &#39;yyyy-MM-dd&#39;) &#125;&quot;&gt;2001-01-01&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;label&gt; 性别 : &lt;&#x2F;label&gt;</span><br><span class="line">    &lt;span th:text&#x3D;&quot;$&#123;sex ? &#39;男&#39; : &#39;女&#39;&#125;&quot;&gt;N2&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;label&gt; 身高 : &lt;&#x2F;label&gt;</span><br><span class="line">    &lt;span th:text&#x3D;&quot;$&#123;#numbers.formatDecimal( height * 100, 0, 0) &#125;&quot;&gt; 000 &lt;&#x2F;span&gt; cm</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--判断--&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;div th:if &#x3D; &quot; $&#123;user !&#x3D;null&#125; &quot;&gt;</span><br><span class="line">        你好，[[$&#123;user&#125;]]</span><br><span class="line">        &lt;a href&#x3D;&#39;logut&#39;&gt;退出登录&lt;&#x2F;a&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div th:if&#x3D;&quot; $&#123;user&#x3D;&#x3D;null&#125; &quot;&gt;</span><br><span class="line">        你好，&lt;a href&#x3D;&#39;logut&#39;&gt;请登录&lt;&#x2F;a&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--循环--&gt;</span><br><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;th style&#x3D;&#39;width:100px&#39;&gt; 学号 &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;th style&#x3D;&#39;width:120px&#39;&gt; 姓名 &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;th style&#x3D;&#39;width:50px&#39;&gt; 性别 &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;th style&#x3D;&#39;width:140px&#39;&gt; 手机 &lt;&#x2F;th&gt;</span><br><span class="line">    &lt;&#x2F;tr&gt;</span><br><span class="line">    &lt;tr th:each&#x3D;&quot; row : $&#123;studentList&#125; &quot;&gt;</span><br><span class="line">        &lt;td th:text&#x3D;&quot;$&#123;row.id&#125;&quot;&gt; 000 &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;td th:text&#x3D;&quot;$&#123;row.name&#125;&quot;&gt; 00 &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;td th:text&#x3D;&quot;$&#123;row.sex ? &#39;男&#39; : &#39;女&#39;&#125;&quot;&gt; N2 &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;td th:text&#x3D;&quot;$&#123;row.cellphone&#125;&quot;&gt; 1322546 &lt;&#x2F;th&gt;</span><br><span class="line">    &lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--路径的调用，绝对路径--&gt;</span><br><span class="line">    &lt;img src&#x3D;&quot;..&#x2F;image&#x2F;123.jpg&quot; th:src&#x3D;&quot; @&#123;&#x2F;image&#x2F;123.jpg&#125;&quot; &#x2F;&gt;</span><br><span class="line">    &lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;..&#x2F;js&#x2F;jquery.min.js&quot; th:src&#x3D;&quot; @&#123;&#x2F;js&#x2F;jquery.min.js&#125;&quot; &gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;..&#x2F;css&#x2F;common.css&quot; th:href&#x3D;&quot; @&#123;&#x2F;css&#x2F;common.css&#125;&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--引入外部body--&gt;</span><br><span class="line">    &lt;div th:insert&#x3D;&quot; ~&#123;common::footer2&#125;&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div th:include&#x3D;&quot; ~&#123;common::footer2&#125;&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">	&lt;div th:update&#x3D;&quot; ~&#123;common::footer&#125;&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="spring中使用"><a href="#spring中使用" class="headerlink" title="spring中使用"></a>spring中使用</h2><p>使用很简单，只需返回一个Strng类型就可以了，输入类型参数有个为mMdel就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;&#x2F;hello&quot;)</span><br><span class="line">	public String test(Model model)</span><br><span class="line">	&#123;</span><br><span class="line">		Student stu &#x3D; new Student(100, &quot;张三&quot;, true, &quot;12365478925&quot;);</span><br><span class="line">		</span><br><span class="line">		model.addAttribute(&quot;stu&quot;, stu);</span><br><span class="line">				</span><br><span class="line">		return &quot;hello&quot;; &#x2F;&#x2F; 最终合成路径  &#x2F;template&#x2F;hello.html</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>本文仅供自我参考，侵权立删</strong></p>
+<p><strong>转载需注明转载出处</strong></p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/05/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-03-05T03:16:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/05/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%B3%95/">冒泡排序法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">排序法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/05/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-03-05T03:14:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/05/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E6%B3%95/">插入排序法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">排序法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/05/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-03-05T03:14:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/05/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E6%B3%95/">选择排序法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">排序法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%89%8B%E5%86%99/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%89%8B%E5%86%99/">波兰表达式的生成</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AE%A1%E7%AE%97/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AE%A1%E7%AE%97/">波兰表达式的计算</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-03-03T02:35:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/">波兰表达式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/28/spring%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89ViewResolver2/" class="archive-article-date">
-  	<time datetime="2020-02-28T07:26:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/28/spring%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89ViewResolver2/">spring中的自定义ViewResolver2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">View</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/28/spring%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89view/" class="archive-article-date">
-  	<time datetime="2020-02-28T07:06:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/28/spring%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89view/">spring中的自定义view</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">View</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/spring%E7%9A%84%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/" class="archive-article-date">
-  	<time datetime="2020-02-25T04:30:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/spring%E7%9A%84%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/">spring的文件上传与下载</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -573,64 +274,118 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/03/15/Thymeleaf/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/25/spring%E7%9A%84MVC%E6%A1%86%E6%9E%B6/" class="archive-article-date">
-  	<time datetime="2020-02-25T03:46:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/14/freemarker/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">freemarker</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/25/spring%E7%9A%84MVC%E6%A1%86%E6%9E%B6/">spring的MVC框架</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Thymeleaf的mvc框架"><span class="toc-number">1.</span> <span class="toc-text">Thymeleaf的mvc框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#首先要导入Thymeleaf的外部资源jar包的支持"><span class="toc-number">1.1.</span> <span class="toc-text">首先要导入Thymeleaf的外部资源jar包的支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其次需要在spring-mvc-xml文件中加入Thymeleaf-支持"><span class="toc-number">1.2.</span> <span class="toc-text">其次需要在spring-mvc.xml文件中加入Thymeleaf 支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在html中的几种简单用法"><span class="toc-number">1.3.</span> <span class="toc-text">在html中的几种简单用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring中使用"><span class="toc-number">1.4.</span> <span class="toc-text">spring中使用</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/Java/">&amp;laquo; Prev</a><a class="page-number" href="/tags/Java/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/Java/page/3/">3</a><a class="extend next" rel="next" href="/tags/Java/page/3/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -663,9 +418,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
