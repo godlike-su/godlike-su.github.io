@@ -16,10 +16,10 @@
 <meta property="og:description" content="MyBatis的进一步用法mybatis-config.xml 里面的参数也可以是不固定的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-23T03:20:47.000Z">
-<meta property="article:modified_time" content="2020-02-24T00:42:41.697Z">
+<meta property="article:modified_time" content="2020-03-16T08:36:30.326Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -225,6 +225,11 @@
 <h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public static void test3() throws Exception</span><br><span class="line">	&#123;	</span><br><span class="line">		&#x2F;&#x2F;创建SqlSessionFactory</span><br><span class="line">		String resource &#x3D; &quot;mybatis-config.xml&quot;;</span><br><span class="line">		InputStream stream &#x3D; Resources.getResourceAsStream(resource);</span><br><span class="line">		SqlSessionFactory sqlSessionFactory &#x3D; </span><br><span class="line">				new SqlSessionFactoryBuilder().build(stream);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 使用 Map 接收</span><br><span class="line">		try(SqlSession session &#x3D; sqlSessionFactory.openSession()) &#123;</span><br><span class="line">			&#x2F;&#x2F;查询，并转成 POJO列表</span><br><span class="line">			StudentMapper mapper &#x3D; session.getMapper(StudentMapper.class);</span><br><span class="line">			Student stu &#x3D; mapper.getStudent(20190003);</span><br><span class="line">			if(stu !&#x3D; null)</span><br><span class="line">			&#123;</span><br><span class="line">				System.out.println(stu.getName());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <p>注解方式只适用于简单的SQL语句</p>
 <h2 id="还有动态的SQL方式"><a href="#还有动态的SQL方式" class="headerlink" title="还有动态的SQL方式"></a>还有动态的SQL方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace&#x3D;&quot;af.test&quot;&gt;</span><br><span class="line">	&lt;select id&#x3D;&quot;getStudent2&quot; resultType&#x3D;&quot;my.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">		&lt;where&gt;</span><br><span class="line">			&lt;if test&#x3D;&quot;start !&#x3D; null&quot;&gt;</span><br><span class="line">				id &gt;&#x3D; #&#123;start&#125;</span><br><span class="line">			&lt;&#x2F;if&gt;</span><br><span class="line">			&lt;if test&#x3D;&quot;end !&#x3D; null&quot;&gt;</span><br><span class="line">				AND id &lt;&#x3D; #&#123;end&#125;</span><br><span class="line">			&lt;&#x2F;if&gt;</span><br><span class="line">		&lt;&#x2F;where&gt;</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>大于小于显示不出来…</p>
+<blockquote>
+<p>大于是 <code>&amp;gt;</code> 去掉中间的空格，连在一起显示不出来</p>
+<p>小于是 <code>&amp;lt;</code> 去掉中间的空格，连在一起显示不出来</p>
+</blockquote>
 <hr>
 <p>使用方式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public static void test3() throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;创建SqlSessionFactory</span><br><span class="line">		String resource &#x3D; &quot;mybatis-config.xml&quot;;</span><br><span class="line">		InputStream stream &#x3D; Resources.getResourceAsStream(resource);</span><br><span class="line">		SqlSessionFactory sqlSessionFactory &#x3D; </span><br><span class="line">				new SqlSessionFactoryBuilder().build(stream);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 使用 Map 接收</span><br><span class="line">		try(SqlSession session &#x3D; sqlSessionFactory.openSession()) &#123;</span><br><span class="line">			Map&lt;String, Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">			map.put(&quot;start&quot;, 20190004);</span><br><span class="line">			map.put(&quot;end&quot;, 20190006);</span><br><span class="line">			</span><br><span class="line">			&#x2F;&#x2F; 第1种情况  select * from student where 1&#x3D;1 and id&gt;&#x3D;20190003 and id&lt;&#x3D;20190006</span><br><span class="line">			&#x2F;&#x2F; 第2种情况  select * from student where 1&#x3D;1 and id&gt;&#x3D;20190003</span><br><span class="line">			&#x2F;&#x2F; 第3种情况  select * from student where 1&#x3D;1 and id&lt;&#x3D;20190006</span><br><span class="line">			&#x2F;&#x2F; 第4种情况  select * from student where 1&#x3D;1 </span><br><span class="line">			List&lt;Student&gt; stu &#x3D; session.selectList(&quot;af.test.getStudent2&quot;, map);</span><br><span class="line">			for(Student s : stu)</span><br><span class="line">			&#123;</span><br><span class="line">				System.out.println(&quot;name：&quot; + s.getName());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -278,11 +283,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -513,7 +518,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,7 +530,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +550,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网页设计与制作</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">网页设计与制作</a>
               </li>
             
             <div class="clearfix"></div>
