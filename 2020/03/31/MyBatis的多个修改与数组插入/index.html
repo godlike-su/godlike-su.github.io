@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Java | SuJinWang的博客</title>
+  <title>MyBatis的trim-prefix，数组插入，like，callSettersOnNulls空值返回 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Java/index.html">
+  <meta name="description" content="MyBatis的更多用法使用MyBatis插入一个一个，前缀prefix，或者分割符号不对的话，可能就会极大不方便，这里MyBatis自带用方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis的trim-prefix，数组插入，like，callSettersOnNulls空值返回">
+<meta property="og:url" content="http://yoursite.com/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="MyBatis的更多用法使用MyBatis插入一个一个，前缀prefix，或者分割符号不对的话，可能就会极大不方便，这里MyBatis自带用方法">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-31T12:25:14.000Z">
+<meta property="article:modified_time" content="2020-03-31T12:51:11.765Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -173,35 +179,90 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-MyBatis的多个修改与数组插入" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2020-03-31T12:25:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/">MyBatis的trim-prefix，数组插入，like，callSettersOnNulls空值返回</a>
+    <h1 class="article-title" itemprop="name">
+      MyBatis的trim-prefix，数组插入，like，callSettersOnNulls空值返回
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2020-03-31T12:25:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MyBatis的更多用法"><a href="#MyBatis的更多用法" class="headerlink" title="MyBatis的更多用法"></a>MyBatis的更多用法</h1><p>使用MyBatis插入一个一个<if>，前缀prefix，或者分割符号不对的话，可能就会极大不方便，这里MyBatis自带用方法</p>
+<a id="more"></a>
+<h2 id="trim用法，自己判断前缀后缀"><a href="#trim用法，自己判断前缀后缀" class="headerlink" title="trim用法，自己判断前缀后缀"></a>trim用法，自己判断前缀后缀</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;trim prefix&#x3D;&quot;set&quot; suffixOverrides&#x3D;&quot;,&quot;&gt;</span><br><span class="line">    前缀是set，后缀是,</span><br><span class="line">&lt;&#x2F;trim&gt;</span><br><span class="line"></span><br><span class="line">&lt;update id&#x3D;&quot;updateStudent8&quot; parameterType&#x3D;&quot;hashmap&quot;&gt;</span><br><span class="line">  	update student</span><br><span class="line">  	&lt;trim prefix&#x3D;&quot;set&quot; suffixOverrides&#x3D;&quot;,&quot;&gt;</span><br><span class="line">  		 &lt;if test&#x3D;&quot;sex!&#x3D;null&quot;&gt;</span><br><span class="line">               sex &#x3D; #&#123;sex&#125;,</span><br><span class="line">          &lt;&#x2F;if&gt;</span><br><span class="line">          &lt;if test&#x3D;&quot;cellphone!&#x3D;null&quot;&gt;</span><br><span class="line">              cellphone&#x3D;#&#123;cellphone&#125;,</span><br><span class="line">          &lt;&#x2F;if&gt;</span><br><span class="line">  	&lt;&#x2F;trim&gt;</span><br><span class="line">  	where id&#x3D;#&#123;id&#125;</span><br><span class="line">  &lt;&#x2F;update&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="传入一个-Author-数组或集合，并返回自动生成的主键。"><a href="#传入一个-Author-数组或集合，并返回自动生成的主键。" class="headerlink" title="传入一个 Author 数组或集合，并返回自动生成的主键。"></a>传入一个 Author 数组或集合，并返回自动生成的主键。</h2><p>如果你的数据库还支持多行插入, 你也可以传入一个 Author 数组或集合，并返回自动生成的主键。来自官方文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id&#x3D;&quot;insertAuthor&quot; useGeneratedKeys&#x3D;&quot;true&quot;</span><br><span class="line">    keyProperty&#x3D;&quot;id&quot;&gt;</span><br><span class="line">  insert into Author (username, password, email, bio) values</span><br><span class="line">  &lt;foreach item&#x3D;&quot;item&quot; collection&#x3D;&quot;list&quot; separator&#x3D;&quot;,&quot;&gt;</span><br><span class="line">    (#&#123;item.username&#125;, #&#123;item.password&#125;, #&#123;item.email&#125;, #&#123;item.bio&#125;)</span><br><span class="line">  &lt;&#x2F;foreach&gt;</span><br><span class="line">&lt;&#x2F;insert&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="like的使用方法"><a href="#like的使用方法" class="headerlink" title="like的使用方法"></a>like的使用方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id&#x3D;&quot;selectCount&quot; resultType&#x3D;&quot;java.lang.Integer&quot;&gt;</span><br><span class="line">        SELECT COUNT(id) FROM message WHERE 1&#x3D;1</span><br><span class="line">        &lt;if test&#x3D;&quot;filter!&#x3D;null&quot;&gt;</span><br><span class="line">            AND title like &quot;%&quot;#&#123;filter&#125;&quot;%&quot;</span><br><span class="line">        &lt;&#x2F;if&gt;</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="数据库返回值为空也调用映射对象的-setter"><a href="#数据库返回值为空也调用映射对象的-setter" class="headerlink" title="数据库返回值为空也调用映射对象的 setter"></a>数据库返回值为空也调用映射对象的 setter</h2><p>callSettersOnNulls<br>指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法，这在依赖于 Map.keySet() 或 null 值进行初始化时比较有用。注意基本类型（int、boolean 等）是不能设置成 null 的。 Integer，Boolean这种包装类才能为Null值。<br>一个配置完整的 settings 元素的示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;cacheEnabled&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;lazyLoadingEnabled&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;multipleResultSetsEnabled&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;useColumnLabel&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;useGeneratedKeys&quot; value&#x3D;&quot;false&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;autoMappingBehavior&quot; value&#x3D;&quot;PARTIAL&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;autoMappingUnknownColumnBehavior&quot; value&#x3D;&quot;WARNING&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;defaultExecutorType&quot; value&#x3D;&quot;SIMPLE&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;defaultStatementTimeout&quot; value&#x3D;&quot;25&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;defaultFetchSize&quot; value&#x3D;&quot;100&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;safeRowBoundsEnabled&quot; value&#x3D;&quot;false&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;mapUnderscoreToCamelCase&quot; value&#x3D;&quot;false&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;localCacheScope&quot; value&#x3D;&quot;SESSION&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;jdbcTypeForNull&quot; value&#x3D;&quot;OTHER&quot;&#x2F;&gt;</span><br><span class="line">  &lt;setting name&#x3D;&quot;lazyLoadTriggerMethods&quot; value&#x3D;&quot;equals,clone,hashCode,toString&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;settings&gt;</span><br></pre></td></tr></table></figure>
+
+<p>更多方式请参考MyBatis官方文档<br><a href="https://mybatis.org/mybatis-3/index.html" target="_blank" rel="noopener">https://mybatis.org/mybatis-3/index.html</a></p>
+<blockquote>
+<p><strong>本文仅供自我参考，侵权立删</strong></p>
+<p><strong>转载需注明转载出处</strong></p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -217,400 +278,118 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/15/Thymeleaf/" class="archive-article-date">
-  	<time datetime="2020-03-14T16:19:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/15/Thymeleaf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Thymeleaf</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/15/Thymeleaf/">Thymeleaf</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis的更多用法"><span class="toc-number">1.</span> <span class="toc-text">MyBatis的更多用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trim用法，自己判断前缀后缀"><span class="toc-number">1.1.</span> <span class="toc-text">trim用法，自己判断前缀后缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传入一个-Author-数组或集合，并返回自动生成的主键。"><span class="toc-number">1.2.</span> <span class="toc-text">传入一个 Author 数组或集合，并返回自动生成的主键。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#like的使用方法"><span class="toc-number">1.3.</span> <span class="toc-text">like的使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库返回值为空也调用映射对象的-setter"><span class="toc-number">1.4.</span> <span class="toc-text">数据库返回值为空也调用映射对象的 setter</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/14/freemarker/" class="archive-article-date">
-  	<time datetime="2020-03-14T15:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/14/freemarker/">freemarker</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/07/%E5%85%A8%E5%B1%80%E5%AE%9E%E4%BE%8B%E6%A1%86%E6%9E%B6-%E8%AF%BB%E5%8F%96XML%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-03-06T16:36:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/07/%E5%85%A8%E5%B1%80%E5%AE%9E%E4%BE%8B%E6%A1%86%E6%9E%B6-%E8%AF%BB%E5%8F%96XML%E9%85%8D%E7%BD%AE/">全局实例框架-读取XML配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">反射与框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/07/%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%9B%B4%E5%A4%9A%E7%94%A8%E6%B3%95-%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%A1%86%E6%9E%B6/" class="archive-article-date">
-  	<time datetime="2020-03-06T16:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/07/%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%9B%B4%E5%A4%9A%E7%94%A8%E6%B3%95-%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%A1%86%E6%9E%B6/">注解的更多用法-反射与框架</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">反射与框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/06/%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%B3%A8%E8%A7%A3-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/" class="archive-article-date">
-  	<time datetime="2020-03-06T15:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/06/%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%B3%A8%E8%A7%A3-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/">使用反射技术与注解-自动生成sql语句</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">反射与框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/06/%E5%85%B3%E4%BA%8E%E5%8F%8D%E5%B0%84%E7%9A%84%E5%B1%9E%E6%80%A7%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%E4%B8%8Epojo%E3%80%81json/" class="archive-article-date">
-  	<time datetime="2020-03-06T09:16:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/06/%E5%85%B3%E4%BA%8E%E5%8F%8D%E5%B0%84%E7%9A%84%E5%B1%9E%E6%80%A7%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%E4%B8%8Epojo%E3%80%81json/">关于反射的属性直接访问与pojo、json</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">反射与框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/06/%E5%8F%8D%E5%B0%84%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8%E4%B8%8E%E4%BC%A0%E5%8F%82/" class="archive-article-date">
-  	<time datetime="2020-03-06T09:09:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/06/%E5%8F%8D%E5%B0%84%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8%E4%B8%8E%E4%BC%A0%E5%8F%82/">反射方法的调用与传参</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">反射与框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/06/%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-03-06T08:31:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/06/%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/">反射技术的基本使用方式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">反射与框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/06/HashMap%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-03-06T05:04:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/06/HashMap%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">HashMap的简单实现方式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/Java/page/2/">2</a><a class="page-number" href="/tags/Java/page/3/">3</a><a class="extend next" rel="next" href="/tags/Java/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -643,9 +422,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
