@@ -16,7 +16,7 @@
 <meta property="og:description" content="波兰表达式的计算懂了什么是波兰表达式，那我们如何写成程序计算呢？">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-03T05:16:44.000Z">
-<meta property="article:modified_time" content="2020-03-06T04:53:12.129Z">
+<meta property="article:modified_time" content="2020-04-16T03:46:28.073Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="Java">
@@ -221,8 +221,7 @@
 <h2 id="波兰表达式的计算实现"><a href="#波兰表达式的计算实现" class="headerlink" title="波兰表达式的计算实现"></a>波兰表达式的计算实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package suan_08_波兰表达式.s02_后缀表达式的计算;</span><br><span class="line"></span><br><span class="line">public class Test1</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F; 先准备好一个后缀表达式（逆波兰表达式）</span><br><span class="line">		AfQueue expr &#x3D; new AfQueue();</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 6 + 4 * 5 - 7 &#x2F;8 ( 中缀表达式 )</span><br><span class="line">		&#x2F;&#x2F; 6 4 5 * + 7 8 &#x2F; - ( 后缀表达式 )</span><br><span class="line">		expr.add( 6.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( 4.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( 5.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( &quot;*&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( &quot;+&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( 7.0 ); &#x2F;&#x2F; Doubl]</span><br><span class="line">		expr.add( 8.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( &quot;&#x2F;&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( &quot;-&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;开始计算...</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;准备一个栈</span><br><span class="line">		AfStack stack &#x3D; new AfStack(100);</span><br><span class="line">		</span><br><span class="line">		while(expr.size() &gt; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			Object item &#x3D; expr.poll();	&#x2F;&#x2F;取出一项</span><br><span class="line">			</span><br><span class="line">			if(item instanceof Double || item instanceof Integer)  &#x2F;&#x2F;是操作数</span><br><span class="line">			&#123;</span><br><span class="line">				stack.push(item);</span><br><span class="line">			&#125;</span><br><span class="line">			else if(item instanceof String)  &#x2F;&#x2F;是操作符</span><br><span class="line">			&#123;</span><br><span class="line">				double right &#x3D; (double) stack.pop();</span><br><span class="line">				double left &#x3D; (double) stack.pop();</span><br><span class="line">				String op &#x3D; (String) item;</span><br><span class="line">				</span><br><span class="line">				double result &#x3D; 0;</span><br><span class="line">				if(op.equals(&quot;+&quot;))</span><br><span class="line">					result &#x3D; left + right;</span><br><span class="line">				else if(op.equals(&quot;-&quot;))</span><br><span class="line">					result &#x3D; left - right;</span><br><span class="line">				else if(op.equals(&quot;*&quot;))</span><br><span class="line">					result &#x3D; left * right;</span><br><span class="line">				else if(op.equals(&quot;&#x2F;&quot;))</span><br><span class="line">					result &#x3D; left &#x2F; right;</span><br><span class="line">				</span><br><span class="line">				stack.push(result);  &#x2F;&#x2F;将结果压栈</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		double result &#x3D; (double) stack.pop();</span><br><span class="line">		System.out.println(&quot;最后结果为:&quot; + result);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>本文仅供自我参考，侵权立删</strong></p>
-<p><strong>转载需注明转载出处</strong></p>
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考<br><strong>版权声明：</strong> 转载请注明出处！</p>
 </blockquote>
 
       
@@ -523,15 +522,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
              
               <li class="article-tag-list-item">
