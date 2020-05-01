@@ -15,12 +15,14 @@
 <meta property="og:site_name" content="SuJinWang的博客">
 <meta property="og:description" content="Linux下如何安装java运行环境呢？首先我们要明白Linux下的安装指令等。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://q8u6mbb4g.bkt.clouddn.com/linux_install_java.png">
 <meta property="article:published_time" content="2020-04-30T08:41:07.000Z">
-<meta property="article:modified_time" content="2020-04-30T08:55:24.493Z">
+<meta property="article:modified_time" content="2020-05-01T08:04:25.258Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="java">
 <meta property="article:tag" content="Linux">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8u6mbb4g.bkt.clouddn.com/linux_install_java.png">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
   
@@ -214,8 +216,9 @@
 <a id="more"></a>
 <h2 id="安装指令"><a href="#安装指令" class="headerlink" title="安装指令"></a>安装指令</h2><h3 id="查看已经安装的软件包"><a href="#查看已经安装的软件包" class="headerlink" title="查看已经安装的软件包"></a>查看已经安装的软件包</h3><p>yum list installed<br>在liunx下 <code>|</code> 称为管道</p>
 <h3 id="查看安装的软件包，并搜索java记录"><a href="#查看安装的软件包，并搜索java记录" class="headerlink" title="查看安装的软件包，并搜索java记录"></a>查看安装的软件包，并搜索java记录</h3><p>yum list installed | grep java</p>
-<h3 id="搜索可用软件包"><a href="#搜索可用软件包" class="headerlink" title="搜索可用软件包"></a>搜索可用软件包</h3><p>yum search java<br>可以检索出我们所需要的java环境，安装你所需要的。<br><img src="" alt="图片"></p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>yum install 你要卸载的</code><br><code>yum install</code></p>
+<h3 id="搜索可用软件包"><a href="#搜索可用软件包" class="headerlink" title="搜索可用软件包"></a>搜索可用软件包</h3><p>yum search java<br>可以检索出我们所需要的java环境，安装你所需要的。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>yum install 你要卸载的</code><br><code>yum install java-1.8.0-openjdk.x86_64</code></p>
+<p><img src="http://q8u6mbb4g.bkt.clouddn.com/linux_install_java.png" alt="安裝图片"></p>
 <h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><p><code>yum remove 你要卸载的</code><br><code>yum remove</code></p>
 <p>安装完了后我们可以查看</p>
 <h3 id="查看java文件"><a href="#查看java文件" class="headerlink" title="查看java文件"></a>查看java文件</h3><p><code>ls -l /usr/bin/java</code></p>
@@ -269,11 +272,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
@@ -495,15 +498,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,6 +511,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,15 +534,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">View</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">反射与框架</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
              
               <li class="article-tag-list-item">
