@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>spring的入门配置 | SuJinWang的博客</title>
+  <title>Linux安装mysql | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Spring的入门配置Spring首先要配置什么呢？">
+  <meta name="description" content="在CentOS_8上安装mysql5.7版本。我这个是直接压缩包解压安装。我下载的是 mysql-5.7.30-linux-glibc2.12-x86_64.tar.gzMysql官方有文档提示安装步骤https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;8.0&#x2F;en&#x2F;binary-installation.html 1、首先下载mysql官方网站下载。tar.gz结尾的就是了，我的这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring的入门配置">
-<meta property="og:url" content="http://yoursite.com/2020/02/25/spring%E7%9A%84%E5%85%A5%E9%97%A8%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="Linux安装mysql">
+<meta property="og:url" content="http://yoursite.com/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="Spring的入门配置Spring首先要配置什么呢？">
+<meta property="og:description" content="在CentOS_8上安装mysql5.7版本。我这个是直接压缩包解压安装。我下载的是 mysql-5.7.30-linux-glibc2.12-x86_64.tar.gzMysql官方有文档提示安装步骤https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;8.0&#x2F;en&#x2F;binary-installation.html 1、首先下载mysql官方网站下载。tar.gz结尾的就是了，我的这">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-25T02:48:00.000Z">
-<meta property="article:modified_time" content="2020-02-25T04:45:27.415Z">
+<meta property="article:published_time" content="2020-05-02T11:23:43.000Z">
+<meta property="article:modified_time" content="2020-05-02T11:50:20.542Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -180,14 +180,14 @@
           <div id="js-content" class="content-ll">
             
 
-<article id="post-spring的入门配置" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-Linux安装mysql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      spring的入门配置
+      Linux安装mysql
     </h1>
   
 
@@ -202,38 +202,37 @@
 				  </a>
 				  
         
-        <a href="/2020/02/25/spring%E7%9A%84%E5%85%A5%E9%97%A8%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-02-25T02:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
+        <a href="/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/" class="archive-article-date">
+  	<time datetime="2020-05-02T11:23:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Spring的入门配置"><a href="#Spring的入门配置" class="headerlink" title="Spring的入门配置"></a>Spring的入门配置</h1><p>Spring首先要配置什么呢？</p>
-<a id="more"></a>
-<p>首先要在WEB-INF目录下配置 web.xml 添加Spring支持</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">	xmlns&#x3D;&quot;http:&#x2F;&#x2F;java.sun.com&#x2F;xml&#x2F;ns&#x2F;javaee&quot;</span><br><span class="line">	xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;java.sun.com&#x2F;xml&#x2F;ns&#x2F;javaee http:&#x2F;&#x2F;java.sun.com&#x2F;xml&#x2F;ns&#x2F;javaee&#x2F;web-app_3_0.xsd&quot;</span><br><span class="line">	id&#x3D;&quot;WebApp_ID&quot; version&#x3D;&quot;3.0&quot;&gt;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	&lt;welcome-file-list&gt;</span><br><span class="line">		&lt;welcome-file&gt;index.html&lt;&#x2F;welcome-file&gt;</span><br><span class="line">	&lt;&#x2F;welcome-file-list&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- Spring Framework --&gt;</span><br><span class="line">    &lt;!-- 添加Spring支持 --&gt;</span><br><span class="line">    &lt;listener&gt;</span><br><span class="line">        &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;&#x2F;listener-class&gt;</span><br><span class="line">    &lt;&#x2F;listener&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;&#x2F;param-name&gt;</span><br><span class="line">        &lt;param-value&gt;&#x2F;WEB-INF&#x2F;spring-mvc.xml&lt;&#x2F;param-value&gt;</span><br><span class="line">    &lt;&#x2F;context-param&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;app&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;&#x2F;servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;&#x2F;param-name&gt;</span><br><span class="line">            &lt;param-value&gt;&lt;&#x2F;param-value&gt;</span><br><span class="line">        &lt;&#x2F;init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;&#x2F;load-on-startup&gt;</span><br><span class="line">    &lt;&#x2F;servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 映射路径 --&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;app&lt;&#x2F;servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;&#x2F;app&#x2F;*&lt;&#x2F;url-pattern&gt;</span><br><span class="line">    &lt;&#x2F;servlet-mapping&gt;</span><br><span class="line">    	</span><br><span class="line">&lt;&#x2F;web-app&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后添加一个 spring-mvc.xml 的文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">	xmlns:mvc&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&quot; xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">	xmlns:p&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;p&quot; xmlns:context&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;</span><br><span class="line">	xsi:schemaLocation&#x3D;&quot;</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">        https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc</span><br><span class="line">        https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&#x2F;spring-mvc.xsd</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context</span><br><span class="line">        https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 此处是你想要使用spring的包名  base-package&#x3D;&quot;xx&quot; --&gt;</span><br><span class="line">	&lt;context:component-scan base-package&#x3D;&quot;my&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;mvc:annotation-driven &#x2F;&gt;</span><br><span class="line">	</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后要有jar包支持</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1I2b2A5119Agw2Jw9aSafBg </span><br><span class="line">提取码：96ch</span><br></pre></td></tr></table></figure>
-
-<p>在src目录my包下简单的运行一个项目</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package my;</span><br><span class="line"></span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">public class HelloController</span><br><span class="line">&#123;</span><br><span class="line">	@RequestMapping(&quot;&#x2F;hello&quot;)</span><br><span class="line">	public Student helloworld()</span><br><span class="line">	&#123;</span><br><span class="line">		return &quot;Hello,World&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>开启tomcat，打开浏览器输入。xxxx是你项目的名字<br>localhost:8080/xxxx/app/hello</p>
-<p>想添加全局实例，就在spring-mvc.xml下添加一个<bean></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 全局实例 --&gt;</span><br><span class="line">	&lt;bean id&#x3D;&quot;demoDB&quot; class&#x3D;&quot;my.DemoDB&quot; &gt;&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
-<p>还有可以设置pojo类的默认值，init-method是加载是初始化的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;simpleServer&quot; class&#x3D;&quot;my.SimpleServer&quot; init-method&#x3D;&quot;start&quot;&gt;</span><br><span class="line">		&lt;property name&#x3D;&quot;ip&quot; value&#x3D;&quot;127.0.0.1&quot;&gt;&lt;&#x2F;property&gt;</span><br><span class="line">		&lt;property name&#x3D;&quot;port&quot; value&#x3D;&quot;2233&quot;&gt;&lt;&#x2F;property&gt;</span><br><span class="line">	&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
-<p>还可以设置静态文件，这样就不会和路径冲突</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 静态文件 接管访问  --&gt;</span><br><span class="line">	&lt;mvc:resources mapping&#x3D;&quot;&#x2F;res&#x2F;**&quot;  location&#x3D;&quot;&#x2F;WEB-INF&#x2F;res&#x2F;&quot; &#x2F;&gt;</span><br><span class="line">   	&lt;mvc:resources location&#x3D;&quot;&#x2F;image&#x2F;&quot; mapping&#x3D;&quot;&#x2F;image&#x2F;**&quot;&gt;&lt;&#x2F;mvc:resources&gt;</span><br></pre></td></tr></table></figure>
+        <p>在CentOS_8上安装mysql5.7版本。我这个是直接压缩包解压安装。<br>我下载的是 mysql-5.7.30-linux-glibc2.12-x86_64.tar.gz<br><strong>Mysql官方有文档提示安装步骤</strong><br><a href="https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html</a></p>
+<h2 id="1、首先下载"><a href="#1、首先下载" class="headerlink" title="1、首先下载"></a>1、首先下载</h2><p>mysql官方网站下载。tar.gz结尾的就是了，我的这个好像600多M。</p>
+<h2 id="2、复制到linux下"><a href="#2、复制到linux下" class="headerlink" title="2、复制到linux下"></a>2、复制到linux下</h2><h2 id="3、使用root用户操作"><a href="#3、使用root用户操作" class="headerlink" title="3、使用root用户操作"></a>3、使用root用户操作</h2><p>没有libaio的要先下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum search libaio  # search for info</span><br><span class="line">yum install libaio # install library</span><br></pre></td></tr></table></figure>
+<p>下载好libaio依赖后往下继续看文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; groupadd mysql</span><br><span class="line">shell&gt; useradd -r -g mysql -s &#x2F;bin&#x2F;false mysql</span><br><span class="line">shell&gt; cd &#x2F;usr&#x2F;local</span><br><span class="line">shell&gt; tar -zxvf &#x2F;path&#x2F;to&#x2F;mysql-VERSION-OS.tar.xz</span><br><span class="line">shell&gt; ln -s full-path-to-mysql-VERSION-OS mysql # 创建软链接</span><br><span class="line">shell&gt; cd mysql</span><br><span class="line">shell&gt; mkdir mysql-files</span><br><span class="line">shell&gt; chown mysql:mysql mysql-files</span><br><span class="line">shell&gt; chmod 750 mysql-files</span><br></pre></td></tr></table></figure>
+<h2 id="4、初始化mysql"><a href="#4、初始化mysql" class="headerlink" title="4、初始化mysql"></a>4、初始化mysql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; bin&#x2F;mysqld --initialize --user&#x3D;mysql</span><br></pre></td></tr></table></figure>
+<p>此步骤会在最后一行 <code>localhost:</code>后面生成随机密码，需要复制下来，等会要用到</p>
+<h2 id="6、安装SSL服务"><a href="#6、安装SSL服务" class="headerlink" title="6、安装SSL服务"></a>6、安装SSL服务</h2><p>执行安装命令之前先安装openssl，不然会报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install openssl</span><br><span class="line">shell&gt; bin&#x2F;mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure>
+<h2 id="7、开启服务"><a href="#7、开启服务" class="headerlink" title="7、开启服务"></a>7、开启服务</h2><p>执行下面语句会卡在一个地方，因为&amp;是后台运行，回车即可<br><code>shell&gt; bin/mysqld_safe --user=mysql &amp;</code><br>使用刚才的密码登录即可<br><code>shell&gt; bin/mysql -uroot -p</code></p>
+<h2 id="8、如果第7步成功登录，这个步骤可以忽略"><a href="#8、如果第7步成功登录，这个步骤可以忽略" class="headerlink" title="8、如果第7步成功登录，这个步骤可以忽略"></a>8、如果第7步成功登录，这个步骤可以忽略</h2><p>也许是需要依赖包，下载即可<br><code>yum install libncurses*</code><br>成功下载后，重新执行第7步</p>
+<h2 id="9、更改root用户密码"><a href="#9、更改root用户密码" class="headerlink" title="9、更改root用户密码"></a>9、更改root用户密码</h2><p>(1) 方案一：限制本地登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>(2) 方案二：可以任意IP与第三方客户端登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;密码&#39; PASSWORD EXPIRE NEVER;    #修改root的密码与加密方式</span><br><span class="line">use mysql;   #切换到mysql库</span><br><span class="line">update user set host&#x3D;&#39;%&#39; where user &#x3D; &#39;root&#39;;   #更改可以登录的IP为任意IP</span><br><span class="line">flush privileges;    #刷新权限</span><br><span class="line">ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;; #再次更改root用户密码，使其可以在任意IP访问</span><br><span class="line">flush privileges;    #刷新权限</span><br></pre></td></tr></table></figure>
+<p><strong>安装到此结束</strong></p>
+<h2 id="10、添加mysql启动方式"><a href="#10、添加mysql启动方式" class="headerlink" title="10、添加mysql启动方式"></a>10、添加mysql启动方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Next command is optional</span><br><span class="line">shell&gt; cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysql.server</span><br></pre></td></tr></table></figure>
+<p>启动<br><code>/etc/init.d/mysql.server start</code><br>重启<br><code>/etc/init.d/mysql.server restart</code><br>关闭<br><code>/etc/init.d/mysql.server stop</code></p>
+<h2 id="11、进入mysql脚本-目录自己改"><a href="#11、进入mysql脚本-目录自己改" class="headerlink" title="11、进入mysql脚本(目录自己改)"></a>11、进入mysql脚本(目录自己改)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"></span><br><span class="line">cd &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line"></span><br><span class="line"># Run the program</span><br><span class="line">bin&#x2F;mysql -uroot -p</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>本文仅供自我参考，侵权立删</strong></p>
-<p><strong>转载需注明转载出处</strong></p>
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 </blockquote>
 
       
@@ -279,11 +278,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -339,7 +338,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/02/25/spring%E7%9A%84%E5%85%A5%E9%97%A8%E9%85%8D%E7%BD%AE/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -353,18 +352,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/02/25/spring%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          spring的基本使用方式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/02/24/%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%B6%E4%BD%9C%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">网页设计与制作课堂笔记-网页制作的基础知识介绍，软件介绍</div>
+    <a href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux4安装java环境</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -391,7 +381,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring的入门配置"><span class="toc-number">1.</span> <span class="toc-text">Spring的入门配置</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、首先下载"><span class="toc-number">1.</span> <span class="toc-text">1、首先下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、复制到linux下"><span class="toc-number">2.</span> <span class="toc-text">2、复制到linux下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、使用root用户操作"><span class="toc-number">3.</span> <span class="toc-text">3、使用root用户操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、初始化mysql"><span class="toc-number">4.</span> <span class="toc-text">4、初始化mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、安装SSL服务"><span class="toc-number">5.</span> <span class="toc-text">6、安装SSL服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、开启服务"><span class="toc-number">6.</span> <span class="toc-text">7、开启服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、如果第7步成功登录，这个步骤可以忽略"><span class="toc-number">7.</span> <span class="toc-text">8、如果第7步成功登录，这个步骤可以忽略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、更改root用户密码"><span class="toc-number">8.</span> <span class="toc-text">9、更改root用户密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10、添加mysql启动方式"><span class="toc-number">9.</span> <span class="toc-text">10、添加mysql启动方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11、进入mysql脚本-目录自己改"><span class="toc-number">10.</span> <span class="toc-text">11、进入mysql脚本(目录自己改)</span></a></li></ol>
                     </div>
                 </span>
             </div>

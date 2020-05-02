@@ -174,6 +174,109 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux安装mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/">Linux安装mysql</a>
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+        
+        <a href="/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/" class="archive-article-date">
+  	<time datetime="2020-05-02T11:23:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在CentOS_8上安装mysql5.7版本。我这个是直接压缩包解压安装。<br>我下载的是 mysql-5.7.30-linux-glibc2.12-x86_64.tar.gz<br><strong>Mysql官方有文档提示安装步骤</strong><br><a href="https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html</a></p>
+<h2 id="1、首先下载"><a href="#1、首先下载" class="headerlink" title="1、首先下载"></a>1、首先下载</h2><p>mysql官方网站下载。tar.gz结尾的就是了，我的这个好像600多M。</p>
+<h2 id="2、复制到linux下"><a href="#2、复制到linux下" class="headerlink" title="2、复制到linux下"></a>2、复制到linux下</h2><h2 id="3、使用root用户操作"><a href="#3、使用root用户操作" class="headerlink" title="3、使用root用户操作"></a>3、使用root用户操作</h2><p>没有libaio的要先下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum search libaio  # search for info</span><br><span class="line">yum install libaio # install library</span><br></pre></td></tr></table></figure>
+<p>下载好libaio依赖后往下继续看文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; groupadd mysql</span><br><span class="line">shell&gt; useradd -r -g mysql -s &#x2F;bin&#x2F;false mysql</span><br><span class="line">shell&gt; cd &#x2F;usr&#x2F;local</span><br><span class="line">shell&gt; tar -zxvf &#x2F;path&#x2F;to&#x2F;mysql-VERSION-OS.tar.xz</span><br><span class="line">shell&gt; ln -s full-path-to-mysql-VERSION-OS mysql # 创建软链接</span><br><span class="line">shell&gt; cd mysql</span><br><span class="line">shell&gt; mkdir mysql-files</span><br><span class="line">shell&gt; chown mysql:mysql mysql-files</span><br><span class="line">shell&gt; chmod 750 mysql-files</span><br></pre></td></tr></table></figure>
+<h2 id="4、初始化mysql"><a href="#4、初始化mysql" class="headerlink" title="4、初始化mysql"></a>4、初始化mysql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; bin&#x2F;mysqld --initialize --user&#x3D;mysql</span><br></pre></td></tr></table></figure>
+<p>此步骤会在最后一行 <code>localhost:</code>后面生成随机密码，需要复制下来，等会要用到</p>
+<h2 id="6、安装SSL服务"><a href="#6、安装SSL服务" class="headerlink" title="6、安装SSL服务"></a>6、安装SSL服务</h2><p>执行安装命令之前先安装openssl，不然会报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; yum install openssl</span><br><span class="line">shell&gt; bin&#x2F;mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure>
+<h2 id="7、开启服务"><a href="#7、开启服务" class="headerlink" title="7、开启服务"></a>7、开启服务</h2><p>执行下面语句会卡在一个地方，因为&amp;是后台运行，回车即可<br><code>shell&gt; bin/mysqld_safe --user=mysql &amp;</code><br>使用刚才的密码登录即可<br><code>shell&gt; bin/mysql -uroot -p</code></p>
+<h2 id="8、如果第7步成功登录，这个步骤可以忽略"><a href="#8、如果第7步成功登录，这个步骤可以忽略" class="headerlink" title="8、如果第7步成功登录，这个步骤可以忽略"></a>8、如果第7步成功登录，这个步骤可以忽略</h2><p>也许是需要依赖包，下载即可<br><code>yum install libncurses*</code><br>成功下载后，重新执行第7步</p>
+<h2 id="9、更改root用户密码"><a href="#9、更改root用户密码" class="headerlink" title="9、更改root用户密码"></a>9、更改root用户密码</h2><p>(1) 方案一：限制本地登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>(2) 方案二：可以任意IP与第三方客户端登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;密码&#39; PASSWORD EXPIRE NEVER;    #修改root的密码与加密方式</span><br><span class="line">use mysql;   #切换到mysql库</span><br><span class="line">update user set host&#x3D;&#39;%&#39; where user &#x3D; &#39;root&#39;;   #更改可以登录的IP为任意IP</span><br><span class="line">flush privileges;    #刷新权限</span><br><span class="line">ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;; #再次更改root用户密码，使其可以在任意IP访问</span><br><span class="line">flush privileges;    #刷新权限</span><br></pre></td></tr></table></figure>
+<p><strong>安装到此结束</strong></p>
+<h2 id="10、添加mysql启动方式"><a href="#10、添加mysql启动方式" class="headerlink" title="10、添加mysql启动方式"></a>10、添加mysql启动方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Next command is optional</span><br><span class="line">shell&gt; cp support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysql.server</span><br></pre></td></tr></table></figure>
+<p>启动<br><code>/etc/init.d/mysql.server start</code><br>重启<br><code>/etc/init.d/mysql.server restart</code><br>关闭<br><code>/etc/init.d/mysql.server stop</code></p>
+<h2 id="11、进入mysql脚本-目录自己改"><a href="#11、进入mysql脚本-目录自己改" class="headerlink" title="11、进入mysql脚本(目录自己改)"></a>11、进入mysql脚本(目录自己改)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"></span><br><span class="line">cd &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line"></span><br><span class="line"># Run the program</span><br><span class="line">bin&#x2F;mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux4安装java环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -896,88 +999,6 @@
 
 
   
-    <article id="post-maven设置本地jar依赖并打包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/">maven设置本地jar依赖并打包</a>
-    </h1>
-  
-
-			<!--  显示阅读次数 -->
-				
-        
-        <a href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有时候自己写的jar包依赖不能从仓库下载，只能本地导入。</p>
-        
-          <a class="article-more-a" href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1090,7 +1111,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1102,19 +1131,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
