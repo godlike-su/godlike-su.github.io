@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>波兰表达式的生成 | SuJinWang的博客</title>
+  <title>2020.5.8 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="波兰表达式的生成学会了计算，那怎么生成呢？这个逻辑有点复杂！">
+  <meta name="description" content="2020.5.8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="波兰表达式的生成">
-<meta property="og:url" content="http://yoursite.com/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%89%8B%E5%86%99/index.html">
+<meta property="og:title" content="2020.5.8">
+<meta property="og:url" content="http://yoursite.com/2020/05/08/2020.5.8/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="波兰表达式的生成学会了计算，那怎么生成呢？这个逻辑有点复杂！">
+<meta property="og:description" content="2020.5.8">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-03T05:16:57.000Z">
-<meta property="article:modified_time" content="2020-04-16T03:46:38.083Z">
+<meta property="article:published_time" content="2020-05-08T09:35:04.000Z">
+<meta property="article:modified_time" content="2020-05-08T09:49:29.025Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -180,14 +179,14 @@
           <div id="js-content" class="content-ll">
             
 
-<article id="post-波兰表达式的手写" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-2020.5.8" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      波兰表达式的生成
+      2020.5.8
     </h1>
   
 
@@ -202,32 +201,22 @@
 				  </a>
 				  
         
-        <a href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%89%8B%E5%86%99/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+        <a href="/2020/05/08/2020.5.8/" class="archive-article-date">
+  	<time datetime="2020-05-08T09:35:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="波兰表达式的生成"><a href="#波兰表达式的生成" class="headerlink" title="波兰表达式的生成"></a>波兰表达式的生成</h1><p>学会了计算，那怎么生成呢？这个逻辑有点复杂！</p>
-<a id="more"></a>
-<p>我们需要2个栈，一个用于临时存储 stack，一个用于存储计算好的波兰表达式 dst。</p>
-<p>准备好一个ArrayList，把我们常规的中缀表达式放入（a + b * c - d /e）</p>
-<p>1、判断是数字就直接dst入栈，如果是操作符，就需要判断是左括号、右括号常规的操作符。</p>
-<p>2、是左括号(就直接stack入栈。</p>
-<p>3、是右括号)就从stack栈顶弹出操作符放入dst栈里，直到找到左括号(为止。</p>
-<p>4、是常规操作符（op1）就判断它的优先级。首先判断顶部是否为左括号(，是的话就退出循环，然后把常规操作符（op1）放入临时栈stack里。<br>如果不是左括号(，就判断栈顶的优先级，<br>如果栈顶操作符的优先级比这个操作符（op1）低的话就退出循环，将操作符（op1）放入临时栈stack。<br>如果栈顶操作符的优先级等于或高于自己，则把栈顶的操作符弹出到 dst中。直到栈顶为(左括号，或者栈顶的操作符比自己低，或者栈为空（也就是全部都弹出来了），就把操作符(op1)放入到临时栈stack。</p>
-<p>5、最后，ArrayList循环完了，把临时栈的操作符全部弹出到dst中。结束！</p>
-<p><strong>看不明白是很正常的，毕竟这个算法不算简单，需要通过调试，操作才能想明白</strong></p>
-<h2 id="算法的实现"><a href="#算法的实现" class="headerlink" title="算法的实现"></a>算法的实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Reverse Polish Notation，RPN</span><br><span class="line">public class RPN</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F; src: 原始的中缀表达式</span><br><span class="line">	public ArrayList&lt;Object&gt; convert(ArrayList&lt;Object&gt; src)</span><br><span class="line">	&#123;</span><br><span class="line">		ArrayList&lt;Object&gt; dst &#x3D; new ArrayList&lt;Object&gt;();</span><br><span class="line">		AfStack stack &#x3D; new AfStack(1000);   &#x2F;&#x2F;用于临时存储操作符</span><br><span class="line">		</span><br><span class="line">		for(Object item : src)</span><br><span class="line">		&#123;</span><br><span class="line">			if(item instanceof Double || item instanceof Integer)   &#x2F;&#x2F; 操作数</span><br><span class="line">			&#123;</span><br><span class="line">				dst.add(item);</span><br><span class="line">			&#125;</span><br><span class="line">			else if(item instanceof String)  &#x2F;&#x2F;操作符</span><br><span class="line">			&#123;</span><br><span class="line">				String op &#x3D; ((String) item).trim();  &#x2F;&#x2F; trim()去掉空格</span><br><span class="line">				int p1 &#x3D; priority(op);</span><br><span class="line">				</span><br><span class="line">				if(op.equals(&quot;(&quot;))</span><br><span class="line">				&#123;</span><br><span class="line">					stack.push(op);</span><br><span class="line">				&#125;</span><br><span class="line">				else if(op.equals(&quot;)&quot;))</span><br><span class="line">				&#123;</span><br><span class="line">					&#x2F;&#x2F; 从stack中弹出符号，一直到匹配的左括号</span><br><span class="line">					while(stack.size() &gt; 0)</span><br><span class="line">					&#123;</span><br><span class="line">						String op2 &#x3D; (String) stack.pop();</span><br><span class="line">						if(op2.equals(&quot;(&quot;)) break;</span><br><span class="line">						</span><br><span class="line">						dst.add(op2);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				else</span><br><span class="line">				&#123;</span><br><span class="line">					&#x2F;&#x2F; 从stack中弹出符号，一直到遇到左括号，或者遇到比自己优先级低的符号</span><br><span class="line">					while(stack.size() &gt; 0)</span><br><span class="line">					&#123;</span><br><span class="line">						String op2 &#x3D; (String) stack.top();  &#x2F;&#x2F;只查看不弹出</span><br><span class="line">						int p2 &#x3D; priority(op2);</span><br><span class="line">						if(op2.equals(&quot;(&quot;))</span><br><span class="line">							break;	&#x2F;&#x2F; 左括号应该保留在栈里</span><br><span class="line">						if(p2 &lt; p1)</span><br><span class="line">							break;	&#x2F;&#x2F;遇到比自己优先级低的符号</span><br><span class="line">						</span><br><span class="line">						dst.add(op2);</span><br><span class="line">						stack.pop();</span><br><span class="line">					&#125;</span><br><span class="line">					stack.push(op);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F;最后把所有符号都弹出来</span><br><span class="line">		while(stack.size() &gt; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			dst.add(stack.pop());</span><br><span class="line">		&#125;</span><br><span class="line">		return dst;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F; 定义 + - * &#x2F; 的优先级， 以便进行优先级的比较</span><br><span class="line">	public int priority( String op)</span><br><span class="line">	&#123;</span><br><span class="line">		if(&quot;+ -&quot;.indexOf(op) &gt;&#x3D;0) return 1;</span><br><span class="line">		if(&quot;* &#x2F;&quot;.indexOf(op) &gt;&#x3D;0) return 2;</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F; 把表达式转成字符串，方便调试显示</span><br><span class="line">	public String toString(ArrayList&lt;Object&gt; expr)</span><br><span class="line">	&#123;</span><br><span class="line">		String result &#x3D; &quot;&quot;;</span><br><span class="line">		for(Object item: expr)</span><br><span class="line">		&#123;</span><br><span class="line">			result +&#x3D; item.toString() + &quot;  &quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class Test</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		ArrayList&lt;Object&gt; expr &#x3D; new ArrayList&lt;Object&gt;();</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 6 + 4 * 5 - 7 &#x2F;8</span><br><span class="line">		expr.add( 6.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( &quot;+&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( 4.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( &quot;*&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( 5.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( &quot;-&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( 7.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		expr.add( &quot;&#x2F;&quot; ); &#x2F;&#x2F; String</span><br><span class="line">		expr.add( 8.0 ); &#x2F;&#x2F; Double</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 转换</span><br><span class="line">		RPN rpn &#x3D; new RPN();</span><br><span class="line">		ArrayList&lt;Object&gt; dst &#x3D; rpn.convert( expr );</span><br><span class="line">		</span><br><span class="line">		System.out.println(&quot;中缀表达式: &quot; + rpn.toString(expr));</span><br><span class="line">		System.out.println(&quot;后缀表达式: &quot; + rpn.toString(dst));</span><br><span class="line">        &#x2F;&#x2F;输出 后缀表达式: 6.0  4.0  5.0  *  +  7.0  8.0  &#x2F;  - </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="自定义的临时栈"><a href="#自定义的临时栈" class="headerlink" title="自定义的临时栈"></a>自定义的临时栈</h2><p>可略过，改为使用jdk自带的栈</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 栈的自定义实现</span><br><span class="line"> * </span><br><span class="line"> * （最好不要与 java.util.Stack 类重名 )</span><br><span class="line"> * </span><br><span class="line"> *&#x2F;</span><br><span class="line">public class AfStack</span><br><span class="line">&#123;</span><br><span class="line">	private Object[] buffer;</span><br><span class="line">	private int count;</span><br><span class="line">	private int capacity;</span><br><span class="line">	</span><br><span class="line">	public AfStack(int capacity)</span><br><span class="line">	&#123;</span><br><span class="line">		this.capacity &#x3D; capacity;</span><br><span class="line">		buffer &#x3D; new Object[capacity];</span><br><span class="line">		count &#x3D; 0;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;放入一项</span><br><span class="line">	public void push(Object value)</span><br><span class="line">	&#123;</span><br><span class="line">		if(count &gt;&#x3D; capacity) return;</span><br><span class="line">		buffer[count] &#x3D; value;</span><br><span class="line">		count++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;取出一项</span><br><span class="line">	public Object pop()</span><br><span class="line">	&#123;</span><br><span class="line">		Object value &#x3D; buffer[count-1];</span><br><span class="line">		buffer[count-1] &#x3D; null;  &#x2F;&#x2F;这一步不是必须的</span><br><span class="line">		count -&#x3D; 1;</span><br><span class="line">		return value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;查看栈顶（但不取出）</span><br><span class="line">	public Object top()</span><br><span class="line">	&#123;</span><br><span class="line">		return buffer[count-1];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;查看一共有多少项</span><br><span class="line">	public int size()</span><br><span class="line">	&#123;</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F; 容量</span><br><span class="line">	public int capacity()</span><br><span class="line">	&#123;</span><br><span class="line">		return capacity;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public String toString()</span><br><span class="line">	&#123;</span><br><span class="line">		String result &#x3D; &quot;&quot;;</span><br><span class="line">		for(int i&#x3D;0; i&lt;count; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			Object value &#x3D; buffer[i];</span><br><span class="line">			</span><br><span class="line">			if(result.length() &gt;0) result +&#x3D; &quot;, &quot;;</span><br><span class="line">			if(value &#x3D;&#x3D; null)</span><br><span class="line">				result +&#x3D; &quot;null&quot;;</span><br><span class="line">			else</span><br><span class="line">				result +&#x3D; value.toString();</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考<br><strong>版权声明：</strong> 转载请注明出处！</p>
-</blockquote>
+        <h1 id="2020-5-8"><a href="#2020-5-8" class="headerlink" title="2020.5.8"></a>2020.5.8</h1><a id="more"></a>
+<p>唉，我想浪。今天的生活依旧苦涩。</p>
+<p>每天的日子如此重复，活着如此艰辛，但我们仍需坚持。</p>
+<p>人生的一生追求着什么？金钱，权利，房车？还是材米油盐？</p>
+<p>我处于学生时代，身上负担小，所以我有点迷茫。我想偷懒，想休息，但是生活不由的我做主。</p>
+<p>步入社会，我们也许连这个幻想都没又时间了吧。那时社会会改变我们吗？我们那时会只想的挣钱吗？我不从得知。不过从我的父辈、亲戚们身上，我得出了答案，是的。</p>
+<p>也许这就是生活，人生的意义到底是怎样，我不知道。这需要我去探索，也许在不久的将来，我将初步认识到。</p>
+<p>到此为止，干活去了……</p>
 
       
 
@@ -272,11 +261,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -332,7 +317,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%89%8B%E5%86%99/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/05/08/2020.5.8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -346,18 +331,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/05/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          选择排序法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/03/03/%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AE%A1%E7%AE%97/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">波兰表达式的计算</div>
+    <a href="/2020/05/02/Linux%E5%AE%89%E8%A3%85mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux安装mysql</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -384,7 +360,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#波兰表达式的生成"><span class="toc-number">1.</span> <span class="toc-text">波兰表达式的生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法的实现"><span class="toc-number">1.1.</span> <span class="toc-text">算法的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">1.2.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义的临时栈"><span class="toc-number">1.3.</span> <span class="toc-text">自定义的临时栈</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2020-5-8"><span class="toc-number">1.</span> <span class="toc-text">2020.5.8</span></a></li></ol>
                     </div>
                 </span>
             </div>
