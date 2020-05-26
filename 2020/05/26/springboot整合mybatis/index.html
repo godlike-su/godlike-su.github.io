@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: MyBatis | SuJinWang的博客</title>
+  <title>SpringBoot整合mybatis | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/tags/MyBatis/index.html">
+  <meta name="description" content="SpringBoot整合mybatisSpringBoot整和mybatis，我是在application.yml里修改的配置。我用的不是spring自带的jdbc，用的是alibaba.druid连接池。之前用druid连接池，pom里也用了spring的jdbc，导致一直报错。我也会展示pom文件。下面让我们一探究竟。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot整合mybatis">
+<meta property="og:url" content="http://yoursite.com/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="SpringBoot整合mybatisSpringBoot整和mybatis，我是在application.yml里修改的配置。我用的不是spring自带的jdbc，用的是alibaba.druid连接池。之前用druid连接池，pom里也用了spring的jdbc，导致一直报错。我也会展示pom文件。下面让我们一探究竟。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-26T03:05:21.000Z">
+<meta property="article:modified_time" content="2020-05-26T03:47:03.542Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="MyBatis，Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -173,189 +179,214 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-springboot整合mybatis" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot整合mybatis
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/" class="archive-article-date">
+  	<time datetime="2020-05-26T03:05:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot整合mybatis"><a href="#SpringBoot整合mybatis" class="headerlink" title="SpringBoot整合mybatis"></a>SpringBoot整合mybatis</h1><p>SpringBoot整和mybatis，我是在application.yml里修改的配置。我用的不是spring自带的jdbc，用的是alibaba.druid连接池。<br>之前用druid连接池，pom里也用了spring的jdbc，导致一直报错。<br>我也会展示pom文件。下面让我们一探究竟。</p>
+<a id="more"></a>
+<h2 id="文件顺序"><a href="#文件顺序" class="headerlink" title="文件顺序"></a>文件顺序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">controller  </span><br><span class="line">entity  &#x2F;&#x2F;用来放实体类</span><br><span class="line">mapper  </span><br><span class="line">service</span><br></pre></td></tr></table></figure>
+<h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  thymeleaf:</span><br><span class="line">    cache: true</span><br><span class="line">  datasource:</span><br><span class="line">    url: jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;bbs?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;UTC</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    username: root</span><br><span class="line">    password: xxxxxx</span><br><span class="line">    type: com.alibaba.druid.pool.DruidDataSource</span><br><span class="line">    #初始化数量</span><br><span class="line">    initialSize: 1</span><br><span class="line">    # 最小生存数</span><br><span class="line">    minIdle: 1</span><br><span class="line">    #最大活跃数</span><br><span class="line">    maxActive: 10</span><br><span class="line">    #最大连接等待超时时间</span><br><span class="line">    maxWait: 60000</span><br><span class="line">    #打开PSCache，并且指定每个连接PSCache的大小</span><br><span class="line">    poolPreparedStatements: true</span><br><span class="line">    maxPoolPreparedStatementPerConnectionSize: 20</span><br><span class="line">    # 配置间隔多久检测一次，检测需要关闭的空闲连接，单位毫秒</span><br><span class="line">    timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">    # 配置最小生存时间</span><br><span class="line">    minEvictableIdleTimeMillis: 30000</span><br><span class="line">    validationQuery: select &#39;x&#39;</span><br><span class="line">    testWhileIdle: true</span><br><span class="line">    testOnBorrow: false</span><br><span class="line">    testOnReturn: false</span><br><span class="line">    #配置监控统计拦截的filters，去掉后监控界面sql将无法统计,&#39;wall&#39;用于防火墙</span><br><span class="line">    filters: stat, wall, log4j</span><br><span class="line">    #通过connectionProperties属性来打开mergeSql功能；慢SQL记录</span><br><span class="line">    #connectionProperties: druid.stat.mergeSql&#x3D;true;druid.stat.slowSqlMillis&#x3D;5000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mybatis:</span><br><span class="line">  mapper-locations: mapper&#x2F;*.xml</span><br><span class="line">  type-aliases-package: my.app.mapper</span><br></pre></td></tr></table></figure>
+<h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis.spring.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.3.2&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;scope&gt;runtime&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">            &lt;exclusions&gt;</span><br><span class="line">                &lt;exclusion&gt;</span><br><span class="line">                    &lt;groupId&gt;org.junit.vintage&lt;&#x2F;groupId&gt;</span><br><span class="line">                    &lt;artifactId&gt;junit-vintage-engine&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;&#x2F;exclusion&gt;</span><br><span class="line">            &lt;&#x2F;exclusions&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;!--        阿里巴巴连接池--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;druid-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.1.10&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="mybatis-config-xml"><a href="#mybatis-config-xml" class="headerlink" title="mybatis-config.xml"></a>mybatis-config.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 需要映射的目录，可以映射多个目录，不会互相干扰  --&gt;</span><br><span class="line"> &lt;mappers&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!--批量加载mapper--&gt;</span><br><span class="line">   &lt;package name&#x3D;&quot;my.app.mapper&quot;&gt;&lt;&#x2F;package&gt;</span><br><span class="line"> &lt;&#x2F;mappers&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="启动文件扫描"><a href="#启动文件扫描" class="headerlink" title="启动文件扫描"></a>启动文件扫描</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">需要扫描mapper包下的接口</span><br><span class="line">@MapperScan(&quot;my.app.mapper&quot;)</span><br><span class="line"></span><br><span class="line">mapper接口需要注解</span><br><span class="line">@mapper</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 写文作者：godlike-su  </p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/MyBatis%E7%9A%84foreach%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-04-14T12:58:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/MyBatis%E7%9A%84foreach%E7%9A%84%E4%BD%BF%E7%94%A8/">MyBatis的foreach的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis，Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2020-03-31T12:25:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/26/spring%E6%95%B4%E5%90%88mybatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring整合mybatis</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E4%BF%AE%E6%94%B9%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8F%92%E5%85%A5/">MyBatis的trim-prefix，数组插入，like，callSettersOnNulls空值返回</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot整合mybatis"><span class="toc-number">1.</span> <span class="toc-text">SpringBoot整合mybatis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件顺序"><span class="toc-number">1.1.</span> <span class="toc-text">文件顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-yml"><span class="toc-number">1.2.</span> <span class="toc-text">application.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml"><span class="toc-number">1.3.</span> <span class="toc-text">pom.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mybatis-config-xml"><span class="toc-number">1.4.</span> <span class="toc-text">mybatis-config.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动文件扫描"><span class="toc-number">1.5.</span> <span class="toc-text">启动文件扫描</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/23/MyBatis%E7%9A%84%E7%94%A8%E6%B3%952/" class="archive-article-date">
-  	<time datetime="2020-02-23T03:20:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-23</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/23/MyBatis%E7%9A%84%E7%94%A8%E6%B3%952/">MyBatis的用法2</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/22/%E5%85%B3%E4%BA%8EMyBatis%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-02-22T06:48:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/22/%E5%85%B3%E4%BA%8EMyBatis%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">关于MyBatis配置与基本用法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -387,9 +418,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
