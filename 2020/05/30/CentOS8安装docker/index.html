@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>maven仓库设置为阿里云映射 | SuJinWang的博客</title>
+  <title>CentOS8安装docker | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="因为maven中心仓库在外网，所以我们的下载速度非常的慢，想要快速下载就需要从阿里云仓库下载依赖。">
+  <meta name="description" content="CentOS8安装doicker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="maven仓库设置为阿里云映射">
-<meta property="og:url" content="http://yoursite.com/2020/04/14/maven%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E6%98%A0%E5%B0%84/index.html">
+<meta property="og:title" content="CentOS8安装docker">
+<meta property="og:url" content="http://yoursite.com/2020/05/30/CentOS8%E5%AE%89%E8%A3%85docker/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="因为maven中心仓库在外网，所以我们的下载速度非常的慢，想要快速下载就需要从阿里云仓库下载依赖。">
+<meta property="og:description" content="CentOS8安装doicker">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-14T13:21:29.000Z">
-<meta property="article:modified_time" content="2020-04-14T13:29:18.403Z">
+<meta property="article:published_time" content="2020-05-30T14:27:05.000Z">
+<meta property="article:modified_time" content="2020-05-30T14:44:33.593Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="maven">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -180,14 +180,14 @@
           <div id="js-content" class="content-ll">
             
 
-<article id="post-maven仓库设置为阿里云映射" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-CentOS8安装docker" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      maven仓库设置为阿里云映射
+      CentOS8安装docker
     </h1>
   
 
@@ -202,25 +202,27 @@
 				  </a>
 				  
         
-        <a href="/2020/04/14/maven%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E6%98%A0%E5%B0%84/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
+        <a href="/2020/05/30/CentOS8%E5%AE%89%E8%A3%85docker/" class="archive-article-date">
+  	<time datetime="2020-05-30T14:27:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>因为maven中心仓库在外网，所以我们的下载速度非常的慢，想要快速下载就需要从阿里云仓库下载依赖。</p>
-<a id="more"></a>
-<p><strong>首先需要打开apache-maven下的conf下的setting.xml文件</strong><br>apache-maven-3.6.3\conf\setting.xml，可以使用记事本等工具打开</p>
-<hr>
-<p>找到<code>&lt;mirrors&gt;&lt;/mirrors&gt;</code><br><strong>设置</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">    &lt;mirror&gt;  </span><br><span class="line">		&lt;id&gt;alimaven&lt;&#x2F;id&gt;  </span><br><span class="line">		&lt;name&gt;aliyun maven&lt;&#x2F;name&gt;  </span><br><span class="line">		&lt;url&gt;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&#x2F;&lt;&#x2F;url&gt;;  </span><br><span class="line">		&lt;mirrorOf&gt;central&lt;&#x2F;mirrorOf&gt;          </span><br><span class="line">	&lt;&#x2F;mirror&gt;</span><br><span class="line">&lt;&#x2F;mirrors&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后在Eclipse,IDEA,MyEclipse等工具里maven选择的setting.xml文件路径就可以啦！</p>
+        <h1 id="CentOS8安装doicker"><a href="#CentOS8安装doicker" class="headerlink" title="CentOS8安装doicker"></a>CentOS8安装doicker</h1><a id="more"></a>
+<p>这个是因为Docker和Podman冲突</p>
+<h2 id="1、下载docker-ce的repo"><a href="#1、下载docker-ce的repo" class="headerlink" title="1、下载docker-ce的repo"></a>1、下载docker-ce的repo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils</span><br><span class="line"></span><br><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+<h2 id="2、安装包依赖（相比centos7"><a href="#2、安装包依赖（相比centos7" class="headerlink" title="2、安装包依赖（相比centos7)"></a>2、安装包依赖（相比centos7)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;fedora&#x2F;30&#x2F;x86_64&#x2F;stable&#x2F;Packages&#x2F;containerd.io-1.2.6-3.3.fc30.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="3、安装docker-ce"><a href="#3、安装docker-ce" class="headerlink" title="3、安装docker-ce"></a>3、安装docker-ce</h2><p><code>$ yum install docker-ce</code></p>
+<h2 id="4、CentOS8可能会报一个长串的错误-Docker和Podman冲突。无错误跳过这个步骤"><a href="#4、CentOS8可能会报一个长串的错误-Docker和Podman冲突。无错误跳过这个步骤" class="headerlink" title="4、CentOS8可能会报一个长串的错误,Docker和Podman冲突。无错误跳过这个步骤"></a>4、CentOS8可能会报一个长串的错误,Docker和Podman冲突。无错误跳过这个步骤</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file &#x2F;usr&#x2F;share&#x2F;man&#x2F;man1&#x2F;docker-attach.1.gz from install of docker-ce-cli-1:19.03.6-3.el7.x86_64 conflicts with file from package podman-manpages-1.4.2-5.module_el8.1.0+237+63e26edc.noarch</span><br></pre></td></tr></table></figure>
+<p>如果出现这个错误</p>
+<h3 id="1、查看是否安装Podman"><a href="#1、查看是否安装Podman" class="headerlink" title="1、查看是否安装Podman"></a>1、查看是否安装Podman</h3><p><code>rpm -q podman</code></p>
+<h3 id="2、卸载podman"><a href="#2、卸载podman" class="headerlink" title="2、卸载podman"></a>2、卸载podman</h3><p><code>dnf remove podman</code></p>
+<h3 id="3、安装docker-ce-1"><a href="#3、安装docker-ce-1" class="headerlink" title="3、安装docker-ce"></a>3、安装docker-ce</h3><p><code>$ yum install docker-ce</code></p>
+<h2 id="5、启动docker"><a href="#5、启动docker" class="headerlink" title="5、启动docker"></a>5、启动docker</h2><p><code>sudo systemctl start docker</code><br>或者重启<br><code>sudo systemctl docker restart</code></p>
 <blockquote>
-<p><strong>本文仅供自我参考，侵权立删</strong></p>
-<p><strong>转载需注明转载出处</strong></p>
+<p>感谢您看到这里<br>写文作者： godlike-su</p>
 </blockquote>
 
       
@@ -266,11 +268,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		
 		</ul>
@@ -326,7 +328,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/04/14/maven%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E6%98%A0%E5%B0%84/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/05/30/CentOS8%E5%AE%89%E8%A3%85docker/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -340,18 +342,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/14/maven%E7%9A%84%E4%B8%80%E4%BA%9Bpom/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/05/30/docker%E9%98%BF%E9%87%8C%E4%BA%91%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          maven的一些pom
+          docker阿里云镜像加速
         
       </div>
     </a>
   
   
-    <a href="/2020/04/14/MyBatis%E7%9A%84foreach%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MyBatis的foreach的使用</div>
+    <a href="/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringBoot整合mybatis</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -378,7 +380,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CentOS8安装doicker"><span class="toc-number">1.</span> <span class="toc-text">CentOS8安装doicker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载docker-ce的repo"><span class="toc-number">1.1.</span> <span class="toc-text">1、下载docker-ce的repo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、安装包依赖（相比centos7"><span class="toc-number">1.2.</span> <span class="toc-text">2、安装包依赖（相比centos7)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、安装docker-ce"><span class="toc-number">1.3.</span> <span class="toc-text">3、安装docker-ce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、CentOS8可能会报一个长串的错误-Docker和Podman冲突。无错误跳过这个步骤"><span class="toc-number">1.4.</span> <span class="toc-text">4、CentOS8可能会报一个长串的错误,Docker和Podman冲突。无错误跳过这个步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、查看是否安装Podman"><span class="toc-number">1.4.1.</span> <span class="toc-text">1、查看是否安装Podman</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、卸载podman"><span class="toc-number">1.4.2.</span> <span class="toc-text">2、卸载podman</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、安装docker-ce-1"><span class="toc-number">1.4.3.</span> <span class="toc-text">3、安装docker-ce</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、启动docker"><span class="toc-number">1.5.</span> <span class="toc-text">5、启动docker</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
