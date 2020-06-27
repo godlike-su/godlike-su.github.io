@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>shiro标签的使用 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="shiro在thymeleaf的使用需要导入thymeleaf扩展shiro依赖123456&lt;!-- thymeleaf整合shiro标签 --&gt;    &lt;dependency&gt;        &lt;groupId&gt;com.github.theborakompanioni&lt;&#x2F;groupId&gt;        &lt;artifactId&gt;t">
+  <meta name="description" content="shiro在thymeleaf的使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shiro标签的使用">
 <meta property="og:url" content="http://yoursite.com/2020/06/27/shiro%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="shiro在thymeleaf的使用需要导入thymeleaf扩展shiro依赖123456&lt;!-- thymeleaf整合shiro标签 --&gt;    &lt;dependency&gt;        &lt;groupId&gt;com.github.theborakompanioni&lt;&#x2F;groupId&gt;        &lt;artifactId&gt;t">
+<meta property="og:description" content="shiro在thymeleaf的使用">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-27T11:33:14.000Z">
-<meta property="article:modified_time" content="2020-06-27T12:24:59.714Z">
+<meta property="article:modified_time" content="2020-06-27T12:26:53.884Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="shiro">
@@ -210,7 +210,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="shiro在thymeleaf的使用"><a href="#shiro在thymeleaf的使用" class="headerlink" title="shiro在thymeleaf的使用"></a>shiro在thymeleaf的使用</h1><h2 id="需要导入thymeleaf扩展shiro依赖"><a href="#需要导入thymeleaf扩展shiro依赖" class="headerlink" title="需要导入thymeleaf扩展shiro依赖"></a>需要导入thymeleaf扩展shiro依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- thymeleaf整合shiro标签 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.github.theborakompanioni&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;thymeleaf-extras-shiro&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.0.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+        <h1 id="shiro在thymeleaf的使用"><a href="#shiro在thymeleaf的使用" class="headerlink" title="shiro在thymeleaf的使用"></a>shiro在thymeleaf的使用</h1><a id="more"></a>
+<h2 id="需要导入thymeleaf扩展shiro依赖"><a href="#需要导入thymeleaf扩展shiro依赖" class="headerlink" title="需要导入thymeleaf扩展shiro依赖"></a>需要导入thymeleaf扩展shiro依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- thymeleaf整合shiro标签 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.github.theborakompanioni&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;thymeleaf-extras-shiro&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.0.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="ShiroCofig加入配置ShiroDialect配置"><a href="#ShiroCofig加入配置ShiroDialect配置" class="headerlink" title="ShiroCofig加入配置ShiroDialect配置"></a>ShiroCofig加入配置ShiroDialect配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">配置ShiroDialect:用于thymeleaf和shiro标签配合使用</span><br><span class="line">  @Bean</span><br><span class="line">  public ShiroDialect getShiroDialect()&#123;</span><br><span class="line">      return new ShiroDialect();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="授权过滤的一些用法"><a href="#授权过滤的一些用法" class="headerlink" title="授权过滤的一些用法"></a>授权过滤的一些用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**  常用过滤器：</span><br><span class="line">     *      anon:无需认证即可访问</span><br><span class="line">     *      authc:要授权才可访问</span><br><span class="line">     *      user:如果使用rememberMe的功能可以直接访问</span><br><span class="line">     *      perms:该资源必须得到资源授权才可以访问</span><br><span class="line">     *      roles:该资源必须得到角色授权才可以访问</span><br><span class="line">     *&#x2F;</span><br><span class="line">    &#x2F;&#x2F;所有路径都被拦截：</span><br><span class="line">    filterMap.put(&quot;&#x2F;**&quot;,&quot;authc&quot;);</span><br><span class="line">    &#x2F;&#x2F;一些路径不拦截（需要被放过去）</span><br><span class="line">    filterMap.put(&quot;&#x2F;th&quot;,&quot;anon&quot;);</span><br><span class="line">    filterMap.put(&quot;&#x2F;login&quot;,&quot;anon&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;授权过滤器</span><br><span class="line">    filterMap.put(&quot;&#x2F;add&quot;,&quot;perms[user:add]&quot;);</span><br><span class="line">    filterMap.put(&quot;&#x2F;update&quot;,&quot;perms[user:update]&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;    配置自定义login.html</span><br><span class="line">    shiroFilterFactoryBean.setLoginUrl(&quot;&#x2F;login&quot;);</span><br><span class="line">&#x2F;&#x2F;    配置未授权页面</span><br><span class="line">    shiroFilterFactoryBean.setUnauthorizedUrl(&quot;&#x2F;unAuth&quot;);</span><br></pre></td></tr></table></figure>
 <h2 id="页面中引入命名空间"><a href="#页面中引入命名空间" class="headerlink" title="页面中引入命名空间"></a>页面中引入命名空间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html xmlns:th&#x3D;&quot;http:&#x2F;&#x2F;www.thymeleaf.org&quot; xmlns:shiro&#x3D;&quot;http:&#x2F;&#x2F;www.pollix.at&#x2F;thymeleaf&#x2F;shiro&quot;&gt;</span><br></pre></td></tr></table></figure>
@@ -520,15 +521,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,7 +537,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
               </li>
              
               <li class="article-tag-list-item">
