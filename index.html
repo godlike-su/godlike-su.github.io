@@ -174,6 +174,200 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-shiro标签的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/27/shiro%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%BF%E7%94%A8/">shiro标签的使用</a>
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+        
+        <a href="/2020/06/27/shiro%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2020-06-27T11:33:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="shiro在thymeleaf的使用"><a href="#shiro在thymeleaf的使用" class="headerlink" title="shiro在thymeleaf的使用"></a>shiro在thymeleaf的使用</h1><h2 id="需要导入thymeleaf扩展shiro依赖"><a href="#需要导入thymeleaf扩展shiro依赖" class="headerlink" title="需要导入thymeleaf扩展shiro依赖"></a>需要导入thymeleaf扩展shiro依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- thymeleaf整合shiro标签 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.github.theborakompanioni&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;thymeleaf-extras-shiro&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.0.0&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="ShiroCofig加入配置ShiroDialect配置"><a href="#ShiroCofig加入配置ShiroDialect配置" class="headerlink" title="ShiroCofig加入配置ShiroDialect配置"></a>ShiroCofig加入配置ShiroDialect配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">配置ShiroDialect:用于thymeleaf和shiro标签配合使用</span><br><span class="line">  @Bean</span><br><span class="line">  public ShiroDialect getShiroDialect()&#123;</span><br><span class="line">      return new ShiroDialect();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="授权过滤的一些用法"><a href="#授权过滤的一些用法" class="headerlink" title="授权过滤的一些用法"></a>授权过滤的一些用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**  常用过滤器：</span><br><span class="line">     *      anon:无需认证即可访问</span><br><span class="line">     *      authc:要授权才可访问</span><br><span class="line">     *      user:如果使用rememberMe的功能可以直接访问</span><br><span class="line">     *      perms:该资源必须得到资源授权才可以访问</span><br><span class="line">     *      roles:该资源必须得到角色授权才可以访问</span><br><span class="line">     *&#x2F;</span><br><span class="line">    &#x2F;&#x2F;所有路径都被拦截：</span><br><span class="line">    filterMap.put(&quot;&#x2F;**&quot;,&quot;authc&quot;);</span><br><span class="line">    &#x2F;&#x2F;一些路径不拦截（需要被放过去）</span><br><span class="line">    filterMap.put(&quot;&#x2F;th&quot;,&quot;anon&quot;);</span><br><span class="line">    filterMap.put(&quot;&#x2F;login&quot;,&quot;anon&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;授权过滤器</span><br><span class="line">    filterMap.put(&quot;&#x2F;add&quot;,&quot;perms[user:add]&quot;);</span><br><span class="line">    filterMap.put(&quot;&#x2F;update&quot;,&quot;perms[user:update]&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;    配置自定义login.html</span><br><span class="line">    shiroFilterFactoryBean.setLoginUrl(&quot;&#x2F;login&quot;);</span><br><span class="line">&#x2F;&#x2F;    配置未授权页面</span><br><span class="line">    shiroFilterFactoryBean.setUnauthorizedUrl(&quot;&#x2F;unAuth&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="页面中引入命名空间"><a href="#页面中引入命名空间" class="headerlink" title="页面中引入命名空间"></a>页面中引入命名空间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html xmlns:th&#x3D;&quot;http:&#x2F;&#x2F;www.thymeleaf.org&quot; xmlns:shiro&#x3D;&quot;http:&#x2F;&#x2F;www.pollix.at&#x2F;thymeleaf&#x2F;shiro&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="常见权限控制标签使用"><a href="#常见权限控制标签使用" class="headerlink" title="常见权限控制标签使用"></a>常见权限控制标签使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 验证当前用户是否为防课，即为认证的用户 --&gt;</span><br><span class="line">&lt;p shiro:guest&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 认证通过或已记住的用户 --&gt;</span><br><span class="line">&lt;p shiro:user&#x3D;&quot;&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 已认证通过的用户。不包含已记住的用户，这是与user标签的区别所在 --&gt;</span><br><span class="line">&lt;p shiro:authenticated&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;span shiro:principal&#x3D;&quot;&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p shiro:authenticated&#x3D;&quot;&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 未认证通过的用户。 --&gt;</span><br><span class="line">&lt;p shiro:notAuthenticated&#x3D;&quot;&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 输出当前用户信息，通常为登录账号信息 --&gt;</span><br><span class="line">&lt;p&gt;&lt;shiro:principal&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 验证当前用户是否属于该角色 --&gt;</span><br><span class="line">&lt;p shiro:hasRole&#x3D;&quot;admin&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 与hasRole相反，当用户不属于该角色认证通过 --&gt;</span><br><span class="line">&lt;p shiro:lacksRole&#x3D;&quot;developer&gt;&lt;!--没有该角色--&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 验证当前用户是否属于以下所有角色 --&gt;</span><br><span class="line">&lt;p shiro:hasAllRoles&#x3D;&quot;admin,user&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 验证当前用户是否属于以下任意一个人角色 --&gt;</span><br><span class="line">&lt;p shiro:hasAnyRoles&#x3D;&quot;admin,user&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--  --&gt;</span><br><span class="line">&lt;!-- 验证当前用户是否拥有指定权限  --&gt;</span><br><span class="line">&lt;p shiro:hasPermission&#x3D;&quot;userInfo:add&quot; href&#x3D;&quot;createUser.html&quot;&gt;添加用户&lt;&#x2F;p&gt;  &lt;!-- 拥有权限 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 与hasPermission相反，当前用户没权限，验证通过  --&gt;</span><br><span class="line">&lt;p shiro:lacksPermission&#x3D;&quot;userInfo:add&quot; href&#x3D;&quot;createUser.html&quot;&gt;添加用户&lt;&#x2F;p&gt;  &lt;!-- 拥有权限 --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!-- 验证当前用户是否属于以下所有权限 --&gt;</span><br><span class="line">&lt;p shiro:hasAllPermission&#x3D;&quot;userInfo:add, userInfo:view&quot; href&#x3D;&quot;createUser.html&quot;&gt;添加用户&lt;&#x2F;p&gt; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!-- 验证当前用户是否属于以下任意一个权限 --&gt;</span><br><span class="line">&lt;p shiro:hasAnyPermission&#x3D;&quot;userInfo:add, userInfo:view&quot; href&#x3D;&quot;createUser.html&quot;&gt;添加用户&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shiro</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/27/shiro%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-springboot整合shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/27/springboot%E6%95%B4%E5%90%88shiro/">springboot整合shiro</a>
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+        
+        <a href="/2020/06/27/springboot%E6%95%B4%E5%90%88shiro/" class="archive-article-date">
+  	<time datetime="2020-06-27T10:58:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="springboot中整合shiro"><a href="#springboot中整合shiro" class="headerlink" title="springboot中整合shiro"></a>springboot中整合shiro</h1><p>本篇视频教程来自bilibili<br><a href="https://www.bilibili.com/video/BV1uz4y197Zm" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1uz4y197Zm</a></p>
+<p>非本人视频</p>
+<h2 id="首先导入依赖-pom-xml"><a href="#首先导入依赖-pom-xml" class="headerlink" title="首先导入依赖 pom.xml"></a>首先导入依赖 pom.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--引入shiro整个springboot依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.shiro&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;shiro-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.5.3&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;!--引入shiro和ehcache--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.shiro&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;shiro-ehcache&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.5.3&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-cache&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-pool2&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--引入mybatis--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.spring.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.2&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;scope&gt;runtime&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;!--        阿里巴巴连接池--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;druid-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.10&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>这里结合shiro+Redis</p>
+<h2 id="application-yml配置"><a href="#application-yml配置" class="headerlink" title="application.yml配置"></a>application.yml配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: shiro</span><br><span class="line">  redis:</span><br><span class="line">    port: 6379</span><br><span class="line">    host: localhost</span><br><span class="line">    database: 0</span><br><span class="line">    password:</span><br><span class="line">    #连接池最大连接数（使用负值表示没有限制）</span><br><span class="line">    lettuce:</span><br><span class="line">      pool:</span><br><span class="line">        max-active: 8 #连接池最大连接数</span><br><span class="line">        max-wait: 10000ms  # 连接池最大阻塞等待时间（使用负值表示没有限制）</span><br><span class="line">        max-idle: 8 # 连接池中的最大空闲连接</span><br><span class="line">        min-idle: 0 # 连接池中的最小空闲连接</span><br><span class="line">     # 连接超时时间（毫秒）</span><br><span class="line">      timeout: 100ms</span><br><span class="line">  datasource:</span><br><span class="line">    url: jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;shiro?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;UTC</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    username: root</span><br><span class="line">    password: root</span><br><span class="line">    type: com.alibaba.druid.pool.DruidDataSource</span><br><span class="line">    #初始化数量</span><br><span class="line">    initialSize: 1</span><br><span class="line">    # 最小生存数</span><br><span class="line">    minIdle: 1</span><br><span class="line">    #最大活跃数</span><br><span class="line">    maxActive: 10</span><br><span class="line">    #最大连接等待超时时间</span><br><span class="line">    maxWait: 60000</span><br><span class="line">    #打开PSCache，并且指定每个连接PSCache的大小</span><br><span class="line">    poolPreparedStatements: true</span><br><span class="line">    maxPoolPreparedStatementPerConnectionSize: 20</span><br><span class="line">    # 配置间隔多久检测一次，检测需要关闭的空闲连接，单位毫秒</span><br><span class="line">    timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">    # 配置最小生存时间</span><br><span class="line">    minEvictableIdleTimeMillis: 30000</span><br><span class="line">    validationQuery: select &#39;x&#39;</span><br><span class="line">    testWhileIdle: true</span><br><span class="line">    testOnBorrow: false</span><br><span class="line">    testOnReturn: false</span><br><span class="line">    #配置监控统计拦截的filters，去掉后监控界面sql将无法统计,&#39;wall&#39;用于防火墙</span><br><span class="line">    filters: stat, wall, log4j</span><br><span class="line">    #通过connectionProperties属性来打开mergeSql功能；慢SQL记录</span><br><span class="line">    #connectionProperties: druid.stat.mergeSql&#x3D;true;druid.stat.slowSqlMillis&#x3D;5000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mybatis:</span><br><span class="line">  mapper-locations: mapper&#x2F;*.xml</span><br><span class="line">  type-aliases-package: spring_jsp_shiro.demo.dao</span><br></pre></td></tr></table></figure>
+<h2 id="在ShiroConfig-java里设置shiro配置文件"><a href="#在ShiroConfig-java里设置shiro配置文件" class="headerlink" title="在ShiroConfig.java里设置shiro配置文件"></a>在ShiroConfig.java里设置shiro配置文件</h2><p>shiro需要加入安全管理设置，安全管理器，还有realm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class ShiroConfig</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;1、创建shiroFilter  &#x2F;&#x2F;负责拦截所有请求</span><br><span class="line">    @Bean</span><br><span class="line">    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager)&#123;</span><br><span class="line">        ShiroFilterFactoryBean shiroFilterFactoryBean &#x3D; new ShiroFilterFactoryBean();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;给filter设置安全管理器</span><br><span class="line">        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;配置系统受限资源</span><br><span class="line">        Map&lt;String, String&gt; map &#x3D; new HashMap&lt;String, String&gt;();</span><br><span class="line">        map.put(&quot;&#x2F;**&quot;,&quot;authc&quot;);&#x2F;&#x2F;authc 请求这个资源需要认证和授权</span><br><span class="line"></span><br><span class="line">        map.put(&quot;&#x2F;user&#x2F;login&quot;,&quot;anon&quot;);&#x2F;&#x2F;anon 设置为公共资源  放行资源放在下面</span><br><span class="line">        map.put(&quot;&#x2F;user&#x2F;register&quot;,&quot;anon&quot;);&#x2F;&#x2F;anon 设置为公共资源  放行资源放在下面</span><br><span class="line">        map.put(&quot;&#x2F;register.jsp&quot;,&quot;anon&quot;);&#x2F;&#x2F;anon 设置为公共资源  放行资源放在下面</span><br><span class="line">        map.put(&quot;&#x2F;user&#x2F;getImage&quot;,&quot;anon&quot;);</span><br><span class="line">        &#x2F;&#x2F;perms 需要指定权限才能访问</span><br><span class="line">        &#x2F;&#x2F;roles 需要指定角色访问</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;默认认证界面路径</span><br><span class="line">        shiroFilterFactoryBean.setLoginUrl(&quot;&#x2F;login.jsp&quot;);</span><br><span class="line">        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);</span><br><span class="line"></span><br><span class="line">        return shiroFilterFactoryBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;2、创建安全管理器</span><br><span class="line">    @Bean</span><br><span class="line">    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm)&#123;</span><br><span class="line">        DefaultWebSecurityManager defaultWebSecurityManager &#x3D; new DefaultWebSecurityManager();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;给安全管理器设置realm</span><br><span class="line">        defaultWebSecurityManager.setRealm(realm);</span><br><span class="line"></span><br><span class="line">        return defaultWebSecurityManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;3、创建自定义realm</span><br><span class="line">    @Bean</span><br><span class="line">    public Realm getRealm()&#123;</span><br><span class="line">        &#x2F;&#x2F;自定义realm</span><br><span class="line">        CustomerRealm customerRealm &#x3D; new CustomerRealm();</span><br><span class="line">        &#x2F;&#x2F;修改凭证校验匹配器</span><br><span class="line">        HashedCredentialsMatcher credentialsMatcher &#x3D; new HashedCredentialsMatcher();</span><br><span class="line">        &#x2F;&#x2F;设置加密算法为md5</span><br><span class="line">        credentialsMatcher.setHashAlgorithmName(&quot;MD5&quot;);</span><br><span class="line">        &#x2F;&#x2F;设置散列次数</span><br><span class="line">        credentialsMatcher.setHashIterations(1024);</span><br><span class="line">        customerRealm.setCredentialsMatcher(credentialsMatcher);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;开启缓存管理</span><br><span class="line">        customerRealm.setCacheManager(new RedisCacheManager());</span><br><span class="line">        customerRealm.setCachingEnabled(true);&#x2F;&#x2F;开启全局缓存</span><br><span class="line">        customerRealm.setAuthenticationCachingEnabled(true);&#x2F;&#x2F;认证认证缓存</span><br><span class="line">        customerRealm.setAuthenticationCacheName(&quot;authenticationCache&quot;);</span><br><span class="line">        customerRealm.setAuthorizationCachingEnabled(true);&#x2F;&#x2F;开启授权缓存</span><br><span class="line">        customerRealm.setAuthorizationCacheName(&quot;authorizationCache&quot;);</span><br><span class="line"></span><br><span class="line">        return customerRealm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="身份校验，自定义realm"><a href="#身份校验，自定义realm" class="headerlink" title="身份校验，自定义realm"></a>身份校验，自定义realm</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;自定义realm</span><br><span class="line">public class CustomerRealm extends AuthorizingRealm</span><br><span class="line">&#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;获取权限信息</span><br><span class="line">    @Override</span><br><span class="line">    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals)</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;获取身份信息</span><br><span class="line">        String primaryPrincipal &#x3D; (String)principals.getPrimaryPrincipal();</span><br><span class="line">        System.out.println(&quot;调用校权认证：&quot; + primaryPrincipal);</span><br><span class="line">        &#x2F;&#x2F;根据主身份信息获取角色 和 权限信息</span><br><span class="line">        User user &#x3D; userService.findRolesByUserName(primaryPrincipal);</span><br><span class="line">        &#x2F;&#x2F;授权角色信息</span><br><span class="line">        if(!CollectionUtils.isEmpty(user.getRoles()))</span><br><span class="line">        &#123;</span><br><span class="line">            SimpleAuthorizationInfo simpleAuthorizationInfo &#x3D; new SimpleAuthorizationInfo();</span><br><span class="line">            user.getRoles().forEach(role -&gt; &#123;</span><br><span class="line">                simpleAuthorizationInfo.addRole(role.getName());</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;权限信息</span><br><span class="line">                List&lt;Perms&gt; perms &#x3D; userService.findPermsByRoleId(role.getId());</span><br><span class="line">                if(!CollectionUtils.isEmpty(perms))</span><br><span class="line">                &#123;</span><br><span class="line">                    perms.forEach(perm-&gt;&#123;</span><br><span class="line">                        simpleAuthorizationInfo.addStringPermission(perm.getName());</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            return simpleAuthorizationInfo;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;获取身份信息</span><br><span class="line">    @Override</span><br><span class="line">    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;根据身份信息</span><br><span class="line">        String principal &#x3D; (String) token.getPrincipal();</span><br><span class="line">        &#x2F;&#x2F;在工厂中获取service对象</span><br><span class="line">        User user &#x3D; userService.findByUserName(principal);</span><br><span class="line">        if(!ObjectUtils.isEmpty(user))&#123;</span><br><span class="line">            return new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),</span><br><span class="line">                    new MyByteSource(user.getSalt()),</span><br><span class="line">                    this.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义salt序列"><a href="#自定义salt序列" class="headerlink" title="自定义salt序列"></a>自定义salt序列</h2><p>使用自定义salt不生效了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;自定义salt实现  实现序列化接口</span><br><span class="line">public class MyByteSource implements ByteSource,Serializable &#123;</span><br><span class="line"></span><br><span class="line">    private  byte[] bytes;</span><br><span class="line">    private String cachedHex;</span><br><span class="line">    private String cachedBase64;</span><br><span class="line"></span><br><span class="line">    public MyByteSource()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyByteSource(byte[] bytes) &#123;</span><br><span class="line">        this.bytes &#x3D; bytes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyByteSource(char[] chars) &#123;</span><br><span class="line">        this.bytes &#x3D; CodecSupport.toBytes(chars);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyByteSource(String string) &#123;</span><br><span class="line">        this.bytes &#x3D; CodecSupport.toBytes(string);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyByteSource(ByteSource source) &#123;</span><br><span class="line">        this.bytes &#x3D; source.getBytes();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyByteSource(File file) &#123;</span><br><span class="line">        this.bytes &#x3D; (new MyByteSource.BytesHelper()).getBytes(file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyByteSource(InputStream stream) &#123;</span><br><span class="line">        this.bytes &#x3D; (new MyByteSource.BytesHelper()).getBytes(stream);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean isCompatible(Object o) &#123;</span><br><span class="line">        return o instanceof byte[] || o instanceof char[] || o instanceof String || o instanceof ByteSource || o instanceof File || o instanceof InputStream;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public byte[] getBytes() &#123;</span><br><span class="line">        return this.bytes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean isEmpty() &#123;</span><br><span class="line">        return this.bytes &#x3D;&#x3D; null || this.bytes.length &#x3D;&#x3D; 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String toHex() &#123;</span><br><span class="line">        if (this.cachedHex &#x3D;&#x3D; null) &#123;</span><br><span class="line">            this.cachedHex &#x3D; Hex.encodeToString(this.getBytes());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return this.cachedHex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String toBase64() &#123;</span><br><span class="line">        if (this.cachedBase64 &#x3D;&#x3D; null) &#123;</span><br><span class="line">            this.cachedBase64 &#x3D; Base64.encodeToString(this.getBytes());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return this.cachedBase64;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return this.toBase64();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int hashCode() &#123;</span><br><span class="line">        return this.bytes !&#x3D; null &amp;&amp; this.bytes.length !&#x3D; 0 ? Arrays.hashCode(this.bytes) : 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean equals(Object o) &#123;</span><br><span class="line">        if (o &#x3D;&#x3D; this) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else if (o instanceof ByteSource) &#123;</span><br><span class="line">            ByteSource bs &#x3D; (ByteSource)o;</span><br><span class="line">            return Arrays.equals(this.getBytes(), bs.getBytes());</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static final class BytesHelper extends CodecSupport &#123;</span><br><span class="line">        private BytesHelper() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public byte[] getBytes(File file) &#123;</span><br><span class="line">            return this.toBytes(file);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public byte[] getBytes(InputStream stream) &#123;</span><br><span class="line">            return this.toBytes(stream);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="序列化操作需要使用Serializable接口"><a href="#序列化操作需要使用Serializable接口" class="headerlink" title="序列化操作需要使用Serializable接口"></a>序列化操作需要使用Serializable接口</h2><p>所以实体类都需要加上一个Serializable接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class User implements Serializable</span><br><span class="line">&#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String username;</span><br><span class="line">    private String password;</span><br><span class="line">    private String salt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义shiro缓存管理器"><a href="#自定义shiro缓存管理器" class="headerlink" title="自定义shiro缓存管理器"></a>自定义shiro缓存管理器</h2><p>也就是RedisCacheManager里自定义的shiro缓存管理器<br>如果用shiro自带的就不用设置这个了。<br>可以直接pom.xml导入EhCacheManager依赖</p>
+<p><code>customerRealm.setCacheManager(new EhCacheManager());</code></p>
+<p>这是shiro自带的缓存管理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;自定义shiro缓存管理器</span><br><span class="line">@Component</span><br><span class="line">public class RedisCacheManager implements CacheManager</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;参数1:认证或者是授权缓存的统一名称</span><br><span class="line">    @Override</span><br><span class="line">    public &lt;K, V&gt; Cache&lt;K, V&gt; getCache(String cacheName) throws CacheException</span><br><span class="line">    &#123;</span><br><span class="line">        return new RedisCache&lt;K,V&gt;(cacheName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="RedisCache自定义redis缓存的实现"><a href="#RedisCache自定义redis缓存的实现" class="headerlink" title="RedisCache自定义redis缓存的实现"></a>RedisCache自定义redis缓存的实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class RedisCache&lt;k,v&gt; implements Cache&lt;k,v&gt;</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    private String cacheName;</span><br><span class="line"></span><br><span class="line">    public RedisCache() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public RedisCache(String cacheName) &#123;</span><br><span class="line">        this.cacheName &#x3D; cacheName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public v get(k k) throws CacheException</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;get key: &quot; + k);</span><br><span class="line">        return (v) getRedisTemplate().opsForHash().get(this.cacheName,k.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public v put(k k, v v) throws CacheException</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(&quot;put key: &quot; + k);</span><br><span class="line">        System.out.println(&quot;put value: &quot; + v);</span><br><span class="line">        getRedisTemplate().opsForHash().put(this.cacheName,k.toString(),v);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public v remove(k k) throws CacheException</span><br><span class="line">    &#123;</span><br><span class="line">        return (v) getRedisTemplate().opsForHash().delete(this.cacheName,k.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void clear() throws CacheException</span><br><span class="line">    &#123;</span><br><span class="line">        getRedisTemplate().delete(this.cacheName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int size()</span><br><span class="line">    &#123;</span><br><span class="line">        return getRedisTemplate().opsForHash().size(this.cacheName).intValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Set&lt;k&gt; keys()</span><br><span class="line">    &#123;</span><br><span class="line">        return getRedisTemplate().opsForHash().keys(this.cacheName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Collection&lt;v&gt; values()</span><br><span class="line">    &#123;</span><br><span class="line">        return getRedisTemplate().opsForHash().values(this.cacheName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;加入bean的一个方法 </span><br><span class="line">    public RedisTemplate getRedisTemplate()&#123;</span><br><span class="line">        &#x2F;&#x2F;加入bean的一个方法 </span><br><span class="line">        RedisTemplate redisTemplate &#x3D; (RedisTemplate)ApplicationContextUtils.getBean(&quot;redisTemplate&quot;);</span><br><span class="line">        redisTemplate.setKeySerializer(new StringRedisSerializer());</span><br><span class="line">        redisTemplate.setHashKeySerializer(new StringRedisSerializer());</span><br><span class="line">        return redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure>
+<h2 id="ApplicationContextUtils"><a href="#ApplicationContextUtils" class="headerlink" title="ApplicationContextUtils"></a>ApplicationContextUtils</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ApplicationContextUtils implements ApplicationContextAware</span><br><span class="line">&#123;</span><br><span class="line">    private static ApplicationContext context;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException</span><br><span class="line">    &#123;</span><br><span class="line">        this.context &#x3D; applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;根据bean名字获取工厂指定的bean</span><br><span class="line">    public static Object getBean(String beanName)</span><br><span class="line">    &#123;</span><br><span class="line">        return context.getBean(beanName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果redis在配置一个json格式序列化，会导致redis里数据没清楚，在登录会保存，显示什么为empty。这个错误不懂怎么解决、</p>
+<p>还有redis用远程，时不时就会弹出个错误，远程主机强迫关闭了一个现有连接。百度解决未果。</p>
+<blockquote>
+<p>如可解决以上问题，或有问题。可发邮箱：<a href="mailto:godlike_su@163.com">godlike_su@163.com</a></p>
+<p>感激不尽</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shiro</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/27/springboot%E6%95%B4%E5%90%88shiro/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-git中关于分支操作的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -830,165 +1024,9 @@
 
 
   
-    <article id="post-Linux环境变量设置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/">Linux环境变量设置</a>
-    </h1>
-  
-
-			<!--  显示阅读次数 -->
-				
-        
-        <a href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:38:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>环境变量，就是放在当前环境中的变量<br>Windows下右键我的电脑，点击属性，就会出个框框，那里有个环境变量的按钮。<br>那么liunx怎么配置呢？</p>
-        
-          <a class="article-more-a" href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux脚本的写法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/">Linux脚本的写法</a>
-    </h1>
-  
-
-			<!--  显示阅读次数 -->
-				
-        
-        <a href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:28:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Linux的简单脚本编写"><a href="#Linux的简单脚本编写" class="headerlink" title="Linux的简单脚本编写"></a>Linux的简单脚本编写</h1><h2 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h2><p>开头，不要加多余的空格<br><code>#!/bin/sh</code></p>
-        
-          <a class="article-more-a" href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1094,15 +1132,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1130,15 +1168,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1147,6 +1181,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shiro</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
