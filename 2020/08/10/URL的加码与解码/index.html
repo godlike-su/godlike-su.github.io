@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HashMap的简单实现方式 | SuJinWang的博客</title>
+  <title>URL的加码与解码 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HashMap的简单实现方式HashMap通过key值，创建一个数组，将value值放入。为了避免冲突，每个数组都是一个有头链表。查询数组的时候只需根据key值计算得到数组下标，在从数组链表里进行遍历。例子如下：">
+  <meta name="description" content="关于URL的加码与解码也就是网址的中文会变成百分号形式！ 比如： 哈哈    ——&gt;   会转变为：%E5%93%88%E5%93%88 下面就是解决方法!">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap的简单实现方式">
-<meta property="og:url" content="http://yoursite.com/2020/03/06/HashMap%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:title" content="URL的加码与解码">
+<meta property="og:url" content="http://yoursite.com/2020/08/10/URL%E7%9A%84%E5%8A%A0%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="HashMap的简单实现方式HashMap通过key值，创建一个数组，将value值放入。为了避免冲突，每个数组都是一个有头链表。查询数组的时候只需根据key值计算得到数组下标，在从数组链表里进行遍历。例子如下：">
+<meta property="og:description" content="关于URL的加码与解码也就是网址的中文会变成百分号形式！ 比如： 哈哈    ——&gt;   会转变为：%E5%93%88%E5%93%88 下面就是解决方法!">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-06T05:04:07.000Z">
-<meta property="article:modified_time" content="2020-04-16T03:50:06.275Z">
+<meta property="article:published_time" content="2020-08-10T15:21:42.000Z">
+<meta property="article:modified_time" content="2020-08-10T15:29:00.866Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="算法">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
@@ -180,14 +179,14 @@
           <div id="js-content" class="content-ll">
             
 
-<article id="post-HashMap的简单实现方式" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-URL的加码与解码" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      HashMap的简单实现方式
+      URL的加码与解码
     </h1>
   
 
@@ -202,21 +201,24 @@
 				  </a>
 				  
         
-        <a href="/2020/03/06/HashMap%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-03-06T05:04:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-06</time>
+        <a href="/2020/08/10/URL%E7%9A%84%E5%8A%A0%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2020-08-10T15:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="HashMap的简单实现方式"><a href="#HashMap的简单实现方式" class="headerlink" title="HashMap的简单实现方式"></a>HashMap的简单实现方式</h1><p>HashMap通过key值，创建一个数组，将value值放入。为了避免冲突，每个数组都是一个有头链表。<br>查询数组的时候只需根据key值计算得到数组下标，在从数组链表里进行遍历。例子如下：</p>
+        <h1 id="关于URL的加码与解码"><a href="#关于URL的加码与解码" class="headerlink" title="关于URL的加码与解码"></a>关于URL的加码与解码</h1><p>也就是网址的中文会变成百分号形式！</p>
+<p>比如： 哈哈    ——&gt;   会转变为：%E5%93%88%E5%93%88</p>
+<p>下面就是解决方法!</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> ↓ 数组（链表）</span><br><span class="line">| 1 | -&gt;  value、value</span><br><span class="line">| 2 | -&gt;  value、value</span><br><span class="line">| 3 | -&gt;  value</span><br><span class="line">| 4 | -&gt;  value</span><br></pre></td></tr></table></figure>
-<h2 id="java代码实现"><a href="#java代码实现" class="headerlink" title="java代码实现"></a>java代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">public class AfHashMap</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;创建一个数组</span><br><span class="line">	private Node[] a &#x3D; new Node[10000];</span><br><span class="line">	</span><br><span class="line">	private static class Node</span><br><span class="line">	&#123;</span><br><span class="line">		Object key;</span><br><span class="line">		Object value;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;每个元素放个有头链表</span><br><span class="line">	public AfHashMap()</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i&#x3D;0; i&lt;a.length; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			a[i] &#x3D; new Node();   &#x2F;&#x2F;有头链表</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;哈希函数</span><br><span class="line">	public int key2index(Object key)</span><br><span class="line">	&#123;		</span><br><span class="line">		&#x2F;&#x2F;此时key是个String，表示姓名，用姓名做索引</span><br><span class="line">		String name &#x3D; (String) key;</span><br><span class="line">		char firstname &#x3D; name.charAt(0);</span><br><span class="line">		int index &#x3D; (int)firstname;</span><br><span class="line">		return index%10000;		&#x2F;&#x2F;映射到1-10000区间</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;key值：学号</span><br><span class="line">	public void put(Object key, Object value)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;将key值转为数组下标</span><br><span class="line">		int index &#x3D; key2index(key);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; a[index] 就是目标链表的头节点</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;创建一个新的节点</span><br><span class="line">		Node node &#x3D; new Node();</span><br><span class="line">		node.value &#x3D; value;</span><br><span class="line">		node.key &#x3D; key;</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 将节点挂在链表上 </span><br><span class="line">		&#x2F;&#x2F; TODO: 此处最好检查一个是否重复 ，如果已经存在则覆盖之</span><br><span class="line">		Node found &#x3D; a[index].next;</span><br><span class="line">		while(found !&#x3D; null)</span><br><span class="line">		&#123;</span><br><span class="line">			if(found.key.equals(key))</span><br><span class="line">			&#123;</span><br><span class="line">				found.value &#x3D; value;</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">				found &#x3D; found.next;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		node.next &#x3D; a[index].next;</span><br><span class="line">		a[index].next &#x3D; node;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Object get(Object key)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F;将key值转为数组下标</span><br><span class="line">		int index &#x3D; key2index(key);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;找到相对应链表，遍历查找</span><br><span class="line">		Node node &#x3D; a[index].next;</span><br><span class="line">		while(node !&#x3D; null)</span><br><span class="line">		&#123;</span><br><span class="line">			if(node.key.equals(key))</span><br><span class="line">			&#123;</span><br><span class="line">				return node.value;</span><br><span class="line">			&#125;</span><br><span class="line">			node &#x3D; node.next;</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F; 删除一项</span><br><span class="line">	public void remove(Object key)</span><br><span class="line">	&#123;</span><br><span class="line">		&#x2F;&#x2F; TODO: 新自行完成删除的算法</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 先找到对应的链表，再从链表中移除 ( 注意这里面是有头链表）</span><br><span class="line">		int index &#x3D; key2index(key);</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;找到相对应链表，遍历查找</span><br><span class="line">		Node node &#x3D; a[index];</span><br><span class="line">		while(node.next !&#x3D; null)</span><br><span class="line">		&#123;</span><br><span class="line">			if(node.next.key.equals(key))</span><br><span class="line">			&#123;</span><br><span class="line">				node.next &#x3D; node.next.next;</span><br><span class="line">                return;</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">				node &#x3D; node.next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="首先是解码的方法"><a href="#首先是解码的方法" class="headerlink" title="首先是解码的方法"></a>首先是解码的方法</h2><p>我默认用的是UTF-8解码，这个随意，如果是GTK的改下就号了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;&#x2F; url解码</span><br><span class="line">public static String URLDecoderString(String str)</span><br><span class="line">&#123;</span><br><span class="line">	String result &#x3D; &quot;&quot;;</span><br><span class="line">	if (null &#x3D;&#x3D; str)</span><br><span class="line">	&#123;</span><br><span class="line">		return &quot;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	try</span><br><span class="line">	&#123;</span><br><span class="line">		result &#x3D; URLDecoder.decode(str, &quot;UTF-8&quot;);</span><br><span class="line">	&#125; catch (UnsupportedEncodingException e)</span><br><span class="line">	&#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加码方法"><a href="#加码方法" class="headerlink" title="加码方法"></a>加码方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;&#x2F; url加码</span><br><span class="line">public static String getURLEncoderString(String str)</span><br><span class="line">&#123;</span><br><span class="line">	String result &#x3D; &quot;&quot;;</span><br><span class="line">	if (null &#x3D;&#x3D; str)</span><br><span class="line">	&#123;</span><br><span class="line">		return &quot;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	try</span><br><span class="line">	&#123;</span><br><span class="line">		result &#x3D; URLEncoder.encode(str, &quot;UTF-8&quot;);</span><br><span class="line">	&#125; catch (UnsupportedEncodingException e)</span><br><span class="line">	&#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考<br><strong>版权声明：</strong> 转载请注明出处！</p>
+<p> 写文作者：godlike-su  </p>
 </blockquote>
 
       
@@ -261,10 +263,6 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
@@ -322,7 +320,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/03/06/HashMap%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/08/10/URL%E7%9A%84%E5%8A%A0%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -336,18 +334,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/06/%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          反射技术的基本使用方式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/03/06/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">二分查找法</div>
+    <a href="/2020/06/27/shiro%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shiro标签的使用</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -374,7 +363,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HashMap的简单实现方式"><span class="toc-number">1.</span> <span class="toc-text">HashMap的简单实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码实现"><span class="toc-number">1.1.</span> <span class="toc-text">java代码实现</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于URL的加码与解码"><span class="toc-number">1.</span> <span class="toc-text">关于URL的加码与解码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#首先是解码的方法"><span class="toc-number">1.1.</span> <span class="toc-text">首先是解码的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加码方法"><span class="toc-number">1.2.</span> <span class="toc-text">加码方法</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
