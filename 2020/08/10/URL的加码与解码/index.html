@@ -16,7 +16,7 @@
 <meta property="og:description" content="关于URL的加码与解码也就是网址的中文会变成百分号形式！ 比如： 哈哈    ——&gt;   会转变为：%E5%93%88%E5%93%88 下面就是解决方法!">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-10T15:21:42.000Z">
-<meta property="article:modified_time" content="2020-08-10T15:29:00.866Z">
+<meta property="article:modified_time" content="2020-08-10T15:35:38.872Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -214,8 +214,8 @@
 <p>下面就是解决方法!</p>
 <a id="more"></a>
 <h2 id="首先是解码的方法"><a href="#首先是解码的方法" class="headerlink" title="首先是解码的方法"></a>首先是解码的方法</h2><p>我默认用的是UTF-8解码，这个随意，如果是GTK的改下就号了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;&#x2F; url解码</span><br><span class="line">public static String URLDecoderString(String str)</span><br><span class="line">&#123;</span><br><span class="line">	String result &#x3D; &quot;&quot;;</span><br><span class="line">	if (null &#x3D;&#x3D; str)</span><br><span class="line">	&#123;</span><br><span class="line">		return &quot;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	try</span><br><span class="line">	&#123;</span><br><span class="line">		result &#x3D; URLDecoder.decode(str, &quot;UTF-8&quot;);</span><br><span class="line">	&#125; catch (UnsupportedEncodingException e)</span><br><span class="line">	&#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="加码方法"><a href="#加码方法" class="headerlink" title="加码方法"></a>加码方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;&#x2F; url加码</span><br><span class="line">public static String getURLEncoderString(String str)</span><br><span class="line">&#123;</span><br><span class="line">	String result &#x3D; &quot;&quot;;</span><br><span class="line">	if (null &#x3D;&#x3D; str)</span><br><span class="line">	&#123;</span><br><span class="line">		return &quot;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	try</span><br><span class="line">	&#123;</span><br><span class="line">		result &#x3D; URLEncoder.encode(str, &quot;UTF-8&quot;);</span><br><span class="line">	&#125; catch (UnsupportedEncodingException e)</span><br><span class="line">	&#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; url解码</span><br><span class="line">	public static String URLDecoderString(String str)</span><br><span class="line">	&#123;</span><br><span class="line">		String result &#x3D; &quot;&quot;;</span><br><span class="line">		if (null &#x3D;&#x3D; str)</span><br><span class="line">		&#123;</span><br><span class="line">			return &quot;&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		try</span><br><span class="line">		&#123;</span><br><span class="line">			result &#x3D; URLDecoder.decode(str, &quot;UTF-8&quot;);</span><br><span class="line">		&#125; catch (UnsupportedEncodingException e)</span><br><span class="line">		&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加码方法"><a href="#加码方法" class="headerlink" title="加码方法"></a>加码方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; url加码</span><br><span class="line">	public static String getURLEncoderString(String str)</span><br><span class="line">	&#123;</span><br><span class="line">		String result &#x3D; &quot;&quot;;</span><br><span class="line">		if (null &#x3D;&#x3D; str)</span><br><span class="line">		&#123;</span><br><span class="line">			return &quot;&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		try</span><br><span class="line">		&#123;</span><br><span class="line">			result &#x3D; URLEncoder.encode(str, &quot;UTF-8&quot;);</span><br><span class="line">		&#125; catch (UnsupportedEncodingException e)</span><br><span class="line">		&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p> 写文作者：godlike-su  </p>
@@ -486,15 +486,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,11 +522,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
