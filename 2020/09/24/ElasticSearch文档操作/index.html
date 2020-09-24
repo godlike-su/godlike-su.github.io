@@ -8,17 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>ElasticSearch文档操作 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ElasticSearch文档操作1、添加文档123456789#添加文档，自动生成idPOST &#x2F;book&#x2F;novel&amp;#123;  &quot;name&quot;: &quot;盘龙&quot;,  &quot;author&quot;: &quot;我吃西红柿&quot;,  &quot;count&quot;: 100000,  &quot;on-sale&quot;">
+  <meta name="description" content="ElasticSearch文档操作1、添加文档">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch文档操作">
 <meta property="og:url" content="http://yoursite.com/2020/09/24/ElasticSearch%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="ElasticSearch文档操作1、添加文档123456789#添加文档，自动生成idPOST &#x2F;book&#x2F;novel&amp;#123;  &quot;name&quot;: &quot;盘龙&quot;,  &quot;author&quot;: &quot;我吃西红柿&quot;,  &quot;count&quot;: 100000,  &quot;on-sale&quot;">
+<meta property="og:description" content="ElasticSearch文档操作1、添加文档">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-23T16:12:27.000Z">
-<meta property="article:modified_time" content="2020-09-23T16:12:48.057Z">
+<meta property="article:modified_time" content="2020-09-24T07:54:26.473Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="linux">
+<meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -209,8 +210,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="ElasticSearch文档操作"><a href="#ElasticSearch文档操作" class="headerlink" title="ElasticSearch文档操作"></a>ElasticSearch文档操作</h1><h2 id="1、添加文档"><a href="#1、添加文档" class="headerlink" title="1、添加文档"></a>1、添加文档</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#添加文档，自动生成id</span><br><span class="line">POST &#x2F;book&#x2F;novel</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;盘龙&quot;,</span><br><span class="line">  &quot;author&quot;: &quot;我吃西红柿&quot;,</span><br><span class="line">  &quot;count&quot;: 100000,</span><br><span class="line">  &quot;on-sale&quot;: &quot;2000-01-01&quot;,</span><br><span class="line">  &quot;descr&quot;: &quot;嘻嘻哈哈哈哈打开了哈格里三爷看吧&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="ElasticSearch文档操作"><a href="#ElasticSearch文档操作" class="headerlink" title="ElasticSearch文档操作"></a>ElasticSearch文档操作</h1><h2 id="1、添加文档"><a href="#1、添加文档" class="headerlink" title="1、添加文档"></a>1、添加文档</h2><a id="more"></a>
 
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#添加文档，自动生成id</span><br><span class="line">POST /book/novel</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"盘龙"</span>,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"我吃西红柿"</span>,</span><br><span class="line">  <span class="attr">"count"</span>: <span class="number">100000</span>,</span><br><span class="line">  <span class="attr">"on-sale"</span>: <span class="string">"2000-01-01"</span>,</span><br><span class="line">  <span class="attr">"descr"</span>: <span class="string">"嘻嘻哈哈哈哈打开了哈格里三爷看吧"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#添加文档，手动指定id</span><br><span class="line">PUT /book/novel/1</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"红楼梦"</span>,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"曹雪芹"</span>,</span><br><span class="line">  <span class="attr">"count"</span>: <span class="number">100000</span>,</span><br><span class="line">  <span class="attr">"on-sale"</span>: <span class="string">"1985-01-01"</span>,</span><br><span class="line">  <span class="attr">"descr"</span>: <span class="string">"嘎斯大噶喂养啊"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、修改文档"><a href="#2、修改文档" class="headerlink" title="2、修改文档"></a>2、修改文档</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#覆盖式修改</span><br><span class="line">PUT /book/novel/1</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"红楼梦"</span>,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"曹雪芹"</span>,</span><br><span class="line">  <span class="attr">"count"</span>: <span class="number">100000</span>,</span><br><span class="line">  <span class="attr">"on-sale"</span>: <span class="string">"1985-01-01"</span>,</span><br><span class="line">  <span class="attr">"descr"</span>: <span class="string">"thjwergsfgiug回国继位埃及人突破i啊u刚刚那肯定是了"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#修改文档，基于doc方式</span><br><span class="line">POST /book/novel/1/_update</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"doc"</span>: &#123;</span><br><span class="line">      #想修改哪项就写哪项</span><br><span class="line">    "count": 123456</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、删除文档"><a href="#3、删除文档" class="headerlink" title="3、删除文档"></a>3、删除文档</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#根据id删除文档</span><br><span class="line">DELETE &#x2F;book&#x2F;novel&#x2F;id</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 
       
 
@@ -256,6 +270,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ElasticSearch</a>
         		</li>
       		
 		</ul>
@@ -325,6 +343,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/09/24/java%E6%93%8D%E4%BD%9CElasticSearch/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          java操作ElasticSearch
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/09/24/ElasticSearch%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E6%93%8D%E4%BD%9C1/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">ElasticSearch的安装和操作1</div>
@@ -354,7 +381,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch文档操作"><span class="toc-number">1.</span> <span class="toc-text">ElasticSearch文档操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、添加文档"><span class="toc-number">1.1.</span> <span class="toc-text">1、添加文档</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch文档操作"><span class="toc-number">1.</span> <span class="toc-text">ElasticSearch文档操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、添加文档"><span class="toc-number">1.1.</span> <span class="toc-text">1、添加文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、修改文档"><span class="toc-number">1.2.</span> <span class="toc-text">2、修改文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、删除文档"><span class="toc-number">1.3.</span> <span class="toc-text">3、删除文档</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -477,11 +504,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,11 +536,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,15 +556,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日常</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
