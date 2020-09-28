@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/4 | SuJinWang的博客</title>
+  <title>ElasticSearch的其它查询2 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2020/04/index.html">
+  <meta name="description" content="ElasticSearch的其它查询2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch的其它查询2">
+<meta property="og:url" content="http://yoursite.com/2020/09/27/ElasticSearch%E7%9A%84%E5%85%B6%E5%AE%83%E6%9F%A5%E8%AF%A22/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="ElasticSearch的其它查询2">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-27T13:37:21.000Z">
+<meta property="article:modified_time" content="2020-09-28T09:17:47.537Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -173,428 +179,245 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-ElasticSearch的其它查询2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ElasticSearch的其它查询2
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/09/27/ElasticSearch%E7%9A%84%E5%85%B6%E5%AE%83%E6%9F%A5%E8%AF%A22/" class="archive-article-date">
+  	<time datetime="2020-09-27T13:37:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-27</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ElasticSearch的其它查询2"><a href="#ElasticSearch的其它查询2" class="headerlink" title="ElasticSearch的其它查询2"></a>ElasticSearch的其它查询2</h1><a id="more"></a>
+
+<h2 id="1、range查询"><a href="#1、range查询" class="headerlink" title="1、range查询"></a>1、range查询</h2><blockquote>
+<p>范围查询，针对数值类型</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#range查询</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"range"</span>: &#123;</span><br><span class="line">      <span class="attr">"fee"</span>: &#123;</span><br><span class="line">      # gt: &gt;, gte: &gt;=</span><br><span class="line">        "gte": 5,</span><br><span class="line">        # lt: &lt;, lte: &lt;=</span><br><span class="line">        "lte": 20</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//    range查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByrange</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GetRequest</span></span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line">        <span class="comment">//        2、执行查询</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        builder.query(QueryBuilders.rangeQuery(<span class="string">"fee"</span>).lt(<span class="number">10</span>).gt(<span class="number">5</span>));</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        request.source(builder);</span><br><span class="line">        <span class="comment">//执行</span></span><br><span class="line">        SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、regexp查询"><a href="#2、regexp查询" class="headerlink" title="2、regexp查询"></a>2、regexp查询</h2><blockquote>
+<p>正则查询，通过编写正则表达式去匹配内容</p>
+<p><a href="">Ps: </a></p>
+<p><a href="">prefix, wildcard, fuzzy和regexp查询效率相对比较低，要求效率高是，避免去使用</a></p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># regexp查询</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"regexp"</span>: &#123;</span><br><span class="line">      <span class="attr">"mobile"</span>: <span class="string">"180[0-9]&#123;8&#125;"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//regexp查询</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByregexp</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// GetRequest</span></span><br><span class="line">    SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">    request.types(type);</span><br><span class="line">    <span class="comment">//        2、执行查询</span></span><br><span class="line">    SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">    <span class="comment">//-----------------------------------</span></span><br><span class="line">    builder.query(QueryBuilders.regexpQuery(<span class="string">"mobile"</span>, <span class="string">"139[0-9]&#123;8&#125;"</span>));</span><br><span class="line">    <span class="comment">//-----------------------------------</span></span><br><span class="line">    request.source(builder);</span><br><span class="line">    <span class="comment">//执行</span></span><br><span class="line">    SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出</span></span><br><span class="line">    <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(hit.getSourceAsMap());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、深分页Scroll"><a href="#3、深分页Scroll" class="headerlink" title="3、深分页Scroll"></a>3、深分页Scroll</h2><blockquote>
+<p>ES对from + size是有限制的，from 和size二者之和不能超过1W</p>
+<p>原来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from+size在ES查询数据的方式: </span><br><span class="line">  第一步现将用户指定的关键进行分词。</span><br><span class="line">  第二步将词汇去分词库中进行检索，得到多个文档的id。</span><br><span class="line">  第三步去各个分片中去拉取指定的数据。耗时较长。</span><br><span class="line">  第四步将数据根据score进行排序。耗时较长。</span><br><span class="line">  第五步根据from的值，将查询到的数据舍弃一部分 。</span><br><span class="line">  第六步返回结果。</span><br><span class="line"></span><br><span class="line">scroll+size在ES查询数据的方式:</span><br><span class="line">  第一步现将用户指定的关键进行分词。</span><br><span class="line">  第二步将词汇去分词库中进行检索，得到多个文档的id。</span><br><span class="line">  第三步将文档的id存放在一个ES的上 下文中。</span><br><span class="line">  第四步根据你指定的size的个数去ES中检索指定个数的数据，拿完数据的文档id,会从上下文中移除。</span><br><span class="line">  第五步如果需要下一页数据，直接去ES的上下文中，找后续内容。</span><br><span class="line">  第六步循环第四步和第五步</span><br><span class="line"> </span><br><span class="line">Scroll查询方式，不适合实时查询</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#执行scroll查询，返回第一页数据， 并且将文档id信息存放在ES上下文中，指定生存时间1m</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search?scroll=1m</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"match_all"</span>: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"size"</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">"sort"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"fee"</span>: &#123;</span><br><span class="line">        <span class="attr">"order"</span>: <span class="string">"desc"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 根据scroller查询下页数据</span><br><span class="line"># 根据上一步的 _scroll_id 检索出来</span><br><span class="line">POST /_search/scroll</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scroll_id"</span> : <span class="string">"DnF1ZXJ5VGhlbkZldGNoAwAAAAAAAAyTFnB2eUhpd0RUU05HSm9UZ2JkY0VwSncAAAAAAAAMlBZwdnlIaXdEVFNOR0pvVGdiZGNFcEp3AAAAAAAADJUWcHZ5SGl3RFRTTkdKb1RnYmRjRXBKdw=="</span>,</span><br><span class="line">  <span class="attr">"scroll"</span>: <span class="string">"1m"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 删除 scroller在Es上下文的数据</span><br><span class="line">DELETE /_search/scroll/DnF1ZXJ5VGhlbkZldGNoAwAAAAAAAAyTFnB2eUhpd0RUU05HSm9UZ2JkY0VwSncAAAAAAAAMlBZwdnlIaXdEVFNOR0pvVGdiZGNFcEp3AAAAAAAADJUWcHZ5SGl3RFRTTkdKb1RnYmRjRXBKdw==</span><br><span class="line"></span><br><span class="line"># 删除 scroller在Es上下文的数据</span><br><span class="line">DELETE /_search/scroll/scroll_id</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollQuery</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//1. 创建SearchRequest</span></span><br><span class="line">    SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">    request.types(type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2. 指定scroll信息</span></span><br><span class="line">    request.scroll(TimeValue.timeValueMinutes(<span class="number">1L</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3. 指定查询条件</span></span><br><span class="line">    SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">    builder.size(<span class="number">4</span>);</span><br><span class="line">    builder.sort(<span class="string">"fee"</span>, SortOrder.DESC);</span><br><span class="line">    builder.query(QueryBuilders.matchAllQuery());</span><br><span class="line"></span><br><span class="line">    request.source(builder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4. 获取返回结果scrollId，source</span></span><br><span class="line">    SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">    String scrollId = resp.getScrollId();</span><br><span class="line">    System.out.println(<span class="string">"----------首页---------"</span>);</span><br><span class="line">    <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(hit.getSourceAsMap());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//5. 循环 - 创建SearchScrollRequest</span></span><br><span class="line">        SearchScrollRequest scrollRequest = <span class="keyword">new</span> SearchScrollRequest(scrollId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//6. 指定scrollId的生存时间</span></span><br><span class="line">        scrollRequest.scroll(TimeValue.timeValueMinutes(<span class="number">1L</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//7. 执行查询获取返回结果</span></span><br><span class="line">        SearchResponse scrollResp = client.scroll(scrollRequest, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//8. 判断是否查询到了数据，输出</span></span><br><span class="line">        SearchHit[] hits = scrollResp.getHits().getHits();</span><br><span class="line">        <span class="keyword">if</span> (hits != <span class="keyword">null</span> &amp;&amp; hits.length &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">"----------下一页---------"</span>);</span><br><span class="line">            <span class="keyword">for</span> (SearchHit hit : hits)</span><br><span class="line">            &#123;</span><br><span class="line">                System.out.println(hit.getSourceAsMap());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//9. 判断没有查询到数据-退出循环</span></span><br><span class="line">            System.out.println(<span class="string">"----------结束---------"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2020-04-30T08:41:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/">Linux4安装java环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ElasticSearch</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/09/27/ElasticSearch%E7%9A%84%E5%85%B6%E5%AE%83%E6%9F%A5%E8%AF%A22/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:38:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/09/28/delete-by-query%E5%88%A0%E9%99%A4%E6%96%B9%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          delete-by-query删除方式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/27/multi-match%E6%9F%A5%E8%AF%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">multi_match查询</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/">Linux环境变量设置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch的其它查询2"><span class="toc-number">1.</span> <span class="toc-text">ElasticSearch的其它查询2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、range查询"><span class="toc-number">1.1.</span> <span class="toc-text">1、range查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、regexp查询"><span class="toc-number">1.2.</span> <span class="toc-text">2、regexp查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、深分页Scroll"><span class="toc-number">1.3.</span> <span class="toc-text">3、深分页Scroll</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:28:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/">Linux脚本的写法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:23:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4/">Linux的一些命令</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8git%E4%BF%AE%E6%94%B9github%E4%B8%8A%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%A6%86%E7%9B%96github%E4%B8%8A%E7%9A%84%E9%A1%B9%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2020-04-17T03:37:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8git%E4%BF%AE%E6%94%B9github%E4%B8%8A%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%A6%86%E7%9B%96github%E4%B8%8A%E7%9A%84%E9%A1%B9%E7%9B%AE/">如何使用git修改github上的代码，直接覆盖github上的项目</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/SpringBoot%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%EF%BC%8Ccontext-path/" class="archive-article-date">
-  	<time datetime="2020-04-16T17:17:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/SpringBoot%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%EF%BC%8Ccontext-path/">SpringBoot中如何修改配置端口，context-path</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-16T06:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/">IDEA中设置maven的setting.xml地址与repository地址</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/eclipse%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-16T06:46:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/eclipse%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/">eclipse设置maven的setting.xml地址与repository地址</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/%E5%A6%82%E4%BD%95%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E5%88%B0Github/" class="archive-article-date">
-  	<time datetime="2020-04-15T16:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/%E5%A6%82%E4%BD%95%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E5%88%B0Github/">如何上传代码到Github</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/">maven设置本地jar依赖并打包</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/04/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/04/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -627,8 +450,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

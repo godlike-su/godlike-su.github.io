@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/4 | SuJinWang的博客</title>
+  <title>multi_match查询 | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2020/04/index.html">
+  <meta name="description" content="ElasticSearch的multi_match查询与其它查询1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="multi_match查询">
+<meta property="og:url" content="http://yoursite.com/2020/09/27/multi-match%E6%9F%A5%E8%AF%A2/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="ElasticSearch的multi_match查询与其它查询1">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-27T13:01:59.000Z">
+<meta property="article:modified_time" content="2020-09-27T13:39:57.680Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -173,428 +179,259 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-multi-match查询" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      multi_match查询
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/09/27/multi-match%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
+  	<time datetime="2020-09-27T13:01:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-27</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ElasticSearch的multi-match查询与其它查询1"><a href="#ElasticSearch的multi-match查询与其它查询1" class="headerlink" title="ElasticSearch的multi_match查询与其它查询1"></a>ElasticSearch的multi_match查询与其它查询1</h1><a id="more"></a>
+
+<h2 id="1、multi-match查询"><a href="#1、multi-match查询" class="headerlink" title="1、multi_match查询"></a>1、multi_match查询</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># multi_match 查询</span><br><span class="line"># 查询全部内容，不指定任何查询条件。</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"multi_match"</span>: &#123;</span><br><span class="line">      "query": "北京",	#指定text</span><br><span class="line">      "fields": ["province", "smsContent"]  #指定filed门</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//multi_match查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">multiMatchQuery</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//指定查询条件</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        <span class="comment">//-----------------------------------------</span></span><br><span class="line">        builder.query(QueryBuilders.multiMatchQuery(<span class="string">"北京"</span>,<span class="string">"province"</span>,<span class="string">"smsContent"</span>));</span><br><span class="line">        <span class="comment">//-----------------------------------------</span></span><br><span class="line">        request.source(builder);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行查询</span></span><br><span class="line">        SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(resp.getHits().getHits().length);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、id查询"><a href="#2、id查询" class="headerlink" title="2、id查询"></a>2、id查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;sms-logs-index&#x2F;sms-logs-type&#x2F;1</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//id查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findById</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GetRequest</span></span><br><span class="line">        GetRequest request = <span class="keyword">new</span> GetRequest(index, type, <span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        2、执行查询</span></span><br><span class="line">        GetResponse resp = client.get(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出接过</span></span><br><span class="line">        resp.getSourceAsMap();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、ids查询"><a href="#3、ids查询" class="headerlink" title="3、ids查询"></a>3、ids查询</h2><blockquote>
+<p>根据多个id查询，像Sql的Where</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"ids"</span>: &#123;</span><br><span class="line">      <span class="attr">"values"</span>: [<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ids查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByIds</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GetRequest</span></span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        2、执行查询</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        builder.query(QueryBuilders.idsQuery().addIds(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>));</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        request.source(builder);</span><br><span class="line">        <span class="comment">//执行</span></span><br><span class="line">        SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、prefix查询"><a href="#4、prefix查询" class="headerlink" title="4、prefix查询"></a>4、prefix查询</h2><blockquote>
+<p>前缀查询，根据前缀去查询</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># prefix查询</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"prefix"</span>: &#123;</span><br><span class="line">      <span class="attr">"corpName"</span>: &#123;</span><br><span class="line">        <span class="attr">"value"</span>: <span class="string">"途虎"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// prefix查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByprefix</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GetRequest</span></span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        2、执行查询</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        builder.query(QueryBuilders.prefixQuery(<span class="string">"corpName"</span>, <span class="string">"途虎"</span>));</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        request.source(builder);</span><br><span class="line">        <span class="comment">//执行</span></span><br><span class="line">        SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、fuzzy查询"><a href="#5、fuzzy查询" class="headerlink" title="5、fuzzy查询"></a>5、fuzzy查询</h2><blockquote>
+<p>模糊查询，输入字符的大概，ES就可以根据输入的内容大概去匹配一下结果</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># fuzzy查询</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"fuzzy"</span>: &#123;</span><br><span class="line">      <span class="attr">"corpName"</span>: &#123;</span><br><span class="line">        <span class="attr">"value"</span>: <span class="string">"盒马先生"</span>,</span><br><span class="line">          # 设置前3个字符不能错误，才能查询</span><br><span class="line">        "prefix_length": 3</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//fuzzy查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByprefuzzy</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GetRequest</span></span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line"></span><br><span class="line"><span class="comment">//        2、执行查询</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        builder.query(QueryBuilders.fuzzyQuery(<span class="string">"corpName"</span>, <span class="string">"盒马先生"</span>).prefixLength(<span class="number">2</span>));</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        request.source(builder);</span><br><span class="line">        <span class="comment">//执行</span></span><br><span class="line">        SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、wildcard查询"><a href="#6、wildcard查询" class="headerlink" title="6、wildcard查询"></a>6、wildcard查询</h2><blockquote>
+<p>通配查询，和MySQL中的like是一样的，字符串中指定通配符*和占位符？</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># wildcard查询</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"wildcard"</span>: &#123;</span><br><span class="line">      <span class="attr">"corpName"</span>: &#123;</span><br><span class="line">        <span class="attr">"value"</span>: <span class="string">"中国??"</span>   # 可以使用*和?  </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findBywildcard</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GetRequest</span></span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line">    <span class="comment">//        2、执行查询</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        builder.query(QueryBuilders.wildcardQuery(<span class="string">"cropName"</span>,<span class="string">"中国*"</span>));</span><br><span class="line">        <span class="comment">//-----------------------------------</span></span><br><span class="line">        request.source(builder);</span><br><span class="line">        <span class="comment">//执行</span></span><br><span class="line">        SearchResponse resp = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : resp.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2020-04-30T08:41:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/">Linux4安装java环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ElasticSearch</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/09/27/multi-match%E6%9F%A5%E8%AF%A2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:38:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/09/27/ElasticSearch%E7%9A%84%E5%85%B6%E5%AE%83%E6%9F%A5%E8%AF%A22/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ElasticSearch的其它查询2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/26/terms%E6%9F%A5%E8%AF%A2%E4%B8%8Ematch%E6%9F%A5%E8%AF%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">terms查询与match查询</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE/">Linux环境变量设置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ElasticSearch的multi-match查询与其它查询1"><span class="toc-number">1.</span> <span class="toc-text">ElasticSearch的multi_match查询与其它查询1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、multi-match查询"><span class="toc-number">1.1.</span> <span class="toc-text">1、multi_match查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、id查询"><span class="toc-number">1.2.</span> <span class="toc-text">2、id查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、ids查询"><span class="toc-number">1.3.</span> <span class="toc-text">3、ids查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、prefix查询"><span class="toc-number">1.4.</span> <span class="toc-text">4、prefix查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、fuzzy查询"><span class="toc-number">1.5.</span> <span class="toc-text">5、fuzzy查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、wildcard查询"><span class="toc-number">1.6.</span> <span class="toc-text">6、wildcard查询</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:28:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95/">Linux脚本的写法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-04-30T02:23:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4/">Linux的一些命令</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8git%E4%BF%AE%E6%94%B9github%E4%B8%8A%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%A6%86%E7%9B%96github%E4%B8%8A%E7%9A%84%E9%A1%B9%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2020-04-17T03:37:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8git%E4%BF%AE%E6%94%B9github%E4%B8%8A%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%A6%86%E7%9B%96github%E4%B8%8A%E7%9A%84%E9%A1%B9%E7%9B%AE/">如何使用git修改github上的代码，直接覆盖github上的项目</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/SpringBoot%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%EF%BC%8Ccontext-path/" class="archive-article-date">
-  	<time datetime="2020-04-16T17:17:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/SpringBoot%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%EF%BC%8Ccontext-path/">SpringBoot中如何修改配置端口，context-path</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-16T06:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/">IDEA中设置maven的setting.xml地址与repository地址</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/eclipse%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-16T06:46:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/eclipse%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/">eclipse设置maven的setting.xml地址与repository地址</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/%E5%A6%82%E4%BD%95%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E5%88%B0Github/" class="archive-article-date">
-  	<time datetime="2020-04-15T16:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/%E5%A6%82%E4%BD%95%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E5%88%B0Github/">如何上传代码到Github</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/">maven设置本地jar依赖并打包</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/04/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/04/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -627,8 +464,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
