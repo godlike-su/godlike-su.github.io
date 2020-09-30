@@ -16,10 +16,10 @@
 <meta property="og:description" content="ElasticSearch的filter查询">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-28T13:45:52.000Z">
-<meta property="article:modified_time" content="2020-09-28T13:47:18.876Z">
+<meta property="article:modified_time" content="2020-09-29T13:27:45.530Z">
 <meta property="article:author" content="SuJinWang">
-<meta property="article:tag" content="ElasticSearch">
 <meta property="article:tag" content="Java">
+<meta property="article:tag" content="ElasticSearch">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
@@ -216,6 +216,15 @@
 <p>query,根据你的查询条件，去计算文档的匹配度得到一个分数，并且根据分数进行排序，不会做缓存的。</p>
 <p>filter,根据你的查询条件去查询文档，不去计算分数，而且filter会对经常被过滤的数据进行缓存。</p>
 </blockquote>
+<p>不知道为啥，我实验这个没有成功。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># filter查询</span><br><span class="line">POST /sms-logs-index/sms-logs-type/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"bool"</span>: &#123;</span><br><span class="line">      <span class="attr">"filter"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"term"</span>: &#123;</span><br><span class="line">              <span class="attr">"corpName"</span>: <span class="string">"盒马鲜生"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"range"</span>: &#123;</span><br><span class="line">            <span class="attr">"fee"</span>: &#123;</span><br><span class="line">              <span class="attr">"lte"</span>: <span class="number">4</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>Java代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">filter</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//1、SearchRequest</span></span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(index);</span><br><span class="line">        request.types(type);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、查询条件</span></span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();</span><br><span class="line">        boolQuery.filter(QueryBuilders.termQuery(<span class="string">"corpName"</span>, <span class="string">"盒马鲜生"</span>));</span><br><span class="line">        boolQuery.filter(QueryBuilders.rangeQuery(<span class="string">"fee"</span>).lte(<span class="number">5</span>));</span><br><span class="line"></span><br><span class="line">        builder.query(boolQuery);</span><br><span class="line">        request.source(builder);</span><br><span class="line">        <span class="comment">//3、执行查询</span></span><br><span class="line">        SearchResponse search = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4、输出结果</span></span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : search.getHits().getHits())</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(hit.getSourceAsMap());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 
       
@@ -261,11 +270,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ElasticSearch</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ElasticSearch</a>
         		</li>
       		
 		</ul>
@@ -334,6 +343,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/09/29/ElasticSearch%E7%9A%84%E9%AB%98%E4%BA%AE%E6%9F%A5%E8%AF%A2-%E9%87%8D%E7%82%B9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ElasticSearch的高亮查询[重点]
+        
+      </div>
+    </a>
   
   
     <a href="/2020/09/28/%E5%A4%8D%E5%90%88%E6%9F%A5%E8%AF%A21/" id="article-nav-older" class="article-nav-link-wrap">
@@ -487,6 +505,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
@@ -500,14 +526,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -527,11 +545,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,11 +557,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,11 +573,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">View</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">View</a>
               </li>
              
               <li class="article-tag-list-item">
