@@ -16,7 +16,7 @@
 <meta property="og:description" content="RabbitMQ">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-02T07:08:56.000Z">
-<meta property="article:modified_time" content="2020-10-02T13:21:12.429Z">
+<meta property="article:modified_time" content="2020-10-02T14:54:36.645Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="RabbitMQ">
@@ -313,7 +313,23 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener</span>(queues = <span class="string">"boot-queue"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getMessage</span><span class="params">(Object message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"接到信息： "</span> + message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="5-2-手动Ack"><a href="#5-2-手动Ack" class="headerlink" title="5.2 手动Ack"></a>5.2 手动Ack</h3><h2 id="六、RabbitMQ其它操作"><a href="#六、RabbitMQ其它操作" class="headerlink" title="六、RabbitMQ其它操作"></a>六、RabbitMQ其它操作</h2><p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+<h3 id="5-2-手动Ack"><a href="#5-2-手动Ack" class="headerlink" title="5.2 手动Ack"></a>5.2 手动Ack</h3><blockquote>
+<p>添加配置文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.237</span><span class="number">.129</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">test</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">test</span></span><br><span class="line">    <span class="attr">virtual-host:</span> <span class="string">/test</span></span><br><span class="line">    <span class="attr">listener:</span></span><br><span class="line">      <span class="attr">simple:</span></span><br><span class="line">        <span class="attr">acknowledge-mode:</span> <span class="string">manual</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>手动ack</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener</span>(queues = <span class="string">"boot-queue"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getMessage</span><span class="params">(String msg, Channel channel, Message message)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"接到信息： "</span> + msg);</span><br><span class="line">    <span class="comment">//手动ack</span></span><br><span class="line">    channel.basicAck(message.getMessageProperties().getDeliveryTag(), <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="六、RabbitMQ其它操作"><a href="#六、RabbitMQ其它操作" class="headerlink" title="六、RabbitMQ其它操作"></a>六、RabbitMQ其它操作</h2><p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 
       
 
@@ -584,7 +600,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,27 +632,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
