@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: java | SuJinWang的博客</title>
+  <title>SpringCloud | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SuJinWang的博客">
-<meta property="og:url" content="http://yoursite.com/tags/java/index.html">
+  <meta name="description" content="SpringCloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringCloud">
+<meta property="og:url" content="http://yoursite.com/2020/10/04/SpringCloud/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
+<meta property="og:description" content="SpringCloud">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg">
+<meta property="article:published_time" content="2020-10-04T04:20:51.000Z">
+<meta property="article:modified_time" content="2020-10-04T15:31:20.528Z">
 <meta property="article:author" content="SuJinWang">
+<meta property="article:tag" content="SpringCloud">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg">
   
     <link rel="alternative" href="/atom.xml" title="SuJinWang的博客" type="application/atom+xml">
   
@@ -173,315 +180,370 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+
+<article id="post-SpringCloud" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringCloud
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+				  <br/>
+				  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+				  <span class="icon-sort"></span>
+				  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+							阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+				  </span>
+				  </a>
+				  
+        
+        <a href="/2020/10/04/SpringCloud/" class="archive-article-date">
+  	<time datetime="2020-10-04T04:20:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1><p><img src="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg" alt="SpringCloud"></p>
+<a id="more"></a>
+
+<h2 id="一、SpringCloud介绍"><a href="#一、SpringCloud介绍" class="headerlink" title="一、SpringCloud介绍"></a>一、SpringCloud介绍</h2><h3 id="1-1-微服务架构"><a href="#1-1-微服务架构" class="headerlink" title="1.1 微服务架构"></a>1.1 微服务架构</h3><p><a href="https://baike.baidu.com/item/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/18705784?fr=aladdin" target="_blank" rel="noopener">微服务架构（来自百度百科)</a></p>
+<h3 id="1-2-SpringCloud介绍"><a href="#1-2-SpringCloud介绍" class="headerlink" title="1.2 SpringCloud介绍"></a>1.2 SpringCloud介绍</h3><blockquote>
+<p>●SpringCloud是微服务架构落地的一套技术栈。<br>●SpringCloud中的大多数技术都是基于Netflix公司的技术进行二次研发。<br>●SpringCloud的中文社区 网站: <a href="http://springcloud.cn/" target="_blank" rel="noopener">http://springcloud.cn/</a><br>●SpringCloud的中文网: <a href="http://springcloud.cc/" target="_blank" rel="noopener">http://springcloud.cc/</a><br>●八个技术点:<br>1 Eureka-服务的注册与发现<br>2 Robbin-服务之间的负载均衡<br>3 Feign -服务之间的通讯<br>4 Hystrix -服务的线程隔离以及断路器<br>5 Zuul-服务网关<br>6 Stream -实现MQ的使用<br>7 Config -动态配置<br>8 Sleuth- 服务追踪</p>
+</blockquote>
+<h2 id="二、服务的注册与发现-Eureka"><a href="#二、服务的注册与发现-Eureka" class="headerlink" title="二、服务的注册与发现 Eureka"></a>二、服务的注册与发现 Eureka</h2><h3 id="2-1-引言"><a href="#2-1-引言" class="headerlink" title="2.1 引言"></a>2.1 引言</h3><blockquote>
+<p>Eureka就是帮助我们维护所有服务的信息，以便服务之间的相互调用</p>
+</blockquote>
+<blockquote>
+<p>1.如果被调用发，ip或port发生了改变话，需要维护全部的调用方<br>2.当被调用方，搭建了集群之后，还是需要去维护全部的调用方</p>
+</blockquote>
+<h3 id="2-2-Eureka快速入门"><a href="#2-2-Eureka快速入门" class="headerlink" title="2.2 Eureka快速入门"></a>2.2 Eureka快速入门</h3><h4 id="2-2-1-创建EurekaServe"><a href="#2-2-1-创建EurekaServe" class="headerlink" title="2.2.1 创建EurekaServe"></a>2.2.1 创建EurekaServe</h4><p><a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener">https://spring.io/projects/spring-cloud</a></p>
+<blockquote>
+<p>创建一个父工程，并指定springcloud版本，并讲packing修改为pom</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>Hoxton.SR4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建eureka的server,创建SpringBoot工程， 并且导入依赖，在启动类中添加注解，编写yml文件<br>导入依赖</p>
+<p>创建子工程 EurekaServe ，官网参考</p>
+</blockquote>
+<p>(Eureka Serve)[<a href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#spring-cloud-eureka-server]" target="_blank" rel="noopener">https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#spring-cloud-eureka-server]</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动类添加注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaApplication</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写yml配置文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8761   # 端口</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    hostname: localhost</span><br><span class="line">  client:</span><br><span class="line">    # 限制的eureka 是单机模式</span><br><span class="line">    registerWithEureka: false</span><br><span class="line">    fetchRegistry: false</span><br><span class="line">    serviceUrl:</span><br><span class="line">      defaultZone: http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-2-创建EurekaClient"><a href="#2-2-2-创建EurekaClient" class="headerlink" title="2.2.2 创建EurekaClient"></a>2.2.2 创建EurekaClient</h4><blockquote>
+<p>1、创建Maven工程， 修改为SpringBoot</p>
+</blockquote>
+<blockquote>
+<p>2、导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、在启动类上添加注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerApplication</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SpringApplication.run(CustomerApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>4、编写配置文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定Eureka服务地址</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line"><span class="comment">#    allow-redirects: false</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:8761/eureka</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定服务名称</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">CUSTOMER</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-3测试-Eureka"><a href="#2-2-3测试-Eureka" class="headerlink" title="2.2.3测试 Eureka"></a>2.2.3测试 Eureka</h4><blockquote>
+<p>1、创建了一个Search搜索模块， 并且注册到Eureka</p>
+</blockquote>
+<blockquote>
+<p>2、使用到EurekaClient的对象 去获取服务信息</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> EurekaClient eurekaClient;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、正常RestTemplate调用即可</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">customer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//1. 通过eurekaClient获取到SEARCH服务的信息</span></span><br><span class="line">    InstanceInfo info = eurekaClient.getNextServerFromEureka(<span class="string">"SEARCH"</span>, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2. 获取到访问的地址</span></span><br><span class="line">    String url = info.getHomePageUrl();</span><br><span class="line">    System.out.println(url);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3. 通过restTemplate访问</span></span><br><span class="line">    </span><br><span class="line">    String result = restTemplate.getForObject(url + <span class="string">"/search"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-Eureka的安全性"><a href="#2-3-Eureka的安全性" class="headerlink" title="2.3 Eureka的安全性"></a>2.3 Eureka的安全性</h3><p><a href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#securing-the-eureka-server" target="_blank" rel="noopener">Securing The Eureka Server</a></p>
+<blockquote>
+<p>实现Eureka认证</p>
+</blockquote>
+<blockquote>
+<p>1、导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2、 编写配置类</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 忽略掉 /eureka/**</span></span><br><span class="line">        http.csrf().ignoringAntMatchers(<span class="string">"/eureka/**"</span>);</span><br><span class="line">        <span class="keyword">super</span>.configure(http);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、 编写配置文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">security:</span></span><br><span class="line">    <span class="attr">user:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">root</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>4、其他服务向注册到Eureka向需要添加用户名和密码</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://用户名:密码@localhost:8761/eureka</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-Eureka的高可用"><a href="#2-4-Eureka的高可用" class="headerlink" title="2.4 Eureka的高可用"></a>2.4 Eureka的高可用</h3><blockquote>
+<p>如果程序的正在运行，突然Eureka宕机了 。<br>●如果调用方访问过一 次被调用方了，Eureka的宕机不会影响到功能。<br>●如果调用方没有访问过被调用方，Eureka的宕机就会造成当前功能不可用。</p>
+</blockquote>
+<blockquote>
+<p>搭建Eureka高可用</p>
+</blockquote>
+<blockquote>
+<p>准备多台Eureka<br><a href="">采用了复制的方式，删除imI和target文件， 并且修改pom.xml中的项目名称，再给父工程添加一个module</a></p>
+</blockquote>
+<blockquote>
+<p>让服务注册到多台Eureka</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://root:root@localhost:8761/eureka,http://root:root@localhost:8762/eureka</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>让多台Eureka之间相互通讯</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">registerWithEureka:</span> <span class="literal">true</span>   <span class="comment"># 注册到 Eureka上</span></span><br><span class="line">    <span class="attr">fetchRegistry:</span> <span class="literal">true</span>			<span class="comment"># 从Eureka拉取信息</span></span><br><span class="line">    <span class="attr">serviceUrl:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://root:root@localhost:8762/eureka</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-Eureka的细节"><a href="#2-5-Eureka的细节" class="headerlink" title="2.5 Eureka的细节"></a>2.5 Eureka的细节</h3><blockquote>
+<p>EurekaClient启动是，将自己的信息注册到EurekaServer.上，EurekaSever就会 存储上EurekaClient的注册信息。<br>当EurekaClient调用服务时，本地没有注册信息的缓存时，去EurekaServer中 去获取注册信息。</p>
+</blockquote>
+<blockquote>
+<p>EurekaClient会通过心跳的方式去和EurekaServer进行连接。(默认30sEurekaClient会 发送一次心跳请求， 如果超过了90s还没有发送心跳信息的话，EurekaServer就认为你宕机了 ，将当前EurekaClient从注册表中移除)</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">90</span>     <span class="comment">#心跳间隔</span></span><br><span class="line">    <span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">30</span>  <span class="comment">#多久没发送，就认为你宕机了</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>EurekaClient会每隔30s去EurekaServer中去更新本地的注册表</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">registry-fetch-interval-seconds:</span> <span class="number">30</span>  <span class="comment"># 每隔多久去更新下本地缓存信息</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Eureka的自我保护机制，统计15分钟内，如果一个服务的心跳发送比例低于85%，EurekaServer就会开启自我保护机制<br>不会从EurekaServer中去移除长时间没有收到心跳的服务。<br>EurekaServer还是可以正常提供服务的。<br>网络比较稳定时，EurekaServer才会开始将自己的信息被其他节点同步过去</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">true</span>   <span class="comment">#开启自我保护机制</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>CAP定理，C- 一致性，A-可用性， P-分区容错性，这三个特性在分布式环境下，只能满足2个，而且分区容错性在分布式环境下，是必<br>须要满足的，只能在AC之间进行权衡。<br>如果选择CP，保证了-致性，可能会造成你系统在一定时间内是不可用的，如果你同步数据的时间比较长，造成的损失大。<br>Eureka就是一个AP的效果， 高可用的集群，Eureka集群是 无中心，Eureka即便宕 机几个也不会影响系统的使用，不需要重新的去推举<br>一个master,也会导致一定时间内数据是不一致。</p>
+</blockquote>
+<h2 id="三、服务间的负载均衡-Robbin"><a href="#三、服务间的负载均衡-Robbin" class="headerlink" title="三、服务间的负载均衡-Robbin"></a>三、服务间的负载均衡-Robbin</h2><h3 id="3-1-引言"><a href="#3-1-引言" class="headerlink" title="3.1 引言"></a>3.1 引言</h3><blockquote>
+<p>Robbin是帮助我们实现服务和服务负载均衡，Robbin属 于客户端负载均衡<br>客户端负载均衡: customer客户 模块，将2个Search模块信息全部拉取到本地的缓存，在customer中自己做一个负载均衡的策略，选中某一个服务。<br>服务端负载均衡:在注册中心中，直接根据你指定的负载均衡策略，帮你选中一个指定的服务信息，并返回。</p>
+</blockquote>
+<h3 id="3-2-Robbin快速入门"><a href="#3-2-Robbin快速入门" class="headerlink" title="3.2 Robbin快速入门"></a>3.2 Robbin快速入门</h3><p><a href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#spring-cloud-ribbon" target="_blank" rel="noopener">Client Side Load Balancer: Ribbon</a></p>
+<blockquote>
+<p>1、启动两个search模块</p>
+</blockquote>
+<blockquote>
+<p>2、在customer导 入robbin依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-ribbon<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、配置整合RestTemplate和Robbin</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RestTemplate <span class="title">restTemplate</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> RestTemplate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>4、在customer中去访问search</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">customer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//http://服务名称/search</span></span><br><span class="line">    String result = restTemplate.getForObject(<span class="string">"http://SEARCH/search"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-Robbin配置负载均衡策略"><a href="#3-3-Robbin配置负载均衡策略" class="headerlink" title="3.3 Robbin配置负载均衡策略"></a>3.3 Robbin配置负载均衡策略</h3><blockquote>
+<p>负载均衡策略<br>● RandomRule: 随机策略<br>●RoundRobbinRule: 轮询策略:默认的<br>●WeightedResponseTimeRule: 默认会采用轮询的策略，后续会根据服务的响应时间，自动给你分配权重<br>●BestAvailableRule: 根据被调用方并发数最小的去分配</p>
+</blockquote>
+<blockquote>
+<p>2、采用注解的形式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public IRule robbinRule()</span><br><span class="line">&#123;</span><br><span class="line">return new RandomRule();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、配置文件去指定负载均衡的策略（推荐）</p>
+</blockquote>
+<p>[<a href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#customizing-the-ribbon-client-by-setting-properties" target="_blank" rel="noopener">Customizing the Ribbon Client by Setting Properties</a>]</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定具体服务的负载均衡</span></span><br><span class="line"><span class="attr">name:</span>	<span class="comment"># 编写服务名称</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line"><span class="comment">#    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.netflix.loadbalancer.WeightedResponseTimeRule</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="四、服务间的调用-Feign"><a href="#四、服务间的调用-Feign" class="headerlink" title="四、服务间的调用-Feign"></a>四、服务间的调用-Feign</h2><h3 id="4-1-引言"><a href="#4-1-引言" class="headerlink" title="4.1 引言"></a>4.1 引言</h3><h2 id="五、服务的隔离以及断路由器-Hystrix"><a href="#五、服务的隔离以及断路由器-Hystrix" class="headerlink" title="五、服务的隔离以及断路由器-Hystrix"></a>五、服务的隔离以及断路由器-Hystrix</h2><h2 id="六、服务的网关-Zuul"><a href="#六、服务的网关-Zuul" class="headerlink" title="六、服务的网关-Zuul"></a>六、服务的网关-Zuul</h2><h2 id="七、服务见消息传递-Stream"><a href="#七、服务见消息传递-Stream" class="headerlink" title="七、服务见消息传递-Stream"></a>七、服务见消息传递-Stream</h2><h2 id="八、服务的动态配置-config"><a href="#八、服务的动态配置-config" class="headerlink" title="八、服务的动态配置-config"></a>八、服务的动态配置-config</h2><h2 id="九、服务的追踪-Sleuth"><a href="#九、服务的追踪-Sleuth" class="headerlink" title="九、服务的追踪-Sleuth"></a>九、服务的追踪-Sleuth</h2><p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2020-04-30T08:41:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/Linux4%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/">Linux4安装java环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://godlike-su.github.io/2020/10/04/SpringCloud/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/SpringBoot%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%EF%BC%8Ccontext-path/" class="archive-article-date">
-  	<time datetime="2020-04-16T17:17:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/02/RabbitMQ/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RabbitMQ</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/SpringBoot%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E7%AB%AF%E5%8F%A3%EF%BC%8Ccontext-path/">SpringBoot中如何修改配置端口，context-path</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringCloud"><span class="toc-number">1.</span> <span class="toc-text">SpringCloud</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、SpringCloud介绍"><span class="toc-number">1.1.</span> <span class="toc-text">一、SpringCloud介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-微服务架构"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 微服务架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-SpringCloud介绍"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 SpringCloud介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、服务的注册与发现-Eureka"><span class="toc-number">1.2.</span> <span class="toc-text">二、服务的注册与发现 Eureka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-引言"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Eureka快速入门"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 Eureka快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-创建EurekaServe"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">2.2.1 创建EurekaServe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-创建EurekaClient"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.2.2 创建EurekaClient</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3测试-Eureka"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">2.2.3测试 Eureka</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Eureka的安全性"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 Eureka的安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Eureka的高可用"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 Eureka的高可用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Eureka的细节"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5 Eureka的细节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、服务间的负载均衡-Robbin"><span class="toc-number">1.3.</span> <span class="toc-text">三、服务间的负载均衡-Robbin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-引言"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Robbin快速入门"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Robbin快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Robbin配置负载均衡策略"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Robbin配置负载均衡策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、服务间的调用-Feign"><span class="toc-number">1.4.</span> <span class="toc-text">四、服务间的调用-Feign</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-引言"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 引言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、服务的隔离以及断路由器-Hystrix"><span class="toc-number">1.5.</span> <span class="toc-text">五、服务的隔离以及断路由器-Hystrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、服务的网关-Zuul"><span class="toc-number">1.6.</span> <span class="toc-text">六、服务的网关-Zuul</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、服务见消息传递-Stream"><span class="toc-number">1.7.</span> <span class="toc-text">七、服务见消息传递-Stream</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、服务的动态配置-config"><span class="toc-number">1.8.</span> <span class="toc-text">八、服务的动态配置-config</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、服务的追踪-Sleuth"><span class="toc-number">1.9.</span> <span class="toc-text">九、服务的追踪-Sleuth</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-16T06:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/">IDEA中设置maven的setting.xml地址与repository地址</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/16/eclipse%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/" class="archive-article-date">
-  	<time datetime="2020-04-16T06:46:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/16/eclipse%E8%AE%BE%E7%BD%AEmaven%E7%9A%84setting-xml%E5%9C%B0%E5%9D%80%E4%B8%8Erepository%E5%9C%B0%E5%9D%80/">eclipse设置maven的setting.xml地址与repository地址</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/maven%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0jar%E4%BE%9D%E8%B5%96%E5%B9%B6%E6%89%93%E5%8C%85/">maven设置本地jar依赖并打包</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/maven%E7%9A%84%E4%B8%80%E4%BA%9Bpom/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:29:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/maven%E7%9A%84%E4%B8%80%E4%BA%9Bpom/">maven的一些pom</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/14/maven%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E6%98%A0%E5%B0%84/" class="archive-article-date">
-  	<time datetime="2020-04-14T13:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/14/maven%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E6%98%A0%E5%B0%84/">maven仓库设置为阿里云映射</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -513,9 +575,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
@@ -725,97 +787,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
     
     	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://www.wb1.club" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>wb1链接</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">欢迎来到SuJinWang的博客 https://godlike-su.github.io/</div>
-  	  	
-    	</section>
-    
-  </div>
-  
-</div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-  </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":215,"hoffset":200,"voffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
-</html>s">
   		
         <ul class="search-ul">
           
