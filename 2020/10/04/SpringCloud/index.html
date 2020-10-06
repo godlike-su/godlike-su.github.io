@@ -16,8 +16,9 @@
 <meta property="og:description" content="SpringCloud">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg">
+<meta property="og:image" content="https://camo.githubusercontent.com/e871b5d002a9699e7a2d9fa0178af5c72f0743e0/68747470733a2f2f6e6574666c69782e6769746875622e636f6d2f487973747269782f696d616765732f687973747269782d6c6f676f2d7461676c696e652d3835302e706e67">
 <meta property="article:published_time" content="2020-10-04T04:20:51.000Z">
-<meta property="article:modified_time" content="2020-10-04T15:31:20.528Z">
+<meta property="article:modified_time" content="2020-10-06T11:51:18.373Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="SpringCloud">
 <meta name="twitter:card" content="summary">
@@ -362,7 +363,7 @@
 <blockquote>
 <p>4、在customer中去访问search</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">customer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//http://服务名称/search</span></span><br><span class="line">    String result = restTemplate.getForObject(<span class="string">"http://SEARCH/search"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">customer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//http://服务名称/search</span></span><br><span class="line">    String result = restTemplate.getForObject(<span class="string">"http://SEARCH/search"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-3-Robbin配置负载均衡策略"><a href="#3-3-Robbin配置负载均衡策略" class="headerlink" title="3.3 Robbin配置负载均衡策略"></a>3.3 Robbin配置负载均衡策略</h3><blockquote>
 <p>负载均衡策略<br>● RandomRule: 随机策略<br>●RoundRobbinRule: 轮询策略:默认的<br>●WeightedResponseTimeRule: 默认会采用轮询的策略，后续会根据服务的响应时间，自动给你分配权重<br>●BestAvailableRule: 根据被调用方并发数最小的去分配</p>
@@ -370,7 +371,7 @@
 <blockquote>
 <p>2、采用注解的形式</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public IRule robbinRule()</span><br><span class="line">&#123;</span><br><span class="line">return new RandomRule();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> IRule <span class="title">robbinRule</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> RandomRule();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>3、配置文件去指定负载均衡的策略（推荐）</p>
@@ -380,7 +381,360 @@
 
 
 
-<h2 id="四、服务间的调用-Feign"><a href="#四、服务间的调用-Feign" class="headerlink" title="四、服务间的调用-Feign"></a>四、服务间的调用-Feign</h2><h3 id="4-1-引言"><a href="#4-1-引言" class="headerlink" title="4.1 引言"></a>4.1 引言</h3><h2 id="五、服务的隔离以及断路由器-Hystrix"><a href="#五、服务的隔离以及断路由器-Hystrix" class="headerlink" title="五、服务的隔离以及断路由器-Hystrix"></a>五、服务的隔离以及断路由器-Hystrix</h2><h2 id="六、服务的网关-Zuul"><a href="#六、服务的网关-Zuul" class="headerlink" title="六、服务的网关-Zuul"></a>六、服务的网关-Zuul</h2><h2 id="七、服务见消息传递-Stream"><a href="#七、服务见消息传递-Stream" class="headerlink" title="七、服务见消息传递-Stream"></a>七、服务见消息传递-Stream</h2><h2 id="八、服务的动态配置-config"><a href="#八、服务的动态配置-config" class="headerlink" title="八、服务的动态配置-config"></a>八、服务的动态配置-config</h2><h2 id="九、服务的追踪-Sleuth"><a href="#九、服务的追踪-Sleuth" class="headerlink" title="九、服务的追踪-Sleuth"></a>九、服务的追踪-Sleuth</h2><p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+<h2 id="四、服务间的调用-Feign"><a href="#四、服务间的调用-Feign" class="headerlink" title="四、服务间的调用-Feign"></a>四、服务间的调用-Feign</h2><h3 id="4-1-引言"><a href="#4-1-引言" class="headerlink" title="4.1 引言"></a>4.1 引言</h3><blockquote>
+<p>Feign可以帮助我们实现面向接口编程，就直接调用其他的服务，简化开发。</p>
+</blockquote>
+<h3 id="4-2-Feign的快速入门"><a href="#4-2-Feign的快速入门" class="headerlink" title="4.2 Feign的快速入门"></a>4.2 Feign的快速入门</h3><p><a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.5.RELEASE/reference/html/" target="_blank" rel="noopener">Spring Cloud OpenFeign</a></p>
+<blockquote>
+<p>1、导入依赖</p>
+</blockquote>
+<p>[<a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.5.RELEASE/reference/html/#netflix-feign-starter" target="_blank" rel="noopener">How to Include Feign</a>]</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2、添加一个注解</p>
+</blockquote>
+<p><code>@EnableFeignClients</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、创建一一个接口，并且和Search模块做映射</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient</span>(<span class="string">"stores"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StoreClient</span> </span>&#123;</span><br><span class="line">    <span class="comment">// method -&gt; 映射请求方式， value -&gt; 目标服务的请求路径</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(method = RequestMethod.GET, value = <span class="string">"/stores"</span>)</span><br><span class="line">    <span class="function">List&lt;Store&gt; <span class="title">getStores</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(method = RequestMethod.GET, value = <span class="string">"/stores"</span>)</span><br><span class="line">    <span class="function">Page&lt;Store&gt; <span class="title">getStores</span><span class="params">(Pageable pageable)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(method = RequestMethod.POST, value = <span class="string">"/stores/&#123;storeId&#125;"</span>, consumes = <span class="string">"application/json"</span>)</span><br><span class="line">    <span class="function">Store <span class="title">update</span><span class="params">(@PathVariable(<span class="string">"storeId"</span>)</span> Long storeId, Store store)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>4、测试使用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SearchClient searchClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">customer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    String result = searchClient.search();</span><br><span class="line">    <span class="comment">// 返回</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-Feign的传递参数方式"><a href="#4-3-Feign的传递参数方式" class="headerlink" title="4.3 Feign的传递参数方式"></a>4.3 Feign的传递参数方式</h3><blockquote>
+<p>1、注意事项<br>如果你传递的参数，比较复杂时，默认会采用POST的请求方式。<br>●传递单个参数时，推荐使用@PathVariable, 如果传递的单个参数比较多，这里也可以采用@RequestParam, 不要省略value属性<br>●传递对象信息时，统- -采用json的方式， 添加@RequestBody<br>●Client接口必须采 用@RequestMapping</p>
+</blockquote>
+<blockquote>
+<p>2、在Search模块下准备三个接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/search/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Customer(<span class="number">1</span>, <span class="string">"张三"</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/getCustomer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">getCustomer</span><span class="params">(@RequestParam Integer id, @RequestParam String name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Customer(id, name, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/save"</span>)    <span class="comment">//会自动转成POST请求 405</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">save</span><span class="params">(@RequestBody Customer customer)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> customer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、封装Customer模块 下的Controller</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@GetMapping</span>(<span class="string">"/custmoer/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> searchClient.findById(id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/getCustomer"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">getCustomer</span><span class="params">(@RequestParam Integer id, @RequestParam String name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> searchClient.getCustomer(id,name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/save"</span>)    <span class="comment">//会自动转成POST请求 405</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">save</span><span class="params">(Customer customer)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> searchClient.save(customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>4、再封装Client接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/custmoer/&#123;id&#125;"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="function">Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/getCustomer"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="function">Customer <span class="title">getCustomer</span><span class="params">(@RequestParam Integer id, @RequestParam String name)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/save"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="comment">//会自动转成POST请求 405</span></span><br><span class="line"><span class="function">Customer <span class="title">save</span><span class="params">(@RequestBody Customer customer)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>5、 测试</p>
+</blockquote>
+<h3 id="4-4-Feign的Fallback"><a href="#4-4-Feign的Fallback" class="headerlink" title="4.4 Feign的Fallback"></a>4.4 Feign的Fallback</h3><blockquote>
+<p>Fallback可以帮助我们在使用Feign去调用另外-个服务时，如果出现了问题，走服务降级，返回一个错误数据，避免功能因为一个服务出现问题，全部失效。</p>
+</blockquote>
+<h4 id="4-4-1-Fallback方式"><a href="#4-4-1-Fallback方式" class="headerlink" title="4.4.1 Fallback方式"></a>4.4.1 Fallback方式</h4><blockquote>
+<p>1、创建一个POJ0类， 实现Client接口。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SearchClientFallBack</span> <span class="keyword">implements</span> <span class="title">SearchClient</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">search</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"出现问题啦!!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(Integer id)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Customer <span class="title">getCustomer</span><span class="params">(Integer id, String name)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Customer <span class="title">save</span><span class="params">(Customer customer)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2、修改CLient接口中的注解， 添加一个属性。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"SEARCH"</span>, fallback = SearchClientFallBack<span class="class">.<span class="keyword">class</span>) //指定服务名称</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">interface</span> <span class="title">SearchClient</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、 添加一个配置文件。</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># feign和hystrix组件整合的内容</span><br><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是上面的调用方无法知道具体的错误信息是什么，通过FallBackFactory的方式去实现这个功能</p>
+</blockquote>
+<blockquote>
+<p>1、FallBackFactory基 于Fallback</p>
+</blockquote>
+<blockquote>
+<p>2、创建一 个POJO类，实现FallBackFactory<Client></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="comment">//SearchClient为 接口名称</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SearchClientFallBackFactory</span> <span class="keyword">implements</span> <span class="title">FallbackFactory</span>&lt;<span class="title">SearchClient</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SearchClientFallBack searchClientFallBack;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SearchClient <span class="title">create</span><span class="params">(Throwable throwable)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        throwable.printStackTrace();</span><br><span class="line">        <span class="keyword">return</span> searchClientFallBack;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、修改Client接口中的属性</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"SEARCH"</span>, fallbackFactory = SearchClientFallBackFactory<span class="class">.<span class="keyword">class</span>) //指定服务名称</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="五、服务的隔离以及断路由器-Hystrix"><a href="#五、服务的隔离以及断路由器-Hystrix" class="headerlink" title="五、服务的隔离以及断路由器-Hystrix"></a>五、服务的隔离以及断路由器-Hystrix</h2><p><img src="https://camo.githubusercontent.com/e871b5d002a9699e7a2d9fa0178af5c72f0743e0/68747470733a2f2f6e6574666c69782e6769746875622e636f6d2f487973747269782f696d616765732f687973747269782d6c6f676f2d7461676c696e652d3835302e706e67" alt="HySTRIX"></p>
+<h3 id="5-1-引言"><a href="#5-1-引言" class="headerlink" title="5.1 引言"></a>5.1 引言</h3><blockquote>
+<p>Hystrix主要是为了解决服务雪崩问题<br>1.降级机制:当你的某个服务出现的超时， 资源不足，出现了异常时，可以执行一个降级方法，返回一个托底数据。<br>2.隔离:提供了一个Hystrix线程池，信号量，和Tomcat的线程池相互隔离。<br>3.熔断:当你的某-个服务的失败率达到一定的阈值时，自动触发降级。<br>4.缓存:请求缓存的功能。</p>
+</blockquote>
+<h3 id="5-2-降级机制实现"><a href="#5-2-降级机制实现" class="headerlink" title="5.2 降级机制实现"></a>5.2 降级机制实现</h3><p><a href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#how-to-include-hystrix" target="_blank" rel="noopener">How to Include Hystrix</a></p>
+<blockquote>
+<p>1、导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>2、添加一个注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableCircuitBreaker</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>3、针对某一个接口去编写他的降级方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer/&#123;id&#125;"</span>)</span><br><span class="line"><span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"findByIdFallBack"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> searchClient.findById(id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// findBYId的降级方法  方法的描述要和接口的一致</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findByIdFallBack</span><span class="params">(@PathVariable Integer id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Customer(-<span class="number">1</span>, <span class="string">""</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>4、在接口上添加注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"findByIdFallBack"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>5、测试一下</p>
+</blockquote>
+<h3 id="5-3-线程隔离"><a href="#5-3-线程隔离" class="headerlink" title="5.3 线程隔离"></a>5.3 线程隔离</h3><blockquote>
+<p>如果使用Tomcat的线程池去接收用户的请求，使用当前线程去执行其他服务的功能，如果某一个 服务出现了故障，导致tomcat的线程大量的堆积，导致Tomcat无法处理其他业务 功能。<br>●Hystrix的线程池 (默认)，接收用户请求采用tomcat的线程池，执行业务代码，调用其他服务时，采用Hystrix的线程池。<br>●信号量，使用的还是Tomcat的线程池， 帮助我们去管理Tomcat的线程池。</p>
+</blockquote>
+<blockquote>
+<p>Hystrix的线程池的配置</p>
+</blockquote>
+<p> <a href="https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy" target="_blank" rel="noopener">Hystrix配置信息</a></p>
+<table>
+<thead>
+<tr>
+<th>配置信息</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线程隔离策略</td>
+<td>execution.isolation.strategy</td>
+<td>THREAD</td>
+</tr>
+<tr>
+<td>指定超时时间</td>
+<td>execution.isolation.thread.timeoutInMilliseconds</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>是否开启超时时间配置</td>
+<td>execution.timeout.enabled</td>
+<td>true</td>
+</tr>
+<tr>
+<td>超时之后是否中断线程</td>
+<td>execution.isolation.thread.interruptOnTimeout</td>
+<td>true</td>
+</tr>
+<tr>
+<td>取消任务后知否</td>
+<td>execution.isolation.thread.interruptOnCancel</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>代码实现</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer/&#123;id&#125;"</span>)</span><br><span class="line"><span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"findByIdFallBack"</span>, commandProperties = &#123;</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"execution.isolation.strategy"</span>, value = <span class="string">"THREAD"</span>),</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"execution.isolation.thread.timeoutInMilliseconds"</span>, value = <span class="string">"3000"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.out.println(Thread.currentThread().getName());</span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    <span class="keyword">return</span> searchClient.findById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>信号量的配置信息</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>配置信息</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线程隔离策略</td>
+<td>execution.isolation.strateg</td>
+<td>SEMAPHORE</td>
+</tr>
+<tr>
+<td>指定信号量的最大并发请求数</td>
+<td>execution.isolation.semaphore.maxConcurrentRequests</td>
+<td>10</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>代码实现</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/custmoer/&#123;id&#125;"</span>)</span><br><span class="line"><span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"findByIdFallBack"</span>, commandProperties = &#123;</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"execution.isolation.strategy"</span>, value = <span class="string">"SEMAPHORE"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.out.println(Thread.currentThread().getName());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> searchClient.findById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-4-断路器"><a href="#5-4-断路器" class="headerlink" title="5.4 断路器"></a>5.4 断路器</h3><h4 id="5-4-1-断路器简介"><a href="#5-4-1-断路器简介" class="headerlink" title="5.4.1 断路器简介"></a>5.4.1 断路器简介</h4><blockquote>
+<p>在调用指定服务时，如果说这个服务的失败率达到你输入的一个阈值，将断路器从closed状态，转变为open状态，指定服务时无法被访问的，如果你访问就直接走fallback方法， 在一定的时间内， open状态会 再次转变为half open状态，允许一个 请求发送到我的指定服务，如果成功，转变为closed, 如果失败，服务再次转变为open状态，会再次循环到half open,直到断路器回到一个closed状态。</p>
+</blockquote>
+<blockquote>
+<p>也就是说，这个服务的失败率到达了我设置的阈值，断路器就会从关闭（closed）状态转变成打开（open）状态。也就像保险丝开启了一样，电路就断路了。就不得访问了，访问的话就直接走fallback方法。过了一定时间，open状态会变成半开（half open）状态，也就是系统会发一个请求到这个服务，如果还是失败，就继续上面的步骤。如果成功了，保险丝就会关闭，就会变成closed状态，结束。</p>
+</blockquote>
+<h4 id="5-4-2-配置断路器的监控界面"><a href="#5-4-2-配置断路器的监控界面" class="headerlink" title="5.4.2 配置断路器的监控界面"></a>5.4.2 配置断路器的监控界面</h4><blockquote>
+<p>1、导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix-dashboard<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>2、在启动类中添加注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableHystrixDashboard</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>3、配置一个Servlet</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/hystrix.stream"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HystrixServlet</span> <span class="keyword">extends</span> <span class="title">HystrixMetricsStreamServlet</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------</span></span><br><span class="line"><span class="comment">//在启动类中添加一个注解</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/hystrix.stream"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>4、测试</p>
+<p>访问:<a href="http://localhost:8080/hystrix" target="_blank" rel="noopener">http://localhost:8080/hystrix</a></p>
+<p>然后输入之前创建的信息</p>
+<p><a href="http://localhost:8080/hystrix.stream" target="_blank" rel="noopener">http://localhost:8080/hystrix.stream</a></p>
+</blockquote>
+<h4 id="5-4-3-配置断路器的属性"><a href="#5-4-3-配置断路器的属性" class="headerlink" title="5.4.3 配置断路器的属性"></a>5.4.3 配置断路器的属性</h4><p><a href="https://github.com/Netflix/Hystrix/wiki/Configuration#circuit-breaker" target="_blank" rel="noopener">Circuit Breaker</a></p>
+<p>10秒钟之类</p>
+<table>
+<thead>
+<tr>
+<th>配置信息</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>断路器的开关</td>
+<td>circuitBreaker.enabled</td>
+<td>true</td>
+</tr>
+<tr>
+<td>失败阈值的总请求数</td>
+<td>circuitBreaker.requestVolumeThreshold</td>
+<td>20</td>
+</tr>
+<tr>
+<td>断路器open状态后，多少秒是拒绝请求的</td>
+<td>circuitBreaker.sleepWindowInMilliseconds</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>请求总数失败率达到%多少时</td>
+<td>circuitBreaker.errorThresholdPercentage</td>
+<td>50</td>
+</tr>
+<tr>
+<td>强制让服务拒绝请求</td>
+<td>circuitBreaker.forceOpen</td>
+<td>false</td>
+</tr>
+<tr>
+<td>强制让服务接收请求</td>
+<td>circuitBreaker.forceClosed</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在Java中配置</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"findByIdFallBack"</span>, commandProperties = &#123;</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.enabled"</span>, value = <span class="string">"true"</span>),</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.requestVolumeThreshold"</span>, value = <span class="string">"10"</span>),</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.sleepWindowInMilliseconds"</span>, value = <span class="string">"5000"</span>),</span><br><span class="line">    <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.errorThresholdPercentage"</span>, value = <span class="string">"70"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-5-请求缓存（一般很少用）"><a href="#5-5-请求缓存（一般很少用）" class="headerlink" title="5.5 请求缓存（一般很少用）"></a>5.5 请求缓存（一般很少用）</h3><h4 id="5-5-1-引言"><a href="#5-5-1-引言" class="headerlink" title="5.5.1 引言"></a>5.5.1 引言</h4><blockquote>
+<p>●请求缓存的声明周期是-一次请求<br>●请求缓存是缓存当前线程中的一个方法，将方法参数作为key,方法的返回结果作为value<br>●在一次请求中，目标方法被调用过一次，以后就都会被缓存。</p>
+</blockquote>
+<h4 id="5-5-2-请求缓存的实现"><a href="#5-5-2-请求缓存的实现" class="headerlink" title="5.5.2 请求缓存的实现"></a>5.5.2 请求缓存的实现</h4><blockquote>
+<p>1、创建一个Service,在Service中调用Search服务。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SearchClient searchClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@CacheResult</span></span><br><span class="line"><span class="meta">@HystrixCommand</span>(commandKey = <span class="string">"findById"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@CacheKey Integer id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> searchClient.findById(id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用这个方法，就可以取消缓存</span></span><br><span class="line"><span class="meta">@CacheRemove</span>(commandKey = <span class="string">"findById"</span>)</span><br><span class="line"><span class="meta">@HystrixCommand</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearFindById</span><span class="params">(@CacheKey Integer id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"findById被清空"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>2、使用请求缓存的注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CacheResult</span>: 帮助我们缓存当前方法的返回结果，需要结合<span class="meta">@HystrixCommand</span>一起使用</span><br><span class="line"><span class="meta">@CacheRemove</span>: 清除缓存信息（基于commandKey），需要结合<span class="meta">@HystrixCommand</span>一起使用</span><br><span class="line"><span class="meta">@CacheKey</span>: 指定某个参数作为缓存的标识</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>3、修改Search模块的返回结果</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> Customer(<span class="number">1</span>, <span class="string">"张三"</span>, (<span class="keyword">int</span>)(Math.random() * <span class="number">100000</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>4、编写Filter, 去构建HystrixRequestContext</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//spring不识别这个，需要在启动类添加一下</span></span><br><span class="line"><span class="comment">//@ServletComponentScan(&#123;"这个class的package路径"&#125;)</span></span><br><span class="line"><span class="meta">@WebFilter</span>(<span class="string">"/*"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HystrixRequestContextInitFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        HystrixRequestContext.initializeContext();</span><br><span class="line">        filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>5、测试</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Customer <span class="title">findById</span><span class="params">(@PathVariable Integer id)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.out.println(customerService.findById(id));</span><br><span class="line">    System.out.println(customerService.findById(id));</span><br><span class="line">    customerService.clearFindById(id);</span><br><span class="line">    System.out.println(customerService.findById(id));</span><br><span class="line">    System.out.println(customerService.findById(id));</span><br><span class="line">    <span class="keyword">return</span> searchClient.findById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Customer(id&#x3D;1, name&#x3D;张三, age&#x3D;13562)</span><br><span class="line">Customer(id&#x3D;1, name&#x3D;张三, age&#x3D;13562)</span><br><span class="line">hystrix-CustomerController-5</span><br><span class="line">Customer(id&#x3D;1, name&#x3D;张三, age&#x3D;68046)</span><br><span class="line">Customer(id&#x3D;1, name&#x3D;张三, age&#x3D;68046)</span><br><span class="line">findById被清空</span><br><span class="line">Customer(id&#x3D;1, name&#x3D;张三, age&#x3D;20546)</span><br><span class="line">Customer(id&#x3D;1, name&#x3D;张三, age&#x3D;20546)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="六、服务的网关-Zuul"><a href="#六、服务的网关-Zuul" class="headerlink" title="六、服务的网关-Zuul"></a>六、服务的网关-Zuul</h2><h3 id="6-1-引言"><a href="#6-1-引言" class="headerlink" title="6.1 引言"></a>6.1 引言</h3><blockquote>
+<p>●客户端维护大量的ip和port信息，直接访问指定服务<br>●认证和授权操作，需要在每一个模块中都添加认证和授权的操作<br>●项目的迭代，服务要拆分，服务要合并，需要客户端进行大量的变化<br>●统一的把安全性校验都放在Zuul中</p>
+</blockquote>
+<h3 id="6-2-Zuul快速入门"><a href="#6-2-Zuul快速入门" class="headerlink" title="6.2 Zuul快速入门"></a>6.2 Zuul快速入门</h3><p><a href="https://docs.spring.io/spring-cloud-netflix/docs/2.2.5.RELEASE/reference/html/#router-and-filter-zuul" target="_blank" rel="noopener">Router and Filter: Zuul</a></p>
+<blockquote>
+<p>1、创建Maven项目， 修改为SpringBoot</p>
+</blockquote>
+<blockquote>
+<p>2、 导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-zuul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>3、 添加一个注解</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="meta">@EnableZuulProxy</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>4、编写配置文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定Eureka服务地址</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://root:root@localhost:8761/eureka,http://root:root@localhost:8762/eureka</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定服务名称</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">ZUUL</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>4、直接测试</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以直接通过 zuul的端口， 服务名称， 就可以访问指定服务</span><br><span class="line">http:&#x2F;&#x2F;localhost&#x2F;customer&#x2F;customer&#x2F;1</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-3-Zuul常用配置信息"><a href="#6-3-Zuul常用配置信息" class="headerlink" title="6.3 Zuul常用配置信息"></a>6.3 Zuul常用配置信息</h3><h4 id="6-3-1-Zuul的监控界面"><a href="#6-3-1-Zuul的监控界面" class="headerlink" title="6.3.1 Zuul的监控界面"></a>6.3.1 Zuul的监控界面</h4><h2 id="七、服务见消息传递-Stream"><a href="#七、服务见消息传递-Stream" class="headerlink" title="七、服务见消息传递-Stream"></a>七、服务见消息传递-Stream</h2><h2 id="八、服务的动态配置-Config"><a href="#八、服务的动态配置-Config" class="headerlink" title="八、服务的动态配置-Config"></a>八、服务的动态配置-Config</h2><h2 id="九、服务的追踪-Sleuth"><a href="#九、服务的追踪-Sleuth" class="headerlink" title="九、服务的追踪-Sleuth"></a>九、服务的追踪-Sleuth</h2><p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 
       
 
@@ -524,7 +878,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringCloud"><span class="toc-number">1.</span> <span class="toc-text">SpringCloud</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、SpringCloud介绍"><span class="toc-number">1.1.</span> <span class="toc-text">一、SpringCloud介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-微服务架构"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 微服务架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-SpringCloud介绍"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 SpringCloud介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、服务的注册与发现-Eureka"><span class="toc-number">1.2.</span> <span class="toc-text">二、服务的注册与发现 Eureka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-引言"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Eureka快速入门"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 Eureka快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-创建EurekaServe"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">2.2.1 创建EurekaServe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-创建EurekaClient"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.2.2 创建EurekaClient</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3测试-Eureka"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">2.2.3测试 Eureka</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Eureka的安全性"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 Eureka的安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Eureka的高可用"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 Eureka的高可用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Eureka的细节"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5 Eureka的细节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、服务间的负载均衡-Robbin"><span class="toc-number">1.3.</span> <span class="toc-text">三、服务间的负载均衡-Robbin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-引言"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Robbin快速入门"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Robbin快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Robbin配置负载均衡策略"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Robbin配置负载均衡策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、服务间的调用-Feign"><span class="toc-number">1.4.</span> <span class="toc-text">四、服务间的调用-Feign</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-引言"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 引言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、服务的隔离以及断路由器-Hystrix"><span class="toc-number">1.5.</span> <span class="toc-text">五、服务的隔离以及断路由器-Hystrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、服务的网关-Zuul"><span class="toc-number">1.6.</span> <span class="toc-text">六、服务的网关-Zuul</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、服务见消息传递-Stream"><span class="toc-number">1.7.</span> <span class="toc-text">七、服务见消息传递-Stream</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、服务的动态配置-config"><span class="toc-number">1.8.</span> <span class="toc-text">八、服务的动态配置-config</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、服务的追踪-Sleuth"><span class="toc-number">1.9.</span> <span class="toc-text">九、服务的追踪-Sleuth</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringCloud"><span class="toc-number">1.</span> <span class="toc-text">SpringCloud</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、SpringCloud介绍"><span class="toc-number">1.1.</span> <span class="toc-text">一、SpringCloud介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-微服务架构"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 微服务架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-SpringCloud介绍"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 SpringCloud介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、服务的注册与发现-Eureka"><span class="toc-number">1.2.</span> <span class="toc-text">二、服务的注册与发现 Eureka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-引言"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Eureka快速入门"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 Eureka快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-创建EurekaServe"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">2.2.1 创建EurekaServe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-创建EurekaClient"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.2.2 创建EurekaClient</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3测试-Eureka"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">2.2.3测试 Eureka</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Eureka的安全性"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 Eureka的安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Eureka的高可用"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 Eureka的高可用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Eureka的细节"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5 Eureka的细节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、服务间的负载均衡-Robbin"><span class="toc-number">1.3.</span> <span class="toc-text">三、服务间的负载均衡-Robbin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-引言"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Robbin快速入门"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Robbin快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Robbin配置负载均衡策略"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Robbin配置负载均衡策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、服务间的调用-Feign"><span class="toc-number">1.4.</span> <span class="toc-text">四、服务间的调用-Feign</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-引言"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Feign的快速入门"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 Feign的快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Feign的传递参数方式"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 Feign的传递参数方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Feign的Fallback"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4 Feign的Fallback</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-Fallback方式"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">4.4.1 Fallback方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、服务的隔离以及断路由器-Hystrix"><span class="toc-number">1.5.</span> <span class="toc-text">五、服务的隔离以及断路由器-Hystrix</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-引言"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-降级机制实现"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 降级机制实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-线程隔离"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 线程隔离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-断路器"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 断路器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-1-断路器简介"><span class="toc-number">1.5.4.1.</span> <span class="toc-text">5.4.1 断路器简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-2-配置断路器的监控界面"><span class="toc-number">1.5.4.2.</span> <span class="toc-text">5.4.2 配置断路器的监控界面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-3-配置断路器的属性"><span class="toc-number">1.5.4.3.</span> <span class="toc-text">5.4.3 配置断路器的属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-请求缓存（一般很少用）"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 请求缓存（一般很少用）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-5-1-引言"><span class="toc-number">1.5.5.1.</span> <span class="toc-text">5.5.1 引言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-5-2-请求缓存的实现"><span class="toc-number">1.5.5.2.</span> <span class="toc-text">5.5.2 请求缓存的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、服务的网关-Zuul"><span class="toc-number">1.6.</span> <span class="toc-text">六、服务的网关-Zuul</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-引言"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 引言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Zuul快速入门"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 Zuul快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-Zuul常用配置信息"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 Zuul常用配置信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-Zuul的监控界面"><span class="toc-number">1.6.3.1.</span> <span class="toc-text">6.3.1 Zuul的监控界面</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、服务见消息传递-Stream"><span class="toc-number">1.7.</span> <span class="toc-text">七、服务见消息传递-Stream</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、服务的动态配置-Config"><span class="toc-number">1.8.</span> <span class="toc-text">八、服务的动态配置-Config</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、服务的追踪-Sleuth"><span class="toc-number">1.9.</span> <span class="toc-text">九、服务的追踪-Sleuth</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -647,10 +1001,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
@@ -659,7 +1009,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,7 +1017,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,15 +1033,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,19 +1057,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,11 +1077,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">View</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">View</a>
               </li>
              
               <li class="article-tag-list-item">
