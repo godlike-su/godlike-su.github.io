@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Zookeeper | SuJinWang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、引言 分布式环境下，舍弃了SpringColud生态圈，使用其它的分布式框架，注册中i更闹心，配置集中管理，集群管理，分布式任务，队列的管理的实现。  二、Zookeeper介绍 zookeeper_百度百科 (baidu.com)    ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一">
+  <meta name="description" content="一、引言 分布式环境下，舍弃了SpringColud生态圈，使用其它的分布式框架，注册中i更闹心，配置集中管理，集群管理，分布式任务，队列的管理的实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper">
 <meta property="og:url" content="http://yoursite.com/2020/11/09/Zookeeper/index.html">
 <meta property="og:site_name" content="SuJinWang的博客">
-<meta property="og:description" content="一、引言 分布式环境下，舍弃了SpringColud生态圈，使用其它的分布式框架，注册中i更闹心，配置集中管理，集群管理，分布式任务，队列的管理的实现。  二、Zookeeper介绍 zookeeper_百度百科 (baidu.com)    ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一">
+<meta property="og:description" content="一、引言 分布式环境下，舍弃了SpringColud生态圈，使用其它的分布式框架，注册中i更闹心，配置集中管理，集群管理，分布式任务，队列的管理的实现。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-09T06:09:16.000Z">
-<meta property="article:modified_time" content="2020-11-09T09:27:53.514Z">
+<meta property="article:modified_time" content="2020-11-09T09:29:49.200Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Zookeeper">
 <meta name="twitter:card" content="summary">
@@ -212,6 +212,8 @@
         <h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><blockquote>
 <p>分布式环境下，舍弃了SpringColud生态圈，使用其它的分布式框架，注册中i更闹心，配置集中管理，集群管理，分布式任务，队列的管理的实现。</p>
 </blockquote>
+<a id="more"></a>
+
 <h2 id="二、Zookeeper介绍"><a href="#二、Zookeeper介绍" class="headerlink" title="二、Zookeeper介绍"></a>二、Zookeeper介绍</h2><p> <a href="https://baike.baidu.com/item/zookeeper/4836397?fr=aladdin" target="_blank" rel="noopener">zookeeper_百度百科 (baidu.com)</a> </p>
 <blockquote>
 <p> ZooKeeper是一个<a href="https://baike.baidu.com/item/分布式/19276232" target="_blank" rel="noopener">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/分布式应用程序/9854429" target="_blank" rel="noopener">分布式应用程序</a>协调服务，是<a href="https://baike.baidu.com/item/Google" target="_blank" rel="noopener">Google</a>的Chubby一个<a href="https://baike.baidu.com/item/开源/246339" target="_blank" rel="noopener">开源</a>的实现，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213" target="_blank" rel="noopener">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。 </p>
@@ -614,6 +616,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -627,10 +633,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,19 +652,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,11 +660,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,11 +688,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">View</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">View</a>
               </li>
              
               <li class="article-tag-list-item">
