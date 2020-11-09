@@ -174,6 +174,212 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Zookeeper" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/09/Zookeeper/">Zookeeper</a>
+    </h1>
+  
+
+			<!--  显示阅读次数 -->
+				
+        
+        <a href="/2020/11/09/Zookeeper/" class="archive-article-date">
+  	<time datetime="2020-11-09T06:09:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><blockquote>
+<p>分布式环境下，舍弃了SpringColud生态圈，使用其它的分布式框架，注册中i更闹心，配置集中管理，集群管理，分布式任务，队列的管理的实现。</p>
+</blockquote>
+<h2 id="二、Zookeeper介绍"><a href="#二、Zookeeper介绍" class="headerlink" title="二、Zookeeper介绍"></a>二、Zookeeper介绍</h2><p> <a href="https://baike.baidu.com/item/zookeeper/4836397?fr=aladdin" target="_blank" rel="noopener">zookeeper_百度百科 (baidu.com)</a> </p>
+<blockquote>
+<p> ZooKeeper是一个<a href="https://baike.baidu.com/item/分布式/19276232" target="_blank" rel="noopener">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/分布式应用程序/9854429" target="_blank" rel="noopener">分布式应用程序</a>协调服务，是<a href="https://baike.baidu.com/item/Google" target="_blank" rel="noopener">Google</a>的Chubby一个<a href="https://baike.baidu.com/item/开源/246339" target="_blank" rel="noopener">开源</a>的实现，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213" target="_blank" rel="noopener">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。 </p>
+</blockquote>
+<h2 id="三、Zookeeper安装"><a href="#三、Zookeeper安装" class="headerlink" title="三、Zookeeper安装"></a>三、Zookeeper安装</h2><blockquote>
+<p>docker-compose.yml</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.1"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zk:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/daocloud/zookeeper:latest</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zk</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">2181</span><span class="string">:2181</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="四、-Zookeeper架构"><a href="#四、-Zookeeper架构" class="headerlink" title="四、*Zookeeper架构"></a>四、*Zookeeper架构</h2><h3 id="4-1-Zookeeper架构图"><a href="#4-1-Zookeeper架构图" class="headerlink" title="4.1 Zookeeper架构图"></a>4.1 Zookeeper架构图</h3><p>Zookeeper会维护一个具有层次关系的数据结构。和文件的结构差不多，只是这个节点不单单是目录，还可以存储数据。</p>
+<ul>
+<li>每个节点的数据的都叫znode</li>
+<li>每个znode都可以存储数据</li>
+<li>节点名称不可以重复</li>
+</ul>
+<h3 id="4-2-znode类型"><a href="#4-2-znode类型" class="headerlink" title="4.2 znode类型"></a>4.2 znode类型</h3><p>四种Znode</p>
+<ul>
+<li>持久节点：永久保存在Zookeeper</li>
+<li>持久有序节点：永久保存在Zookeeper，它会给节点添加一个有序id序号。</li>
+<li>临时节点：当存储的客户端和Zookeeper服务断开连接，临时节点会自动删除。</li>
+<li>临时有序节点：当存储的客户端和Zookeeper服务断开连接，临时节点会自动删除。它会给节点添加一个有序id序号。</li>
+</ul>
+<h3 id="4-3-Zookeeper的监听通知机制"><a href="#4-3-Zookeeper的监听通知机制" class="headerlink" title="4.3 Zookeeper的监听通知机制"></a>4.3 Zookeeper的监听通知机制</h3><blockquote>
+<p>客户端可以去监听Zookeeper中的Znode节点。</p>
+<p>Znode改变时，会通知监听当前的Znode的客户端</p>
+</blockquote>
+<h2 id="五、Zookeeper常用命令"><a href="#五、Zookeeper常用命令" class="headerlink" title="五、Zookeeper常用命令"></a>五、Zookeeper常用命令</h2><blockquote>
+<p>常用的增删改查命令</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 查询当前节点下的全部节点</span><br><span class="line">ls 节点名称</span><br><span class="line"># 例子  ls /</span><br><span class="line"></span><br><span class="line"># 查询当前节点下的数据</span><br><span class="line">get 节点名称</span><br><span class="line"># 例子 get /zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 添加节点</span><br><span class="line">create [-s] [-e] znode名称 znode数据</span><br><span class="line"># -s: sequence, 有序节点</span><br><span class="line"># -e: ephemeral，临时节点</span><br><span class="line"># 都不加，就是 持久节点</span><br><span class="line"></span><br><span class="line"># 修改节点数据</span><br><span class="line">set znode名称 新数据</span><br><span class="line"></span><br><span class="line"># 删除节点数据</span><br><span class="line">delete znode名称   # 没有子节点的znode</span><br><span class="line">rmr znode名称  # 删除当前节点的全部的子节点</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、-Zookeeper集群"><a href="#六、-Zookeeper集群" class="headerlink" title="六、*Zookeeper集群"></a>六、*Zookeeper集群</h2><h3 id="6-1-Zookeeper集群"><a href="#6-1-Zookeeper集群" class="headerlink" title="6.1 Zookeeper集群"></a>6.1 Zookeeper集群</h3><ol>
+<li><p>是由主从之分</p>
+</li>
+<li><p>Zookeeper集群中必须有master节点，否则Zookeeper无法正常工作的</p>
+</li>
+<li><p>master:执行读写操作</p>
+</li>
+<li><p>slave:执行读</p>
+</li>
+<li><p>Zookeeper集群的投票。在没有Master几点时，会重新选举。</p>
+</li>
+</ol>
+<h3 id="6-2-Zookeeper集群中各个节点的角色"><a href="#6-2-Zookeeper集群中各个节点的角色" class="headerlink" title="6.2 Zookeeper集群中各个节点的角色"></a>6.2 Zookeeper集群中各个节点的角色</h3><ul>
+<li>Leader: Master主节点</li>
+<li>Follower(默认的从节点): 从节点，参与选举全新的Leader</li>
+<li>Observer: 从节点，不参与投票</li>
+<li>Looking: 正在找Leader节点</li>
+</ul>
+<h3 id="6-3-Zookeeper投票策略"><a href="#6-3-Zookeeper投票策略" class="headerlink" title="6.3 Zookeeper投票策略"></a>6.3 Zookeeper投票策略</h3><blockquote>
+<ol>
+<li>每一个Zookeeper服务都会被分配一个全局唯一的myid, myid是一个数字。</li>
+<li>Zookeeper在执行写数据时， 每一个节点都有一个自己的FIFO的队列。保证写每-个数据的时候，顺序是不会乱的，Zookeeper还会给每一个数据分配一个全局唯一的zxid, 数据越新zxid就越大。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>选举Leader:</p>
+<p>选举出zxid最大的节点作为Leader。<br>在zxid相同的节点中， 选举出一个myid最大的节点，作为Leader。</p>
+</blockquote>
+<h3 id="6-4-搭建Zookeeper集群"><a href="#6-4-搭建Zookeeper集群" class="headerlink" title="6.4 搭建Zookeeper集群"></a>6.4 搭建Zookeeper集群</h3><blockquote>
+<p>docker-compse.yml</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.1"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zk1:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zk1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">2181</span><span class="string">:2181</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOO_MY_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">ZOO_SERVERS:</span> <span class="string">server.1=zk1:2888:3888;2181</span> <span class="string">server.2=zk2:2888:3888;2181</span> <span class="string">server.3=zk3:2888:3888;2181</span></span><br><span class="line">  <span class="attr">zk2:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zk2</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">2182</span><span class="string">:2181</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOO_MY_ID:</span> <span class="number">2</span></span><br><span class="line">      <span class="attr">ZOO_SERVERS:</span> <span class="string">server.1=zk1:2888:3888;2181</span> <span class="string">server.2=zk2:2888:3888;2181</span> <span class="string">server.3=zk3:2888:3888;2181</span></span><br><span class="line">  <span class="attr">zk3:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zk3</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">2183</span><span class="string">:2181</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOO_MY_ID:</span> <span class="number">3</span></span><br><span class="line">      <span class="attr">ZOO_SERVERS:</span> <span class="string">server.1=zk1:2888:3888;2181</span> <span class="string">server.2=zk2:2888:3888;2181</span> <span class="string">server.3=zk3:2888:3888;2181</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="七、Java操作Zookeeper"><a href="#七、Java操作Zookeeper" class="headerlink" title="七、Java操作Zookeeper"></a>七、Java操作Zookeeper</h2><h3 id="7-1-Java连接Zookeeper"><a href="#7-1-Java连接Zookeeper" class="headerlink" title="7.1 Java连接Zookeeper"></a>7.1 Java连接Zookeeper</h3><blockquote>
+<p>创建一个Maven工程</p>
+</blockquote>
+<blockquote>
+<p>导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.curator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>curator-recipes<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>编写连接Zookeeper集群的工具类</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZkUtil</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CuratorFramework <span class="title">cf</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        RetryPolicy retryPolicy = <span class="keyword">new</span> ExponentialBackoffRetry(<span class="number">3000</span>, <span class="number">2</span>);</span><br><span class="line">        CuratorFramework cf = CuratorFrameworkFactory.builder()</span><br><span class="line">                .connectString(<span class="string">"192.168.237.129:2181,192.168.237.129:2182,192.168.237.129:2183"</span>)</span><br><span class="line">                .retryPolicy(retryPolicy)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        cf.start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cf;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">connection</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    CuratorFramework cf = ZkUtil.cf();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-2-Java操作Znode节点"><a href="#7-2-Java操作Znode节点" class="headerlink" title="7.2 Java操作Znode节点"></a>7.2 Java操作Znode节点</h3><blockquote>
+<p>查询</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取子节点  ls /</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">selectZnode</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List&lt;String&gt; strings = cf.getChildren().forPath(<span class="string">"/"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(String string : strings)</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(string);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取子节点数据  get /qf</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getData</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = cf.getData().forPath(<span class="string">"/zookeeper"</span>);</span><br><span class="line">    System.out.println(<span class="keyword">new</span> String(bytes, <span class="string">"utf-8"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>添加</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加节点  create /aaa uuuu</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cf.create().withMode(CreateMode.PERSISTENT).forPath(<span class="string">"/aaa"</span>,<span class="string">"uuuu"</span>.getBytes());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>修改</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// set /aaa oooo</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cf.setData().forPath(<span class="string">"/aaa"</span>, <span class="string">"oooo"</span>.getBytes());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rmr /aaa</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cf.delete().deletingChildrenIfNeeded().forPath(<span class="string">"/aaa"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>查看znode的状态</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stat</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Stat stat = cf.checkExists().forPath(<span class="string">"/zookeeper"</span>);</span><br><span class="line">    System.out.println(stat);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-3-监听通知机制"><a href="#7-3-监听通知机制" class="headerlink" title="7.3 监听通知机制"></a>7.3 监听通知机制</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    CuratorFramework cf = ZkUtil.cf();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listen</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//创建NodeCache对象，指定要监听的znode</span></span><br><span class="line">        <span class="keyword">final</span> NodeCache nodeCache = <span class="keyword">new</span> NodeCache(cf, <span class="string">"/qf"</span>);</span><br><span class="line">        nodeCache.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//添加一个监听器</span></span><br><span class="line">        nodeCache.getListenable().addListener(<span class="keyword">new</span> NodeCacheListener()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">nodeChanged</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                <span class="keyword">byte</span>[] data = nodeCache.getCurrentData().getData();</span><br><span class="line">                Stat stat = nodeCache.getCurrentData().getStat();</span><br><span class="line">                String path = nodeCache.getCurrentData().getPath();</span><br><span class="line"></span><br><span class="line">                System.out.println(<span class="string">"监听的节点是："</span> + path);</span><br><span class="line">                System.out.println(<span class="string">"节点现在的数据是："</span> + <span class="keyword">new</span> String(data, <span class="string">"UTF-8"</span>));</span><br><span class="line">                System.out.println(<span class="string">"节点状态时："</span> + stat);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"开始监听"</span>);</span><br><span class="line">        <span class="comment">//System.in.read()</span></span><br><span class="line">        System.in.read();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/09/Zookeeper/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringCloud" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -910,92 +1116,6 @@
 
 
   
-    <article id="post-springboot整合mybatis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/">SpringBoot整合mybatis</a>
-    </h1>
-  
-
-			<!--  显示阅读次数 -->
-				
-        
-        <a href="/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/" class="archive-article-date">
-  	<time datetime="2020-05-26T03:05:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SpringBoot整合mybatis"><a href="#SpringBoot整合mybatis" class="headerlink" title="SpringBoot整合mybatis"></a>SpringBoot整合mybatis</h1><p>SpringBoot整和mybatis，我是在application.yml里修改的配置。我用的不是spring自带的jdbc，用的是alibaba.druid连接池。<br>之前用druid连接池，pom里也用了spring的jdbc，导致一直报错。<br>我也会展示pom文件。下面让我们一探究竟。</p>
-        
-          <a class="article-more-a" href="/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/26/springboot%E6%95%B4%E5%90%88mybatis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1104,15 +1224,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1124,11 +1240,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1148,19 +1268,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+                <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1168,7 +1284,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1176,15 +1296,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shiro</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">View</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">View</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
