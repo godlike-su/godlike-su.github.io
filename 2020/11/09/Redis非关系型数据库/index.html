@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://www.redis.cn/images/redis-white.png">
 <meta property="article:published_time" content="2020-11-09T14:54:04.000Z">
-<meta property="article:modified_time" content="2020-11-13T13:41:24.824Z">
+<meta property="article:modified_time" content="2020-11-13T14:09:03.014Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
@@ -389,12 +389,12 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.1"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis1:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.7</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis1</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7001</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf/redis1.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf/sentinel1.conf:/data/sentinel1.conf</span>   <span class="comment">#启动哨兵</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["redis-server",</span> <span class="string">"/usr/local/redis/redis.conf"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">redis2:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.7</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis2</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7002</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf/redis2.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf/sentinel2.conf:/data/sentinel2.conf</span>   <span class="comment">#启动哨兵</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis1:master</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["redis-server",</span> <span class="string">"/usr/local/redis/redis.conf"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">redis3:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/redis:5.0.7</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis3</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">7003</span><span class="string">:6379</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf/redis3.conf:/usr/local/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf/sentinel3.conf:/data/sentinel3.conf</span>   <span class="comment">#启动哨兵</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis1:master</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["redis-server",</span> <span class="string">"/usr/local/redis/redis.conf"</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>准备哨兵配置文件，并且在容器内部手动启动哨兵</p>
+<p>准备哨兵配置文件，并且在容器内部手动启动哨兵 data目录下/</p>
 </blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#哨兵需要后台启动</span></span><br><span class="line">daemonize yes</span><br><span class="line"><span class="comment">#指定Master节点的ip和端口(主)</span></span><br><span class="line">sentinel monitor master localhost 6379 2</span><br><span class="line"><span class="comment">#指定Master节点的ip和端口(从)</span></span><br><span class="line">sentinel monitor master master 6379 2</span><br><span class="line"><span class="comment">#哨兵每隔多久监听一次redis架构</span></span><br><span class="line">sentinel down-after-milliseconds master 10000</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#哨兵需要后台启动</span></span><br><span class="line">daemonize yes</span><br><span class="line"><span class="comment">#指定Master节点的ip和端口(主)</span></span><br><span class="line">sentinel monitor master localhost 6379 2</span><br><span class="line"><span class="comment">#指定Master节点的ip和端口(从)</span></span><br><span class="line">sentinel monitor master master 6379 2</span><br><span class="line"><span class="comment">#哨兵每隔多久监听一次redis架构</span></span><br><span class="line">sentinel down-after-milliseconds master 30000</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>在容器内部启动sentinel启动哨兵</p>
+<p>在容器内部启动sentinel启动哨兵 </p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel sentinel.conf</span><br></pre></td></tr></table></figure>
 
@@ -575,6 +575,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/11/15/Android%E5%BC%80%E5%8F%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Android开发
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/11/09/Zookeeper/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Zookeeper</div>
@@ -727,7 +736,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,6 +748,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -747,7 +768,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,14 +777,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,6 +796,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
@@ -791,7 +808,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,11 +816,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
