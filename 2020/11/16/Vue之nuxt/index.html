@@ -16,7 +16,7 @@
 <meta property="og:description" content="Vue的nuxt框架的一些用法">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-16T12:01:13.000Z">
-<meta property="article:modified_time" content="2020-11-16T12:15:05.111Z">
+<meta property="article:modified_time" content="2020-11-22T12:48:07.114Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -228,13 +228,80 @@
 <p>3、测试</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>; </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">    <span class="keyword">async</span> asyncData(&#123; $axios &#125;) &#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="keyword">await</span> $axios(&#123;<span class="attr">url</span>:<span class="string">'/data/test.json'</span>&#125;)</span><br><span class="line">        <span class="built_in">console</span>.log(res.data)</span><br><span class="line">        <span class="keyword">return</span> &#123; </span><br><span class="line">            title: res.data.data</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import axios from &#39;axios&#39;; </span><br><span class="line">export default&#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">    	onSubmit() &#123;</span><br><span class="line">    		let req &#x3D; &#123;&#125;;</span><br><span class="line">			req.id &#x3D; &quot;1&quot;;</span><br><span class="line">			req.password &#x3D; &quot;1&quot;;</span><br><span class="line">			this.$axios(&#123;</span><br><span class="line">			url: &#39;&#x2F;api&#x2F;login.do&#39;,</span><br><span class="line">			data: JSON.stringify(req),</span><br><span class="line">			&#125;).then(res &#x3D;&gt; &#123;</span><br><span class="line">				console.log(res.data)</span><br><span class="line">			&#125;)</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="二、全局守卫"><a href="#二、全局守卫" class="headerlink" title="二、全局守卫"></a>二、全局守卫</h2><h3 id="2-1-添加全局守卫"><a href="#2-1-添加全局守卫" class="headerlink" title="2.1 添加全局守卫"></a>2.1 添加全局守卫</h3><p>1、在plugins下创建一个route.js文件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> auth = &#123;</span><br><span class="line">    isLogin()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; app,redirect,params,query,stores &#125;) =&gt; &#123;</span><br><span class="line">    app.router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//访问路径</span></span><br><span class="line">        <span class="built_in">console</span>.log(to.path);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//进行处理</span></span><br><span class="line">        <span class="keyword">if</span>(to.path===<span class="string">'/home'</span>)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'拦截'</span>)</span><br><span class="line">            <span class="keyword">if</span>(auth.isLogin())&#123;</span><br><span class="line"></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                redirect(<span class="string">'/home'</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>2、修改nuxt.config.js文件，添加plugins声明</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="string">'~/plugins/route'</span>,</span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-2-局部守卫"><a href="#2-2-局部守卫" class="headerlink" title="2.2 局部守卫"></a>2.2 局部守卫</h3><blockquote>
+<h3 id="2-2-局部守卫"><a href="#2-2-局部守卫" class="headerlink" title="2.2 局部守卫"></a>2.2 局部守卫</h3><h2 id="三、部署"><a href="#三、部署" class="headerlink" title="三、部署"></a>三、部署</h2><h3 id="3-1-部署准备"><a href="#3-1-部署准备" class="headerlink" title="3.1 部署准备"></a>3.1 部署准备</h3><blockquote>
+<ol>
+<li>安装好node</li>
+<li>将文件拖入到liunx</li>
+<li>下载pm2进行管理</li>
+</ol>
+</blockquote>
+<h3 id="3-2-安装node"><a href="#3-2-安装node" class="headerlink" title="3.2 安装node"></a>3.2 安装node</h3><blockquote>
+<p> 1、进行node官网，我的是Centos7，我下载的是 <strong>Linux Binaries (x64)</strong> </p>
+</blockquote>
+<p>官网下载： <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Download | Node.js</a> </p>
+<blockquote>
+<p>2、解压</p>
+</blockquote>
+<p>下载的文件是tar.xz，需要进行解压</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压tar.xz</span></span><br><span class="line">xz -d xxx.tar.xz</span><br><span class="line"><span class="comment"># 解压tar</span></span><br><span class="line">tar xvf xxx.tar</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3、环境变量设置</p>
+</blockquote>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改/etc/profile文件</span></span><br><span class="line">vi /etc/profile</span><br><span class="line"><span class="comment"># 在最末尾添加环境变量配置</span></span><br><span class="line"><span class="comment"># node所在的路径</span></span><br><span class="line"><span class="keyword">export</span> NODE_HOME=/home/Portal/node  </span><br><span class="line"><span class="keyword">export</span> PATH=$NODE_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="comment"># --------------------------------</span></span><br><span class="line"><span class="comment"># 立即刷新</span></span><br><span class="line">source /etc/profile</span><br><span class="line"><span class="comment"># 测试，能显示版本则成功了</span></span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-部署"><a href="#3-3-部署" class="headerlink" title="3.3 部署"></a>3.3 部署</h3><blockquote>
+<p>1、将nuxt的文件，除了 node_modules，  .git  .gitignore  .editorconfig  README.md 这些文件，放到某个文件下面</p>
+</blockquote>
+<blockquote>
+<p>2、在该目录下，下载依赖</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>有些人可能会报错，错误好像是什么 gcy等，这个应该是权限不够，node没有我们的root权限，在后面加<code>--unsafe-perm=true --allow-root</code>即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --unsafe-perm&#x3D;true --allow-root</span><br></pre></td></tr></table></figure>
+
+<p>这句运行我的阿里云又出错了，本地就没事，错误如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Downloading binary from https:&#x2F;&#x2F;github.com&#x2F;sass&#x2F;node-sass&#x2F;releases&#x2F;download&#x2F;v5.0.0&#x2F;linux-x64-83_binding.node</span><br></pre></td></tr></table></figure>
+
+<p>好像是下载什么，但是没有动静，那我们就下载这个，用阿里云镜像下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i node-sass --sass_binary_site&#x3D;https:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;node-sass&#x2F; --unsafe-perm&#x3D;true --allow-root</span><br></pre></td></tr></table></figure>
+
+<p>在执行<code>npm install --unsafe-perm=true --allow-root</code> 即可</p>
+<p>然后就可以正常  <code>npm run build</code>和<code>npm start</code>运行了</p>
+<blockquote>
+<p>3、安装pm2托管</p>
+</blockquote>
+<p>pm2全局安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pm2</span><br></pre></td></tr></table></figure>
+
+<p>在nuxt的根目录下，执行以下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start node_modules&#x2F;nuxt&#x2F;bin&#x2F;nuxt.js --name xxx(为这个目录命名)</span><br></pre></td></tr></table></figure>
+
+<p>查看pm2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 list</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<blockquote>
 <p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 </blockquote>
 
@@ -380,7 +447,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue的nuxt框架的一些用法"><span class="toc-number">1.</span> <span class="toc-text">Vue的nuxt框架的一些用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、axios用法"><span class="toc-number">1.1.</span> <span class="toc-text">一、axios用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-axios代理转发"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 axios代理转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-axios自定义拦截"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 axios自定义拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、全局守卫"><span class="toc-number">1.2.</span> <span class="toc-text">二、全局守卫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加全局守卫"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 添加全局守卫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-局部守卫"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 局部守卫</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue的nuxt框架的一些用法"><span class="toc-number">1.</span> <span class="toc-text">Vue的nuxt框架的一些用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、axios用法"><span class="toc-number">1.1.</span> <span class="toc-text">一、axios用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-axios代理转发"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 axios代理转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-axios自定义拦截"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 axios自定义拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、全局守卫"><span class="toc-number">1.2.</span> <span class="toc-text">二、全局守卫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加全局守卫"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 添加全局守卫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-局部守卫"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 局部守卫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、部署"><span class="toc-number">1.3.</span> <span class="toc-text">三、部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-部署准备"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 部署准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-安装node"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 安装node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-部署"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 部署</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -507,15 +574,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,5 +820,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 	<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/clipboard_use.js"></script>
 	<!-- 代码块复制功能结束 -->
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":215,"hoffset":200,"voffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"left","width":145,"height":215,"hoffset":200,"voffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>
