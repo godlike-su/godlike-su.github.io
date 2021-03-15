@@ -16,7 +16,7 @@
 <meta property="og:description" content="Vue的nuxt框架的一些用法">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-16T12:01:13.000Z">
-<meta property="article:modified_time" content="2020-11-22T12:48:07.114Z">
+<meta property="article:modified_time" content="2021-02-25T15:06:03.564Z">
 <meta property="article:author" content="SuJinWang">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,10 @@
 <p>2、修改nuxt.config.js文件，添加plugins声明</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="string">'~/plugins/route'</span>,</span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-2-局部守卫"><a href="#2-2-局部守卫" class="headerlink" title="2.2 局部守卫"></a>2.2 局部守卫</h3><h2 id="三、部署"><a href="#三、部署" class="headerlink" title="三、部署"></a>三、部署</h2><h3 id="3-1-部署准备"><a href="#3-1-部署准备" class="headerlink" title="3.1 部署准备"></a>3.1 部署准备</h3><blockquote>
+<h3 id="2-2-局部守卫"><a href="#2-2-局部守卫" class="headerlink" title="2.2 局部守卫"></a>2.2 局部守卫</h3><blockquote>
+<p>在需要添加守卫的页面添加</p>
+</blockquote>
+<h2 id="三、部署"><a href="#三、部署" class="headerlink" title="三、部署"></a>三、部署</h2><h3 id="3-1-部署准备"><a href="#3-1-部署准备" class="headerlink" title="3.1 部署准备"></a>3.1 部署准备</h3><blockquote>
 <ol>
 <li>安装好node</li>
 <li>将文件拖入到liunx</li>
@@ -291,16 +294,38 @@
 <p>查看pm2</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 list</span><br></pre></td></tr></table></figure>
 
+<h2 id="四、不刷新页面刷新数据"><a href="#四、不刷新页面刷新数据" class="headerlink" title="四、不刷新页面刷新数据"></a>四、不刷新页面刷新数据</h2><p>通常，我们提交了一个数据，需要刷新页面渲染。我们要刷新才行，那样会有页面的空白。</p>
+<p>现在，我们可以控制页面的显示， <code>v-if</code> 。就可以实现重新加载数据，不会有空白的刷新。</p>
+<blockquote>
+<p>有空白的刷新，就是强刷页面</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$router.go(0)</span><br></pre></td></tr></table></figure>
+
+<p>效果很不好</p>
+<blockquote>
+<p>使用provide/reload，就是无限向子元素延伸</p>
+</blockquote>
+<p>首先我们在default.vue上，是vue的话就是在app.vue页面上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		&#x2F;*使页面隐藏后，在显示，就会重新加载了*&#x2F;</span><br><span class="line">		&lt;router-view v-if&#x3D;&quot;isRouterAlive&quot;&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">	&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default&#123;</span><br><span class="line">	data() &#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			isRouterAlive: true</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;</span><br><span class="line">		reload() &#123;</span><br><span class="line">			this.isRouterAlive &#x3D; false;</span><br><span class="line">			this.$nextTick(function()&#123;</span><br><span class="line">				this.isRouterAlive &#x3D; true;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;,</span><br><span class="line">	provide() &#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			&#x2F;&#x2F;所有信息都往子元素延伸</span><br><span class="line">			extend: this</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>子元素页面</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">		</span><br><span class="line">	&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default&#123;</span><br><span class="line">	&#x2F;&#x2F;获取上级延伸下来的reload</span><br><span class="line">	inject: [&#39;extend&#39;],</span><br><span class="line">	methods: &#123;</span><br><span class="line">		test() &#123;</span><br><span class="line">			&#x2F;&#x2F;执行reload里面的方法</span><br><span class="line">			this.extend.reload()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、watch监听this开头的数据"><a href="#五、watch监听this开头的数据" class="headerlink" title="五、watch监听this开头的数据"></a>五、watch监听this开头的数据</h2><p>首先创建一个computed，然后返回需要监听的数据就行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">export default&#123;</span><br><span class="line">	...</span><br><span class="line">	computed: &#123;</span><br><span class="line">		&#x2F;&#x2F;监听</span><br><span class="line">		isunchatCount() &#123;</span><br><span class="line">			&#x2F;&#x2F;真正需要监听的数据</span><br><span class="line">			return this.$store.state.unchatCount</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	watch: &#123;</span><br><span class="line">		isunchatCount(newVal, oldVal) &#123;</span><br><span class="line">			console.log(newVal)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-
-
-
-
-
+<blockquote>
+<p>vuex-persistedstate的一些用法</p>
+</blockquote>
+<blockquote>
+<p>待写</p>
+</blockquote>
 <blockquote>
 <p><strong>本文作者：</strong> godlike-su<br><strong>本文用途：</strong> 供自我参考</p>
 </blockquote>
@@ -447,7 +472,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue的nuxt框架的一些用法"><span class="toc-number">1.</span> <span class="toc-text">Vue的nuxt框架的一些用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、axios用法"><span class="toc-number">1.1.</span> <span class="toc-text">一、axios用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-axios代理转发"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 axios代理转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-axios自定义拦截"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 axios自定义拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、全局守卫"><span class="toc-number">1.2.</span> <span class="toc-text">二、全局守卫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加全局守卫"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 添加全局守卫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-局部守卫"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 局部守卫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、部署"><span class="toc-number">1.3.</span> <span class="toc-text">三、部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-部署准备"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 部署准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-安装node"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 安装node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-部署"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 部署</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue的nuxt框架的一些用法"><span class="toc-number">1.</span> <span class="toc-text">Vue的nuxt框架的一些用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、axios用法"><span class="toc-number">1.1.</span> <span class="toc-text">一、axios用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-axios代理转发"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 axios代理转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-axios自定义拦截"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 axios自定义拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、全局守卫"><span class="toc-number">1.2.</span> <span class="toc-text">二、全局守卫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加全局守卫"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 添加全局守卫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-局部守卫"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 局部守卫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、部署"><span class="toc-number">1.3.</span> <span class="toc-text">三、部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-部署准备"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 部署准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-安装node"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 安装node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-部署"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、不刷新页面刷新数据"><span class="toc-number">1.4.</span> <span class="toc-text">四、不刷新页面刷新数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、watch监听this开头的数据"><span class="toc-number">1.5.</span> <span class="toc-text">五、watch监听this开头的数据</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -574,6 +599,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
@@ -583,14 +620,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,14 +635,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -622,11 +643,47 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shiro</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">View</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,38 +692,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shiro</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">View</a>
               </li>
              
               <li class="article-tag-list-item">
